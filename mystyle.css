@@ -1,13 +1,42 @@
 body {
-  background-color: lightgray;
+  background-color: #ccc;
 }
 
 h1 {
-  color: black;
+  color: #111;
   text-align: center;
+  font-family: sans-serif;
 }
 
 p {
-  font-family: verdana;
-  font-size: 20px;
+  font-family: serif;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #999;
+  height: 100%; /* Full height */
+  position: fixed; /* Make it stick, even on scroll */
+  overflow: auto; /* Enable scrolling if the sidenav has too much content */
+}
+
+li a {
+  display: block;
+  color: #111;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color on hover */
+li a:hover {
+  background-color: #333;
+  color: #ccc;
+}
+
+.active {
+  background-color: #333;
+  color: #ccc;
 }
