@@ -2,47 +2,16 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="johnfinman.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     </head> 
     <title>John F. Inman</title>
     <body>
         <h1>John F. Inman</h1>
-        <p></p>
-        <div class="sidenav">
-            <button class="dropdown-btn">Essays
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-container">
-                <a href="#">Essay 1</a>
-                <a href="#">Essay 2</a>
-                <a href="#">Essay 3</a>
-            </div>
-            <button class="dropdown-btn">Projects
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-container">
-                <a href="#">Project 1</a>
-                <a href="#">Project 2</a>
-                <a href="#">Project 3</a>
-            </div>
-            <a href="#About">About</a>
-            <a href="#contact">Contact</a>
-        </div> 
-        <script>
-            //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-            var dropdown = document.getElementsByClassName("dropdown-btn");
-            var i;
-            for (i = 0; i < dropdown.length; i++) {
-                dropdown[i].addEventListener("click", function() {
-                    this.classList.toggle("active");
-                    var dropdownContent = this.nextElementSibling;
-                    if (dropdownContent.style.display === "block") {
-                        dropdownContent.style.display = "none";
-                    } else {
-                        dropdownContent.style.display = "block";
-                    }
-                });
-            } 
-        </script> 
+        <ul>
+            <li>Coffee</li>
+            <li>Tea</li>
+            <li>Milk</li>
+        </ul> 
     </body>
 </html> 
 
