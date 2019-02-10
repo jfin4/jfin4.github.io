@@ -30,3 +30,7 @@ div {
     padding: 1em;
     text-align: center;
 }
+
+img {
+    max-width: 35em;
+}
