@@ -5,6 +5,7 @@ body {
 h1 {
     text-align: center;
     font-family: sans-serif;
+    font-style: normal;
 }
 
 ul {
@@ -13,5 +14,5 @@ ul {
 
 div {
     margin: auto;
-    max-width: 66ch;
+    max-width: 66em;
 }
