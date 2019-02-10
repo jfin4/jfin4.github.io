@@ -10,3 +10,8 @@ h1 {
 ul {
     list-style-type: none;
 }
+
+div {
+    margin: auto;
+    max-width: 66ch;
+}
