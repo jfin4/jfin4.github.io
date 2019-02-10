@@ -2,10 +2,11 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="johnfinman.css">
-        <script src="sidenav.js"></script> 
     </head> 
     <title>John F. Inman</title>
     <body>
+        <h1>John F. Inman</h1>
+        <p></p>
         <div class="sidenav">
             <a href="#about">About</a>
             <a href="#services">Services</a>
@@ -21,8 +22,22 @@
             </div>
             <a href="#contact">Search</a>
         </div> 
-        <h1>John F. Inman</h1>
-        <p></p>
+        <script>
+            //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+            var dropdown = document.getElementsByClassName("dropdown-btn");
+            var i;
+            for (i = 0; i < dropdown.length; i++) {
+                dropdown[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    var dropdownContent = this.nextElementSibling;
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
+                    } else {
+                        dropdownContent.style.display = "block";
+                    }
+                });
+            } 
+        </script> 
     </body>
 </html> 
 
