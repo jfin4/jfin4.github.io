@@ -12,6 +12,10 @@ figcaption {
     font-size: 0.9em;
     font-weight: bold;
     text-align: justify;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
 }
 
 .footer {
@@ -37,6 +41,10 @@ p {
     font-family: sans-serif;
     text-align: justify;
     text-indent: 3em;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
 }
 
 ul {
