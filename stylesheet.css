@@ -37,6 +37,12 @@ img {
     max-width: 100%;
 }
 
+.indexlink {
+    font-family: sans-serif;
+    padding: 1em;
+    text-align: center;
+}
+
 p {
     font-family: sans-serif;
     text-align: justify;
