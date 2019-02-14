@@ -1,10 +1,14 @@
 body {
-    background-color: #fed;
+    background-color: #eee;
 }
 
 div {
     margin: auto;
     max-width: 35em;
+}
+
+code {
+    background-color: #ccc;
 }
 
 figcaption {
@@ -46,7 +50,6 @@ img {
 p {
     font-family: sans-serif;
     text-align: justify;
-    text-indent: 3em;
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
     -moz-hyphens: auto;
