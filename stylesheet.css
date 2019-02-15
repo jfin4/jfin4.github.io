@@ -32,6 +32,10 @@ h1 {
     text-align: center;
 }
 
+h2 {
+    font-weight: normal;
+}
+
 img {
     height: auto;
     max-width: 100%;
