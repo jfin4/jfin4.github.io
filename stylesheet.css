@@ -1,6 +1,7 @@
 body {
     background-color: #eee;
     font-family: sans-serif;
+    text-align: justify;
 }
 
 .caption {
@@ -13,18 +14,14 @@ body {
     color: #666;
 }
 
-.pubdate {
-    font-style: oblique;
-}
-
 div {
     margin: auto;
     max-width: 35em;
 }
 
 .footer {
-    text-align: center;
     padding: 1em;
+    text-align: center;
 }
 
 h1 {
@@ -46,7 +43,10 @@ p {
     -ms-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
-    text-align: justify;
+}
+
+.pubdate {
+    font-style: oblique;
 }
 
 table {
