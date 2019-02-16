@@ -15,12 +15,13 @@ body {
 }
 
 div {
+    background-color: #ddd;
     margin: auto;
     max-width: 35em;
+    padding: 1em;
 }
 
 .footer {
-    padding: 1em;
     text-align: center;
 }
 
