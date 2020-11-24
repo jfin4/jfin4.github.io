@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>John Inman</title>
+    <link>https://www.johninman.dev/</link>
+    <description>Recent content on John Inman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 24 Nov 2020 12:25:01 -0800</lastBuildDate><atom:link href="https://www.johninman.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fog</title>
+      <link>https://www.johninman.dev/posts/test/</link>
+      <pubDate>Tue, 24 Nov 2020 12:25:01 -0800</pubDate>
+      
+      <guid>https://www.johninman.dev/posts/test/</guid>
+      <description>Estimating the desireability of fog </description>
+    </item>
+    
+  </channel>
+</rss>
