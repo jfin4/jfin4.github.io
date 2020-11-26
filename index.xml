@@ -8,12 +8,21 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 24 Nov 2020 12:25:01 -0800</lastBuildDate><atom:link href="https://www.johninman.dev/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>About</title>
-      <link>https://www.johninman.dev/about/</link>
+      <title>Bio</title>
+      <link>https://www.johninman.dev/bio/</link>
       <pubDate>Tue, 24 Nov 2020 12:25:01 -0800</pubDate>
       
-      <guid>https://www.johninman.dev/about/</guid>
+      <guid>https://www.johninman.dev/bio/</guid>
       <description>Coming soon </description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>https://www.johninman.dev/contact/</link>
+      <pubDate>Tue, 24 Nov 2020 12:25:01 -0800</pubDate>
+      
+      <guid>https://www.johninman.dev/contact/</guid>
+      <description>Email: john@johninman.dev</description>
     </item>
     
     <item>

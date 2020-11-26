@@ -3,7 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://www.johninman.dev/about/</loc>
+    <loc>https://www.johninman.dev/bio/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/contact/</loc>
     <lastmod>2020-11-24T12:25:01-08:00</lastmod>
   </url>
   
