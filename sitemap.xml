@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://www.johninman.dev/bio/</loc>
+    <loc>https://www.johninman.dev/about/</loc>
     <lastmod>2020-11-24T12:25:01-08:00</lastmod>
   </url>
   
@@ -18,25 +18,13 @@
   </url>
   
   <url>
-    <loc>https://www.johninman.dev/posts/fog/</loc>
+    <loc>https://www.johninman.dev/2020/11/24/fog/</loc>
     <lastmod>2020-11-24T12:25:01-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://www.johninman.dev/posts/</loc>
+    <loc>https://www.johninman.dev/post/</loc>
     <lastmod>2020-11-24T12:25:01-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.johninman.dev/authors/</loc>
-  </url>
-  
-  <url>
-    <loc>https://www.johninman.dev/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>https://www.johninman.dev/series/</loc>
   </url>
   
   <url>

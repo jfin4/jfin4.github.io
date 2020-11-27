@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on johninman.dev</title>
+    <link>https://www.johninman.dev/post/</link>
+    <description>Recent content in Posts on johninman.dev</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>John Inman</copyright>
+    <lastBuildDate>Tue, 24 Nov 2020 12:25:01 -0800</lastBuildDate><atom:link href="https://www.johninman.dev/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Living in Clouds</title>
+      <link>https://www.johninman.dev/2020/11/24/fog/</link>
+      <pubDate>Tue, 24 Nov 2020 12:25:01 -0800</pubDate>
+      
+      <guid>https://www.johninman.dev/2020/11/24/fog/</guid>
+      <description>Coming soon </description>
+    </item>
+    
+  </channel>
+</rss>
