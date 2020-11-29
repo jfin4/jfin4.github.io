@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on johninman.dev</title>
+    <title>Tags on Ghostwriter example</title>
     <link>https://www.johninman.dev/tags/</link>
-    <description>Recent content in Tags on johninman.dev</description>
+    <description>Recent content in Tags on Ghostwriter example</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>John Inman</copyright><atom:link href="https://www.johninman.dev/tags/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>My Name</copyright><atom:link href="https://www.johninman.dev/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

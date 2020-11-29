@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>johninman.dev</title>
+    <title>Ghostwriter example</title>
     <link>https://www.johninman.dev/</link>
-    <description>Recent content on johninman.dev</description>
+    <description>Recent content on Ghostwriter example</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>John Inman</copyright>
+    <copyright>My Name</copyright>
     <lastBuildDate>Tue, 24 Nov 2020 12:25:01 -0800</lastBuildDate><atom:link href="https://www.johninman.dev/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
