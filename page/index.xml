@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pages on ji</title>
+    <link>https://www.johninman.dev/page/</link>
+    <description>Recent content in Pages on ji</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>John Inman</copyright>
+    <lastBuildDate>Tue, 24 Nov 2020 12:25:01 -0800</lastBuildDate><atom:link href="https://www.johninman.dev/page/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>https://www.johninman.dev/page/about/</link>
+      <pubDate>Tue, 24 Nov 2020 12:25:01 -0800</pubDate>
+      
+      <guid>https://www.johninman.dev/page/about/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>https://www.johninman.dev/page/contact/</link>
+      <pubDate>Tue, 24 Nov 2020 12:25:01 -0800</pubDate>
+      
+      <guid>https://www.johninman.dev/page/contact/</guid>
+      <description>Email: john@johninman.dev</description>
+    </item>
+    
+  </channel>
+</rss>

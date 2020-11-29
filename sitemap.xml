@@ -3,12 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://www.johninman.dev/about/</loc>
+    <loc>https://www.johninman.dev/page/about/</loc>
     <lastmod>2020-11-24T12:25:01-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://www.johninman.dev/contact/</loc>
+    <loc>https://www.johninman.dev/page/contact/</loc>
     <lastmod>2020-11-24T12:25:01-08:00</lastmod>
   </url>
   
@@ -18,7 +18,112 @@
   </url>
   
   <url>
-    <loc>https://www.johninman.dev/2020/11/24/fog/</loc>
+    <loc>https://www.johninman.dev/2020/11/24/fog00/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog01/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog02/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog03/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog04/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog05/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog06/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog07/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog08/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog09/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog11/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog12/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog13/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog14/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog15/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog16/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog17/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog18/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog19/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog20/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/2020/11/24/fog21/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.johninman.dev/page/</loc>
     <lastmod>2020-11-24T12:25:01-08:00</lastmod>
   </url>
   
@@ -28,7 +133,13 @@
   </url>
   
   <url>
+    <loc>https://www.johninman.dev/tags/remote-sensing/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.johninman.dev/tags/</loc>
+    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
   </url>
   
 </urlset>
