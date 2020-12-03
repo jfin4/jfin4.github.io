@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background: whitesmoke;
+}
+
+/* center website */
+.content {
+  max-width: 960px;
+  margin: auto;
+}
+
+/* Header/logo Title */
+.header {
+  padding: 20px;
+  text-align: center;
+  color: black;
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+  font-size: 50px;
+  color: black;
+}
+
+/* navbar */ 
+.navbar {
+  overflow: hidden;
+  background-color: indigo;
+}
+
+/* Style the navigation bar links */
+.navbar a {
+  float: left;
+  display: block;
+  color: whitesmoke;
+  text-align: center;
+  padding: 5px 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Right-aligned link */
+.navbar a.right {
+  float: right;
+}
+
+/* Change color on hover */
+.navbar a:hover {
+  background-color: whitesmoke;
+  color: black;
+}
+
+/* Active/current link */
+.navbar a.active {
+  background-color: indigo;
+  color: whitesmoke;
+}
+
+/* Main column */
+.main {
+  padding: 20px;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  color: dimgray;
+}
+

@@ -1,39 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Home</title>
+    <title>John Inman</title>
     <link>https://www.johninman.dev/</link>
-    <description>Recent content on Home</description>
+    <description>Recent content on John Inman</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>John Inman</copyright>
-    <lastBuildDate>Tue, 24 Nov 2020 12:25:01 -0800</lastBuildDate><atom:link href="https://www.johninman.dev/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>About</title>
-      <link>https://www.johninman.dev/page/about/</link>
-      <pubDate>Tue, 24 Nov 2020 12:25:01 -0800</pubDate>
-      
-      <guid>https://www.johninman.dev/page/about/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Contact</title>
-      <link>https://www.johninman.dev/page/contact/</link>
-      <pubDate>Tue, 24 Nov 2020 12:25:01 -0800</pubDate>
-      
-      <guid>https://www.johninman.dev/page/contact/</guid>
-      <description>Email: john@johninman.dev</description>
-    </item>
-    
-    <item>
-      <title>Under the Weather</title>
-      <link>https://www.johninman.dev/2020/11/24/fog/</link>
-      <pubDate>Tue, 24 Nov 2020 12:25:01 -0800</pubDate>
-      
-      <guid>https://www.johninman.dev/2020/11/24/fog/</guid>
-      <description></description>
-    </item>
-    
+    <language>en-us</language><atom:link href="https://www.johninman.dev/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

@@ -3,43 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://www.johninman.dev/page/about/</loc>
-    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.johninman.dev/page/contact/</loc>
-    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
+    <loc>https://www.johninman.dev/categories/</loc>
   </url>
   
   <url>
     <loc>https://www.johninman.dev/</loc>
-    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.johninman.dev/page/</loc>
-    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.johninman.dev/post/</loc>
-    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.johninman.dev/tags/remote-sensing/</loc>
-    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.johninman.dev/tags/</loc>
-    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.johninman.dev/2020/11/24/fog/</loc>
-    <lastmod>2020-11-24T12:25:01-08:00</lastmod>
   </url>
   
 </urlset>
