@@ -50,7 +50,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .main {
   padding: 20px;
-  padding-bottom: 2em;
+  padding-bottom: 5em;
 }
 
 .footer {
@@ -64,7 +64,7 @@ h1, h2, h3, h4, h5, h6 {
 .footer p {
   color: white;
   text-align: center;
-  padding: 8px 0px 0px 0px;
+  padding: 7px 0px 0px 0px;
   margin: 0;
 }
 
