@@ -8,6 +8,15 @@ html, body {
   height: 100%;
 }
 
+a {
+    color: indigo;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
 .container {
   position: relative;
   min-height: 100%;
@@ -26,12 +35,7 @@ html, body {
 
 .navbar a {
   color: white;
-  text-decoration: none;
   padding: 0px 0px 0px 20px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-weight: normal;
 }
 
 .header {
@@ -49,15 +53,6 @@ h1, h2, h3, h4, h5, h6 {
   padding-bottom: 2em;
 }
 
-.title {
-    text-decoration: none;
-}
-
-
-.summary {
-    text-decoration: none;
-}
-
 .footer {
   position: absolute;
   bottom: 0;
@@ -71,4 +66,8 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   padding: 8px 0px 0px 0px;
   margin: 0;
+}
+
+.footer a {
+  color: white;
 }
