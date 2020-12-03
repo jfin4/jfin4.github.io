@@ -6,7 +6,6 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: whitesmoke;
 }
 
 .container {
@@ -15,12 +14,12 @@ html, body {
 }
 
 .navbar {
-  background-color: indigo;
+  background: indigo;
   padding: 5px;
 }
 
 .navbar a {
-  color: whitesmoke;
+  color: white;
   padding: 0px 20px;
   font-weight: bold;
   text-decoration: none;
@@ -45,7 +44,7 @@ html, body {
 }
 
 .footer p {
-  color: whitesmoke;
+  color: white;
   text-align: center;
   padding: 5px;
   margin: 0;
