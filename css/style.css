@@ -18,11 +18,24 @@ html, body {
   padding: 5px;
 }
 
+.navbar img  {
+  height: 20px;
+  border: 1px solid white;
+  vertical-align: -4px;
+}
+
 .navbar a {
   color: white;
-  padding: 0px 20px;
-  font-weight: bold;
   text-decoration: none;
+  padding: 0px 0px 0px 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+.header {
+    text-align: center;
 }
 
 .content {
@@ -36,16 +49,26 @@ html, body {
   padding-bottom: 2em;
 }
 
+.title {
+    text-decoration: none;
+}
+
+
+.summary {
+    text-decoration: none;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+  height: 2em;
   background: indigo;
 }
 
 .footer p {
   color: white;
   text-align: center;
-  padding: 5px;
+  padding: 8px 0px 0px 0px;
   margin: 0;
 }
