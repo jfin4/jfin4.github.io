@@ -57,12 +57,12 @@ p {
     text-align: center;
 }
 
-rcontent {
+.content {
     margin:auto;
     max-width: 960px;
 }
 
-.main {
+#main {
     padding: 20px;
     padding-bottom: 5em;
 }
