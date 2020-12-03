@@ -1,11 +1,16 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: sans-serif;
+    font-weight: normal;
 }
 
 a {
@@ -13,61 +18,66 @@ a {
     text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-weight: normal;
+p {
+    font-family: sans-serif;
 }
 
-.container {
-  position: relative;
-  min-height: 100%;
+#container {
+    position: relative;
+    min-height: 100%;
 }
 
-.navbar {
-  background: indigo;
-  padding: 5px 0px 5px 0px;
+#navbar {
+    background: indigo;
+    padding: 5px 0px 5px 0px;
 }
 
-.navbar img  {
-  height: 20px;
-  border: 1px solid white;
-  vertical-align: -4px;
+#navbar img  {
+    height: 20px;
+    border: 1px solid white;
+    vertical-align: -4px;
 }
 
-.navbar a {
-  color: white;
-  padding: 0px 0px 0px 20px;
+#navbar ul {
+    margin: 0px;
+    padding: 0px 0px 0px 20px;
 }
 
-.header {
+#navbar li {
+    font-family: sans-serif;
+    display: inline;
+    padding: 0px 20px 0px 0px;
+}
+
+#navbar a {
+    color: white;
+}
+
+#header {
     text-align: center;
 }
 
-.content {
-  font-family: sans-serif;
-  margin:auto;
-  max-width: 960px;
+rcontent {
+    margin:auto;
+    max-width: 960px;
 }
 
 .main {
-  padding: 20px;
-  padding-bottom: 5em;
+    padding: 20px;
+    padding-bottom: 5em;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2em;
-  background: indigo;
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2em;
+    background: indigo;
 }
 
-.footer p {
-  color: white;
-  text-align: center;
-  padding: 7px 0px 0px 0px;
-  margin: 0;
-}
-
-.footer a {
-  color: white;
+#footer p {
+    color: white;
+    text-align: center;
+    padding: 7px 0px 0px 0px;
+    margin: 0;
 }
