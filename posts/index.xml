@@ -6,24 +6,14 @@
     <description>Recent content in Posts on John Inman</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Dec 2020 17:52:52 -0800</lastBuildDate><atom:link href="https://www.johninman.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 04 Dec 2020 12:47:00 -0800</lastBuildDate><atom:link href="https://www.johninman.dev/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Bar</title>
-      <link>https://www.johninman.dev/posts/bar/</link>
-      <pubDate>Wed, 02 Dec 2020 17:52:52 -0800</pubDate>
+      <title>Under the Weather, Part 1: MODIS</title>
+      <link>https://www.johninman.dev/posts/fog1/</link>
+      <pubDate>Fri, 04 Dec 2020 12:47:00 -0800</pubDate>
       
-      <guid>https://www.johninman.dev/posts/bar/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</description>
-    </item>
-    
-    <item>
-      <title>Foo</title>
-      <link>https://www.johninman.dev/posts/foo/</link>
-      <pubDate>Wed, 02 Dec 2020 17:52:51 -0800</pubDate>
-      
-      <guid>https://www.johninman.dev/posts/foo/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</description>
+      <guid>https://www.johninman.dev/posts/fog1/</guid>
+      <description>Summary: In this series we are exploring the relationship between fogginess and home prices in the city of Seaside, California, using remotely sensed data and home price estimates from a real estate website. Part 1 describes accessing and processing MODIS satellite data.</description>
     </item>
     
   </channel>
