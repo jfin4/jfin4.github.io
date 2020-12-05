@@ -13,7 +13,7 @@
       <pubDate>Fri, 04 Dec 2020 12:47:00 -0800</pubDate>
       
       <guid>https://www.johninman.dev/posts/fog1/</guid>
-      <description>Summary: In this series we are exploring the relationship between fogginess and home prices in the city of Seaside, California, using remotely sensed data and home price estimates from a real estate website. Part 1 describes accessing and processing MODIS satellite data.</description>
+      <description>Summary: In this series we are exploring the relationship between fogginess and home prices in the city of Seaside, California, using remotely sensed data and online home price estimates. Part 1 describes accessing and processing MODIS satellite data.</description>
     </item>
     
   </channel>
