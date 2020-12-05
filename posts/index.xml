@@ -8,12 +8,13 @@
     <language>en-us</language>
     <lastBuildDate>Fri, 04 Dec 2020 12:47:00 -0800</lastBuildDate><atom:link href="https://www.johninman.dev/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Under the Weather, Part 1: MODIS</title>
+      <title>Under the Weather, Part 1: Creating a High Resolution Fog Frequency Map Using MODIS Satellite Data</title>
       <link>https://www.johninman.dev/posts/fog1/</link>
       <pubDate>Fri, 04 Dec 2020 12:47:00 -0800</pubDate>
       
       <guid>https://www.johninman.dev/posts/fog1/</guid>
-      <description>Summary: In this series we are exploring the relationship between fogginess and home prices in the city of Seaside, California, using remotely sensed data and online home price estimates. Part 1 describes accessing and processing MODIS satellite data.</description>
+      <description>Summary: In this series we are exploring the relationship between fogginess and home prices in the city of Seaside, California, using remotely sensed data and online home price estimates. Part 1 describes accessing and processing MODIS satellite data to create a 250-meter resolution fog frequency map.
+Had I been slightly more ambitious I would have doubled by sample size by downloading MYD35 as well.</description>
     </item>
     
   </channel>
