@@ -1,91 +1,89 @@
+@font-face {
+    font-family: merriweather;
+    src: url(/font/Merriweather-Regular.woff2);
+}
+
+@font-face {
+    font-family: merriweather-sans;
+    src: url(/font/MerriweatherSans-Regular.woff2);
+}
+
 * {
     box-sizing: border-box;
 }
 
-html, body {
+body {
+    background: floralwhite;
+    margin: auto;
+    max-width: 800px;
+    font-family: merriweather;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    font-size: 17px;
+}
+
+a { 
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header {
+    padding: 5px 20px 0px 20px;
+}
+
+header ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
     margin: 0;
     padding: 0;
-    height: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: sans-serif;
-    font-weight: normal;
+header li.l {
+    padding-right: 10px;
 }
 
-a {
-    color: tan;
-    text-decoration: none;
+header li.sep {
+    margin-left: auto;
 }
 
-p {
-    font-family: sans-serif;
+header li.r {
+    padding-left: 30px;
 }
 
-.content {
-    margin:auto;
-    max-width: 960px;
+header a {
+    color: black;
+    font-family: merriweather-sans;
+}
+
+hr {
+    width: 100%;
+    height: 2px;
+    border: 0;
+    background: black;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+    padding: 0px 20px 0px 20px;
+}
+
+footer {
+    padding: 0px 20px 0px 20px;
+    margin: auto;
 }
 
 #profile {
     display: block;
-    margin: 0 auto 0 auto;
     border-radius: 50%;
     height: 300px;
-}
-
-#container {
-    position: relative;
-    min-height: 100%;
-}
-
-#navbar {
-    background: tan;
-    padding: 5px 0px 5px 0px;
-}
-
-#navbar img  {
-    height: 20px;
-    border: 1px solid white;
-    vertical-align: -4px;
-}
-
-#navbar ul {
-    margin: 0px;
-    padding: 0px 0px 0px 20px;
-}
-
-#navbar li {
-    font-family: sans-serif;
-    display: inline;
-    padding: 0px 20px 0px 0px;
-}
-
-#navbar a {
-    color: white;
-}
-
-#header {
-    text-align: center;
-    padding: 0px 0px 10px 0px;
-}
-
-
-#main {
-    padding: 20px 20px 50px 20px;
-}
-
-#footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 30px;
-    background: tan;
-}
-
-#footer p {
-    color: white;
-    text-align: center;
-    padding: 7px 0px 0px 0px;
-    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
 }
