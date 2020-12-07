@@ -23,6 +23,9 @@ and (orientation: portrait) {
 * {
     box-sizing: border-box;
 }
+html {
+        -webkit-text-size-adjust: 100%;
+}
 body {
     background: floralwhite;
     display: flex;
