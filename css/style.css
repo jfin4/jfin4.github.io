@@ -102,6 +102,7 @@ footer p {
 }
 .date {
     color: gray;
+    font-family: merriweather-sans;
     margin-top: 0;
     text-align: center;
 }
