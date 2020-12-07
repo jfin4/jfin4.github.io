@@ -51,7 +51,7 @@ header ul {
     padding: 10px 20px 5px 20px;
 }
 header li.l {
-    padding-right: 20px;
+    padding-right: 10px;
 }
 header li.r {
     padding-left: 20px;
@@ -77,6 +77,7 @@ footer {
     margin: auto;
 }
 footer p {
+    color: gray;
     font-family: merriweather-sans;
     margin: 0px;
     padding: 10px;
@@ -85,9 +86,17 @@ footer p {
     text-align: center;
     font-family: merriweather-sans;
     padding: 0;
-    margin-bottom: 0;
+    margin-bottom: 0px;
+}
+.description {
+    text-align: center;
+    font-family: merriweather-sans;
+    font-weight: normal;
+    padding: 0;
+    margin: 5px;
 }
 .date {
-    text-align: center;
+    color: gray;
     margin-top: 0;
+    text-align: center;
 }
