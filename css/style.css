@@ -6,12 +6,16 @@
     font-family: merriweather-sans;
     src: url(/font/MerriweatherSans-Regular.woff2);
 }
-@media only screen and (max-width: 800px) {
+@media only screen 
+and (max-width: 800px) 
+and (orientation: portrait) {
     .shy {
         display: none;
     }
 }
-@media only screen and (max-width: 800px) {
+@media only screen 
+and (max-width: 800px)
+and (orientation: portrait) {
     .notshy {
         margin-left: auto;
     }
@@ -70,7 +74,7 @@ footer {
     margin: auto;
 }
 footer p {
-    font-family: sans;
+    font-family: merriweather-sans;
     margin: 0px;
     padding: 10px;
 }
