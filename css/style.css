@@ -7,15 +7,13 @@
     src: url(/font/MerriweatherSans-Regular.woff2);
 }
 @media only screen 
-and (max-width: 800px) 
-and (orientation: portrait) {
+and ((max-width: 30em) or ((max-width: 30em) and (orientation: portrait))) {
     .shy {
         display: none;
     }
 }
 @media only screen 
-and (max-width: 800px)
-and (orientation: portrait) {
+and ((max-width: 30em) or ((max-width: 30em) and (orientation: portrait))) {
     .notshy {
         margin-left: auto;
     }
@@ -28,9 +26,9 @@ body {
     display: flex;
     flex-direction: column;
     font-family: merriweather;
-    font-size: 17px;
+    line-height: 1.7rem;
     margin: auto;
-    max-width: 800px;
+    max-width: 50rem;
     min-height: 100vh;
 }
 a { 
@@ -40,21 +38,18 @@ a {
 a:hover {
     text-decoration: underline;
 }
-p {
-    line-height: 1.6;
-}
 header ul {
     align-items: center;
     display: flex;
     list-style-type: none;
     margin: 0;
-    padding: 10px 20px 5px 20px;
+    padding: 0.5rem 2rem 0rem 2rem;
 }
 header li.l {
-    padding-right: 10px;
+    padding-right: 1rem;
 }
 header li.r {
-    padding-left: 20px;
+    padding-left: 2rem;
 }
 header li.shy {
     margin-left: auto;
@@ -65,18 +60,18 @@ header a {
 }
 hr {
     background: steelblue;
-    border: 0;
-    height: 4px;
-    margin: 0px 8px 0px 8px;
+    border: 0rem;
+    height: 0.2rem;
+    margin: 0rem 1rem 0rem 1rem;
 }
 main {
     flex: 1;
-    padding: 16px;
+    padding: 2em;
 }
 main hr {
-    height: 1px;
-    margin: 40px auto 0px auto;
-    width: 80%;
+    height: 0.1em;
+    margin: 3em auto 3rem auto;
+    width: 40rem;
 }
 footer {
     margin: auto;
@@ -84,25 +79,24 @@ footer {
 footer p {
     color: gray;
     font-family: merriweather-sans;
-    margin: 0px;
-    padding: 10px;
+    margin: 0rem;
+    padding: 0.5rem;
 }
 .title {
     text-align: center;
     font-family: merriweather-sans;
-    padding: 0;
-    margin-bottom: 0px;
+    padding: 0rem;
+    margin-bottom: 0rem;
 }
 .description {
     text-align: center;
     font-family: merriweather-sans;
     font-weight: normal;
-    padding: 0;
-    margin: 5px;
+    margin: 0.5rem;
 }
 .date {
     color: gray;
     font-family: merriweather-sans;
-    margin-top: 0;
+    margin-top: 0rem;
     text-align: center;
 }
