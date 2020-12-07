@@ -20,11 +20,15 @@ and (orientation: portrait) {
         margin-left: auto;
     }
 }
+@media only screen 
+and (max-width: 50rem) 
+and (orientation: landscape) {
+     html {
+        -webkit-text-size-adjust: none;
+     }
+}
 * {
     box-sizing: border-box;
-}
-html {
-        -webkit-text-size-adjust: 100%;
 }
 body {
     background: floralwhite;
