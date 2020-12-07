@@ -40,6 +40,9 @@ a {
 a:hover {
     text-decoration: underline;
 }
+p {
+    line-height: 1.6;
+}
 header ul {
     align-items: center;
     display: flex;
