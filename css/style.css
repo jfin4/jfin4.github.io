@@ -7,14 +7,14 @@
     src: url(/font/MerriweatherSans-Regular.woff2);
 }
 @media only screen 
-and (max-width: 800px) 
+and (max-width: 50rem) 
 and (orientation: portrait) {
     .shy {
         display: none;
     }
 }
 @media only screen 
-and (max-width: 800px) 
+and (max-width: 50rem) 
 and (orientation: portrait) {
     .notshy {
         margin-left: auto;
