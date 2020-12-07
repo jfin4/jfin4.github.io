@@ -73,6 +73,11 @@ main {
     flex: 1;
     padding: 16px;
 }
+main hr {
+    height: 1px;
+    margin: 40px auto 0px auto;
+    width: 80%;
+}
 footer {
     margin: auto;
 }
