@@ -45,7 +45,7 @@ header ul {
     display: flex;
     list-style-type: none;
     margin: 0;
-    padding: 0.5rem 2rem 0rem 2rem;
+    padding: 0.5rem 1rem 0rem 1rem;
 }
 header li.l {
     padding-right: 0.5rem;
@@ -64,14 +64,19 @@ hr {
     background: steelblue;
     border: 0rem;
     height: 0.2rem;
-    margin: 0rem 1rem 0rem 1rem;
+}
+hr.top {
+    margin: 0rem 0.5rem 1rem 0.5rem;
+}
+hr.bottom {
+    margin: 1rem 0.5rem 0rem 0.5rem;
 }
 main {
     flex: 1;
-    padding: 2em;
+    padding: 0rem 1rem 0rem 1rem;
 }
 main hr {
-    height: 0.1em;
+    height: 0.1rem;
     margin: 3em auto 3rem auto;
     width: 40rem;
 }
