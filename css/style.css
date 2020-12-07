@@ -2,88 +2,85 @@
     font-family: merriweather;
     src: url(/font/Merriweather-Regular.woff2);
 }
-
 @font-face {
     font-family: merriweather-sans;
     src: url(/font/MerriweatherSans-Regular.woff2);
 }
-
+@media only screen and (max-width: 800px) {
+    .shy {
+        display: none;
+    }
+}
+@media only screen and (max-width: 800px) {
+    .notshy {
+        margin-left: auto;
+    }
+}
 * {
     box-sizing: border-box;
 }
-
 body {
     background: floralwhite;
+    display: flex;
+    flex-direction: column;
+    font-family: merriweather;
+    font-size: 17px;
     margin: auto;
     max-width: 800px;
-    font-family: merriweather;
-    display: flex;
     min-height: 100vh;
-    flex-direction: column;
-    font-size: 17px;
 }
-
 a { 
-    text-decoration: none;
     color: black;
+    text-decoration: none;
 }
-
 a:hover {
     text-decoration: underline;
 }
-
-header {
-    padding: 5px 20px 0px 20px;
-}
-
 header ul {
-    display: flex;
     align-items: center;
+    display: flex;
     list-style-type: none;
     margin: 0;
-    padding: 0;
+    padding: 10px 20px 5px 20px;
 }
-
 header li.l {
-    padding-right: 10px;
+    padding-right: 20px;
 }
-
-header li.sep {
+header li.r {
+    padding-left: 20px;
+}
+header li.shy {
     margin-left: auto;
 }
-
-header li.r {
-    padding-left: 30px;
-}
-
 header a {
     color: black;
     font-family: merriweather-sans;
 }
-
 hr {
-    width: 100%;
-    height: 2px;
+    background: steelblue;
     border: 0;
-    background: black;
-    margin: 0;
+    height: 5px;
+    margin: 0px 8px 0px 8px;
 }
-
 main {
     flex: 1;
-    padding: 0px 20px 0px 20px;
+    padding: 16px;
 }
-
 footer {
-    padding: 0px 20px 0px 20px;
     margin: auto;
 }
-
-#profile {
-    display: block;
-    border-radius: 50%;
-    height: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
+footer p {
+    font-family: sans;
+    margin: 0px;
+    padding: 10px;
+}
+.title {
+    text-align: center;
+    font-family: merriweather-sans;
+    padding: 0;
+    margin-bottom: 0;
+}
+.date {
+    text-align: center;
+    margin-top: 0;
 }
