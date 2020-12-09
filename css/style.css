@@ -56,6 +56,7 @@ header a.group {
     display: flex;
 }
 header img {
+    height: 2rem;
     padding: 0rem 0.5rem 0rem 0rem;
 }
 header li.shy {
