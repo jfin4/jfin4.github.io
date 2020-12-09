@@ -4,7 +4,7 @@
 }
 @font-face {
     font-family: merriweather-sans;
-    src: url(/font/MerriweatherSans-Regular.woff2);
+    src: url(/font/MerriweatherSans-Light.woff2);
 }
 @media only screen 
 and (max-width: 50rem) 
