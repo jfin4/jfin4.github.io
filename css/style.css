@@ -7,7 +7,7 @@
     src: url(/font/MerriweatherSans-Light.woff2);
 }
 @media only screen 
-and (max-width: 50rem) 
+and (max-width: 40rem) 
 and (orientation: portrait) {
     .shy {
         display: none;
@@ -17,7 +17,7 @@ and (orientation: portrait) {
     }
 }
 @media only screen 
-and (max-width: 50rem) 
+and (max-width: 40rem) 
 and (orientation: landscape) {
      html {
         -webkit-text-size-adjust: none;
@@ -33,7 +33,7 @@ body {
     font-family: merriweather;
     line-height: 1.7rem;
     margin: auto;
-    max-width: 50rem;
+    max-width: 40rem;
     min-height: 100vh;
 }
 a { 
