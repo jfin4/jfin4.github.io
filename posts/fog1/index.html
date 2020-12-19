@@ -34,8 +34,74 @@
     <h3 class="description">Creating a High-resolution Fog Map Using MODIS Satellite Data</h3>
     <p class="date"> December 12, 2020</p>
   
-  <p>Let&rsquo;s make a map of fog frequency for the Monterey Peninsula area. First,
-we&rsquo;ll need to download some data.</p>
+  <p>This series presents an hedonic analysis of fog in the city of Seaside, CA,
+near the Monterey Peninsula. Hedonic analysis is a method of estimating the
+value of something that does not have a price. The inspiration for this series
+was a school assignment I originally collaborated on with Winn McEnery. Part 1
+focuses on creating a high-resolution (250 m) fog map using MODIS satellite
+from NASA.</p>
+<h3 id="modis">MODIS</h3>
+<p>The Moderate Resolution Imaging Spectroradiometer
+(<a href="https://modis.gsfc.nasa.gov/about/">MODIS</a>) is a remote sensing instrument
+that collects data about the Earth&rsquo;s surface and atmosphere.  Compared to
+other remote sensing platforms, such as Landsat, MODIS data has higher
+temporal resolution but lower spatial resolution. There are two currently
+deployed MODIS instruments, each of which survey the entire Earth&rsquo;s surface on
+a daily basis. MODIS collects radiation data in 36 spectral bands which vary
+in resolution from 250 m to 1 km. The (bi-)daily snapshot of atmospheric
+conditions enable accurate measurement of local differences in weather
+patterns, such as fog frequency, at the scale of a residential neighborhood.</p>
+<p>There are many (<a href="https://modis.gsfc.nasa.gov/data/">MODIS products</a>) to choose
+from. After some shopping I determined that the <a href="https://modis.gsfc.nasa.gov/data/dataprod/mod35.php">Cloud
+Mask</a>, intended primarily
+for quality assurance of other products, would be the most appropriate for
+this project despite being an &ldquo;off-label&rdquo; use case. Cloud Mask data from each
+satellite are packaged separately as MOD35_L2 and MYD35_L2; because I
+considered only one snapshot per day to be sufficient I search for and
+downloaded only MOD35_L2 data.</p>
+<p>After some dead-ends, I found NASA&rsquo;s <a href="https://search.earthdata.nasa.gov/search">Earthdata
+Search</a> to be the most reliable
+place to find, subset, and download large amounts of MODIS data. The site does
+require an account but this does not involve anything more than verifying an
+email address (I have yet to receive any spam). Searching for MOD35_L2 yielded
+over two million &ldquo;granules&rdquo;, or individual snapshots. Placing a pin on the
+interactive map over the city of Seaside, CA, reduced this to about 17,000
+granules. The 250-m resolution bands comprise the visible spectrum and are
+only captured by day-time shots. Applying a day-only granule filter brought
+the number of granules down to a manageable 8,474.</p>
+<p>Clicking &ldquo;download&rdquo; will not initiate a bulk download of the data but rather
+generate a list of links to the desired files, in this case 8,474 of them.
+Thankfully the Earthdata team also provides a download script that can be used
+to automate the process. It took about three days of running this script in
+the background to download all the files. I found it necessary to modify the
+script to avoid starting over each time the connection was lost by adding an
+if statement around the download command:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">if</span> ! <span style="color:#f92672">[</span> -f $stripped_query_params <span style="color:#f92672">]</span>
+<span style="color:#66d9ef">then</span>
+    curl -f -b <span style="color:#e6db74">&#34;</span>$cookiejar<span style="color:#e6db74">&#34;</span> -c <span style="color:#e6db74">&#34;</span>$cookiejar<span style="color:#e6db74">&#34;</span> -L --netrc-file <span style="color:#e6db74">&#34;</span>$netrc<span style="color:#e6db74">&#34;</span> -g -o $stripped_query_params -- $line <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#f92672">||</span> exit_with_error <span style="color:#e6db74">&#34;Command failed with error. Please retrieve the data manually.&#34;</span>
+<span style="color:#66d9ef">fi</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>I also hardcoded my password into the script to avoid having to type it in
+each time:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># read -s -p &#34;Password: &#34; password</span>
+password<span style="color:#f92672">=</span>&lt;password&gt;</code></pre></td></tr></table>
+</div>
+</div>
 
 
       </main>
