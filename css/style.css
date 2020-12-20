@@ -16,16 +16,17 @@ and (orientation: portrait) {
         margin-left: auto;
     }
 }
-@media only screen {
-    html {
-        -webkit-text-size-adjust: 100%;
-    }
-}
+/* @media only screen { */
+/*     html { */
+/*         -webkit-text-size-adjust: 100%; */
+/*     } */
+/* } */
 * {
     box-sizing: border-box;
 }
 html {
     font-size: 1.1rem;
+    -webkit-text-size-adjust: 100%;
 }
 body {
     background: floralwhite;
