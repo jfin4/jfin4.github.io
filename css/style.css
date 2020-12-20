@@ -16,11 +16,11 @@ and (orientation: portrait) {
         margin-left: auto;
     }
 }
-@media only screen 
-and (orientation: landscape) {
-     html {
-        -webkit-text-size-adjust: 100%;
-     }
+/* @media only screen */ 
+/* and (orientation: landscape) { */
+/* } */
+html {
+-webkit-text-size-adjust: 100%;
 }
 * {
     box-sizing: border-box;
