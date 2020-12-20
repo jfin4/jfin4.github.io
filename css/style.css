@@ -16,21 +16,21 @@ and (orientation: portrait) {
         margin-left: auto;
     }
 }
-/* @media only screen */ 
-/* and (orientation: landscape) { */
-/* } */
-html {
--webkit-text-size-adjust: 100%;
+@media only screen {
+    -webkit-text-size-adjust: 100%;
 }
 * {
     box-sizing: border-box;
+}
+html {
+    font-size: 1.1rem;
 }
 body {
     background: floralwhite;
     display: flex;
     flex-direction: column;
     font-family: merriweather;
-    line-height: 1.7rem;
+    /* line-height: 1.7rem; */
     margin: auto;
     max-width: 40rem;
     min-height: 100vh;
