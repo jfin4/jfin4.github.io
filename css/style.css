@@ -35,6 +35,10 @@ body {
     max-width: 40rem;
     min-height: 100vh;
 }
+h1, h2, h3, h4, h5, h6 {
+    font-family: merriweather-sans;
+    font-weight: normal;
+}
 a { 
     color: steelblue;
     text-decoration: none;
@@ -95,14 +99,11 @@ footer p {
 }
 .title {
     text-align: center;
-    font-family: merriweather-sans;
     padding: 0rem;
     margin-bottom: 0rem;
 }
 .description {
     text-align: center;
-    font-family: merriweather-sans;
-    font-weight: normal;
     margin: 0.5rem;
 }
 .date {
