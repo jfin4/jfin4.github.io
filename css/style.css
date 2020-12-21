@@ -9,42 +9,27 @@
 @media only screen 
 and (max-width: 40rem) 
 and (orientation: portrait) {
-    .shy {
+    .reactive {
         display: none;
     }
-    .notshy {
+    .notreactive {
         margin-left: auto;
     }
 }
-/* @media only screen { */
-/*     html { */
-/*         -webkit-text-size-adjust: 100%; */
-/*     } */
-/* } */
 * {
     box-sizing: border-box;
 }
 html {
-    font-size: 1.1rem;
     -webkit-text-size-adjust: 100%;
+    font-size: 1.1rem;
 }
 body {
     background: floralwhite;
     display: flex;
     flex-direction: column;
-    font-family: merriweather;
-    /* line-height: 1.7rem; */
     margin: auto;
     max-width: 40rem;
     min-height: 100vh;
-}
-h1, h2, h3, h4, h5, h6 {
-    font-family: merriweather-sans;
-    font-weight: normal;
-}
-a { 
-    color: steelblue;
-    text-decoration: none;
 }
 header ul {
     align-items: center;
@@ -53,11 +38,17 @@ header ul {
     margin: 0;
     padding: 0.3rem 1rem 0.3rem 1rem;
 }
-header a {
-    color: black;
-    font-family: merriweather-sans;
+header li.reactive {
+    margin-left: auto;
 }
-header a.group {
+header li.right {
+    padding-left: 1rem;
+}
+header a {
+    font-family: merriweather-sans;
+    color: black;
+}
+header a.icon-title {
     align-items: center;
     display: flex;
 }
@@ -65,40 +56,30 @@ header img {
     height: 2rem;
     padding: 0rem 0.5rem 0rem 0rem;
 }
-header li.shy {
-    margin-left: auto;
-}
-header li.r {
-    padding-left: 1rem;
-}
 hr {
     background: steelblue;
     border: 0rem;
-    height: 0.3rem;
 }
 hr.top {
+    height: 0.3rem;
     margin: 0rem 0.5rem 1rem 0.5rem;
 }
-hr.bottom {
-    margin: 1rem 0.5rem 0rem 0.5rem;
-}
 main {
+    line-height: 1.7rem;
     flex: 1;
     padding: 0rem 1rem 0rem 1rem;
 }
-main hr {
-    height: 0.05rem;
-    margin: 3em auto 3rem auto;
-    width: 13rem;
+main p {
+    font-family: merriweather;
 }
-footer {
-    margin: auto;
-}
-footer p {
-    color: gray;
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
     font-family: merriweather-sans;
-    margin: 0rem;
-    padding: 0.3rem;
+    font-weight: normal;
 }
 .title {
     text-align: center;
@@ -114,4 +95,28 @@ footer p {
     font-family: merriweather-sans;
     margin-top: 0rem;
     text-align: center;
+}
+a { 
+    color: steelblue;
+    text-decoration: none;
+}
+.highlight {
+    line-height: 1rem;
+}
+hr.sep {
+    height: 0.05rem;
+    margin: 3em auto 3rem auto;
+    width: 13rem;
+}
+hr.bottom {
+    height: 0.3rem;
+    margin: 1rem 0.5rem 0rem 0.5rem;
+}
+footer {
+    margin: auto;
+}
+footer p {
+    color: gray;
+    font-family: merriweather-sans;
+    margin: 0.5rem;
 }

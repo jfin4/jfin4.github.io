@@ -17,5 +17,23 @@
 MODIS The Moderate Resolution Imaging Spectroradiometer (MODIS) is a remote sensing instrument that collects data about the Earth&amp;rsquo;s surface and atmosphere.</description>
     </item>
     
+    <item>
+      <title>About</title>
+      <link>https://www.johninman.dev/about/</link>
+      <pubDate>Wed, 02 Dec 2020 17:52:51 -0800</pubDate>
+      
+      <guid>https://www.johninman.dev/about/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Connect</title>
+      <link>https://www.johninman.dev/connect/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.johninman.dev/connect/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
