@@ -24,12 +24,15 @@ html {
     font-size: 1.1rem;
 }
 body {
-    background: floralwhite;
+    /* background: floralwhite; */
     display: flex;
     flex-direction: column;
     margin: auto;
     max-width: 40rem;
     min-height: 100vh;
+}
+a { 
+    text-decoration: none;
 }
 header ul {
     align-items: center;
@@ -72,6 +75,9 @@ main {
 main p {
     font-family: merriweather;
 }
+main a { 
+    color: steelblue;
+}
 h1, 
 h2, 
 h3, 
@@ -95,10 +101,6 @@ h6 {
     font-family: merriweather-sans;
     margin-top: 0rem;
     text-align: center;
-}
-a { 
-    color: steelblue;
-    text-decoration: none;
 }
 .highlight {
     line-height: 1rem;

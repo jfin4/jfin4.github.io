@@ -14,7 +14,7 @@
 <body>
       <header><ul>
   <li>
-    <a class="icon-title" href="/"><img src="/image/icon.svg" alt="icon">johninman.dev</a>
+    <a class="icon-title" href="/"><img src="/image/icon.svg" alt="icon">John Inman</a>
   </li>
   <li class="reactive right">
     <a href="/">Home</a>
@@ -76,18 +76,18 @@ to automate the process. It took about three days of running this script in
 the background to download all the files. I found it necessary to modify the
 script to avoid starting over each time the connection was lost by adding an
 if statement around the download command:</p>
-<div class="highlight"><div style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#859900">if</span> ! [ -f <span style="color:#268bd2">$stripped_query_params</span> ]
-<span style="color:#859900">then</span>
-    curl -f -b <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cookiejar</span><span style="color:#2aa198">&#34;</span> -c <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cookiejar</span><span style="color:#2aa198">&#34;</span> -L --netrc-file <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$netrc</span><span style="color:#2aa198">&#34;</span> -g -o <span style="color:#268bd2">$stripped_query_params</span> -- <span style="color:#268bd2">$line</span> &amp;&amp; <span style="color:#cb4b16">echo</span> || exit_with_error <span style="color:#2aa198">&#34;Command failed with error. Please retrieve the data manually.&#34;</span>
-<span style="color:#859900">fi</span></code></pre></td></tr></table>
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#00a8c8">if</span> ! <span style="color:#f92672">[</span> -f <span style="color:#111">$stripped_query_params</span> <span style="color:#f92672">]</span>
+<span style="color:#00a8c8">then</span>
+    curl -f -b <span style="color:#d88200">&#34;</span><span style="color:#111">$cookiejar</span><span style="color:#d88200">&#34;</span> -c <span style="color:#d88200">&#34;</span><span style="color:#111">$cookiejar</span><span style="color:#d88200">&#34;</span> -L --netrc-file <span style="color:#d88200">&#34;</span><span style="color:#111">$netrc</span><span style="color:#d88200">&#34;</span> -g -o <span style="color:#111">$stripped_query_params</span> -- <span style="color:#111">$line</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#111">echo</span> <span style="color:#f92672">||</span> exit_with_error <span style="color:#d88200">&#34;Command failed with error. Please retrieve the data manually.&#34;</span>
+<span style="color:#00a8c8">fi</span></code></pre></td></tr></table>
 </div>
 </div>
 
