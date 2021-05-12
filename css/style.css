@@ -21,6 +21,7 @@ body {
     line-height: 1.5;
     margin: auto;
     max-width: 650px;
+    width: 100%;
     min-height: 100vh;
 }
 hr {
@@ -31,8 +32,8 @@ hr {
 html {
     /* This html block is needed to create an additional flex container. */
     /* Otherwise, IE11 does not respect the min-height proptery. */
-    display: block;
-    /* flex-direction: column; */
+    display: display;
+    flex-direction: column;
 }
 h1,
 h2,
