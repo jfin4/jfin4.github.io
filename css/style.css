@@ -16,9 +16,9 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    flex: 1 0 auto;
     font-family: sans-serif;
     font-size: 18px;
+    justify-content: space-between;
     line-height: 1.5;
     margin: auto;
     max-width: 650px;
