@@ -110,5 +110,6 @@ footer {
 footer p {
     color: gray;
     font-family: merriweather-sans;
-    margin: 0.5rem;
+    font-size: 0.8rem;
+    margin: 0.3rem;
 }
