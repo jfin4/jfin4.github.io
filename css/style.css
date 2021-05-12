@@ -23,9 +23,6 @@ body {
     max-width: 650px;
     min-height: 100vh;
 }
-footer {
-    margin: 0 auto 0 auto;
-}
 hr {
     background: black;
     height: 1px;
