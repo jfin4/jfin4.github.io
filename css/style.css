@@ -23,6 +23,9 @@ body {
 a { 
     text-decoration: none;
 }
+/* header { */
+/*     padding: 0.1rem 1rem 0.1rem 1rem; */
+/* } */
 hr {
     background: black;
     height: 1px;
@@ -30,7 +33,7 @@ hr {
 }
 main {
     flex: 1;
-    padding: 0px 18px 0px 18px;
+    padding: 0 1rem 0 1rem;
 }
 h1, 
 h2, 
