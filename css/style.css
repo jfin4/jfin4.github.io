@@ -11,10 +11,6 @@ and (orientation: portrait) {
 a {
     text-decoration: none;
 }
-html {
-    display: flex;
-    flex-direction: column;
-}
 body {
     -webkit-text-size-adjust: 100%;
     box-sizing: border-box;
@@ -31,6 +27,12 @@ hr {
     background: black;
     height: 1px;
     border: none;
+}
+html {
+
+    display: flex;
+    flex-direction: column;
+    margin: auto;
 }
 h1,
 h2,
