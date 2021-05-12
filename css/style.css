@@ -1,116 +1,42 @@
-@font-face {
-    font-family: merriweather-sans;
-    src: url(/font/MerriweatherSans-Light.woff2);
-}
 @media only screen 
-and (max-width: 40rem) 
+and (max-width: 650px) 
 and (orientation: portrait) {
-    .reactive {
+    .react {
         display: none;
     }
-    .notreactive {
-        margin-left: auto;
+    .noreact {
+        margin: 0 0 0 auto;
     }
 }
-* {
-    box-sizing: border-box;
-}
-html {
-    -webkit-text-size-adjust: 100%;
-    font-size: 1.1rem;
-}
 body {
-    /* background: floralwhite; */
+    -webkit-text-size-adjust: 100%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    font-family: sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
     margin: auto;
-    max-width: 40rem;
+    max-width: 650px;
     min-height: 100vh;
 }
 a { 
     text-decoration: none;
 }
-header ul {
-    align-items: center;
-    display: flex;
-    list-style-type: none;
-    margin: 0;
-    padding: 0.3rem 1rem 0.3rem 1rem;
-}
-header li.reactive {
-    margin-left: auto;
-}
-header li.right {
-    padding-left: 1rem;
-}
-header a {
-    font-family: merriweather-sans;
-}
-header a.icon-title {
-    align-items: center;
-    display: flex;
-}
-header img {
-    height: 1.3rem;
-    padding: 0rem 0.5rem 0rem 0rem;
-}
 hr {
     background: black;
-    height: 0.05rem;
-    border: 0rem;
-}
-hr.top {
-    margin: 0rem 0.5rem 1rem 0.5rem;
+    height: 1px;
+    border: none;
 }
 main {
-    line-height: 1.7rem;
     flex: 1;
-    padding: 0rem 1rem 0rem 1rem;
-}
-main p {
-    font-family: merriweather-sans;
+    padding: 0px 18px 0px 18px;
 }
 h1, 
 h2, 
-h3, 
-h4, 
-h5, 
-h6 {
-    font-family: merriweather-sans;
+h3 {
     font-weight: normal;
-}
-.title {
-    text-align: center;
-    padding: 0rem;
-    margin-bottom: 0rem;
-}
-.description {
-    text-align: center;
-    margin: 0.5rem;
-}
-.date {
-    font-family: merriweather-sans;
-    font-style: oblique;
-    margin: 2rem 0rem 0rem 0rem;
-    /* text-align: center; */
-}
-.highlight {
-    /* font-size: 1.1rem; */
-    line-height: 1rem;
-}
-hr.sep {
-    margin: 3em auto 3rem auto;
-    width: 13rem;
-}
-hr.bottom {
-    margin: 1rem 0.5rem 0rem 0.5rem;
 }
 footer {
     margin: auto;
-}
-footer p {
-    color: gray;
-    font-family: merriweather-sans;
-    font-size: 0.8rem;
-    margin: 0.3rem;
 }
