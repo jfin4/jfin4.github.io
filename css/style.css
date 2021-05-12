@@ -51,15 +51,15 @@ header a.icon-title {
     display: flex;
 }
 header img {
-    height: 2rem;
+    height: 1.3rem;
     padding: 0rem 0.5rem 0rem 0rem;
 }
 hr {
     background: black;
+    height: 0.05rem;
     border: 0rem;
 }
 hr.top {
-    height: 0.05rem;
     margin: 0rem 0.5rem 1rem 0.5rem;
 }
 main {
@@ -98,12 +98,10 @@ h6 {
     line-height: 1rem;
 }
 hr.sep {
-    height: 0.05rem;
     margin: 3em auto 3rem auto;
     width: 13rem;
 }
 hr.bottom {
-    height: 0.05rem;
     margin: 1rem 0.5rem 0rem 0.5rem;
 }
 footer {
