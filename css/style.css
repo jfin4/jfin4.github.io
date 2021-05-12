@@ -1,5 +1,5 @@
-@media only screen 
-and (max-width: 650px) 
+@media only screen
+and (max-width: 650px)
 and (orientation: portrait) {
     .react {
         display: none;
@@ -7,6 +7,9 @@ and (orientation: portrait) {
     .noreact {
         margin: 0 0 0 auto;
     }
+}
+a {
+    text-decoration: none;
 }
 body {
     -webkit-text-size-adjust: 100%;
@@ -20,26 +23,20 @@ body {
     max-width: 650px;
     min-height: 100vh;
 }
-a { 
-    text-decoration: none;
+footer {
+    margin: auto;
 }
-/* header { */
-/*     padding: 0.1rem 1rem 0.1rem 1rem; */
-/* } */
 hr {
     background: black;
     height: 1px;
     border: none;
 }
-main {
-    flex: 1;
-    padding: 0 1rem 0 1rem;
-}
-h1, 
-h2, 
+h1,
+h2,
 h3 {
     font-weight: normal;
 }
-footer {
-    margin: auto;
+main {
+    flex: 1 0 auto;
+    padding: 0 1rem 0 1rem;
 }
