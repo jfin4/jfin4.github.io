@@ -45,7 +45,6 @@ header li.right {
 }
 header a {
     font-family: merriweather-sans;
-    color: black;
 }
 header a.icon-title {
     align-items: center;
@@ -56,7 +55,7 @@ header img {
     padding: 0rem 0.5rem 0rem 0rem;
 }
 hr {
-    background: steelblue;
+    background: black;
     border: 0rem;
 }
 hr.top {
@@ -65,15 +64,11 @@ hr.top {
 }
 main {
     line-height: 1.7rem;
-    -ms-flex: 1;
-    flex: 1 1 auto;
+    flex: 1;
     padding: 0rem 1rem 0rem 1rem;
 }
 main p {
     font-family: merriweather-sans;
-}
-main a { 
-    color: steelblue;
 }
 h1, 
 h2, 
@@ -94,7 +89,6 @@ h6 {
     margin: 0.5rem;
 }
 .date {
-    color: gray;
     font-family: merriweather-sans;
     margin-top: 0rem;
     text-align: center;
@@ -116,7 +110,6 @@ footer {
     margin: auto;
 }
 footer p {
-    color: gray;
     font-family: merriweather-sans;
-    margin: 0.5rem auto 0.5rem auto;
+    margin: 0.5rem;
 }
