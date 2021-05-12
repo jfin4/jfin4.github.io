@@ -90,8 +90,9 @@ h6 {
 }
 .date {
     font-family: merriweather-sans;
-    margin-top: 0rem;
-    text-align: center;
+    font-style: oblique;
+    margin: 2rem 0rem 0rem 0rem;
+    /* text-align: center; */
 }
 .highlight {
     /* font-size: 1.1rem; */
