@@ -51,7 +51,7 @@ header a.icon-title {
     display: flex;
 }
 header img {
-    height: 1rem;
+    height: 2rem;
     padding: 0rem 0.5rem 0rem 0rem;
 }
 hr {
@@ -59,7 +59,7 @@ hr {
     border: 0rem;
 }
 hr.top {
-    height: 0.3rem;
+    height: 0.05rem;
     margin: 0rem 0.5rem 1rem 0.5rem;
 }
 main {
@@ -103,13 +103,14 @@ hr.sep {
     width: 13rem;
 }
 hr.bottom {
-    height: 0.3rem;
+    height: 0.05rem;
     margin: 1rem 0.5rem 0rem 0.5rem;
 }
 footer {
     margin: auto;
 }
 footer p {
+    color: gray;
     font-family: merriweather-sans;
     margin: 0.5rem;
 }
