@@ -20,15 +20,16 @@ body {
     font-size: 18px;
     line-height: 1.5;
     margin: auto;
-    max-width: 650px;
+    max-width: 40rem;
     /* Declaring the width property is needed for IE11 to respect max-width */
     width: 100%;
     min-height: 100vh;
 }
 hr {
     background: black;
-    height: 1px;
     border: none;
+    height: 1px;
+    margin: 0 0.5rem 0 0.5rem;
 }
 html {
     /* This html block is needed to create an additional flex container. */
