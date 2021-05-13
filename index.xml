@@ -13,8 +13,12 @@
       <pubDate>Sat, 12 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://www.johninman.dev/posts/fog1/</guid>
-      <description>This series presents an hedonic analysis of fog in the city of Seaside, CA, near the Monterey Peninsula. Hedonic analysis is a method of estimating the value of something that does not have a price. The inspiration for this series was a school assignment I originally collaborated on with Winn McEnery. Part 1 focuses on creating a high-resolution (250 m) fog map using MODIS satellite from NASA.
-MODIS The Moderate Resolution Imaging Spectroradiometer (MODIS) is a remote sensing instrument that collects data about the Earth&amp;rsquo;s surface and atmosphere.</description>
+      <description>&lt;p&gt;This series presents an hedonic analysis of fog in the city of Seaside, CA,
+near the Monterey Peninsula. Hedonic analysis is a method of estimating the
+value of something that does not have a price. The inspiration for this series
+was a school assignment I originally collaborated on with Winn McEnery. Part 1
+focuses on creating a high-resolution (250 m) fog map using MODIS satellite
+from NASA.&lt;/p&gt;</description>
     </item>
     
     <item>
