@@ -5,7 +5,7 @@ and (orientation: portrait) {
         display: none;
     }
     .noreact {
-        margin: 0 0 0 auto;
+        margin-left: auto;
     }
 }
 a {
