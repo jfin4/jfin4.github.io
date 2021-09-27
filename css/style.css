@@ -9,12 +9,6 @@ a {
         padding: 0.5rem;
 }
 
-/* .icon { */
-/*         padding-bottom: 0.4rem; */
-/*         height: 1.2rem; */ 
-/*         padding-right: 0.5rem; */
-/* } */
-
 .portrait {
         border-radius: 50%;
         margin: auto;
@@ -24,8 +18,6 @@ a {
 body {
     -webkit-text-size-adjust: 100%;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
     font-family: sans-serif;
     font-size: 18px;
     line-height: 1.5;
@@ -33,24 +25,9 @@ body {
     max-width: 40rem;
     /* Declaring the width property is needed for IE11 to respect max-width */
     width: 100%;
-    min-height: 100vh;
-}
-
-html {
-    /* This html block is needed to create an additional flex container. */
-    /* Otherwise, IE11 does not respect the min-height proptery. */
-    display: flex;
-    flex-direction: column;
-}
-
-h1,
-h2,
-h3 {
-    font-weight: normal;
 }
 
 main {
-    flex: 1 0 auto;
     padding: 0 1rem;
 }
 
