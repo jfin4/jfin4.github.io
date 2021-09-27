@@ -1,16 +1,26 @@
-@media only screen
-and (max-width: 650px)
-and (orientation: portrait) {
-    .react {
-        display: none;
-    }
-    .noreact {
-        margin-left: auto;
-    }
-}
 a {
     text-decoration: none;
 }
+
+.header {
+        align-items: center; 
+        display: flex;
+        font-weight: bold;
+        padding: 0.5rem;
+}
+
+/* .icon { */
+/*         padding-bottom: 0.4rem; */
+/*         height: 1.2rem; */ 
+/*         padding-right: 0.5rem; */
+/* } */
+
+.portrait {
+        border-radius: 50%;
+        margin: auto;
+        display: block;
+}
+
 body {
     -webkit-text-size-adjust: 100%;
     box-sizing: border-box;
@@ -25,27 +35,25 @@ body {
     width: 100%;
     min-height: 100vh;
 }
-hr {
-    background: black;
-    border: none;
-    height: 1px;
-    margin: 0 0.5rem;
-}
+
 html {
     /* This html block is needed to create an additional flex container. */
     /* Otherwise, IE11 does not respect the min-height proptery. */
     display: flex;
     flex-direction: column;
 }
+
 h1,
 h2,
 h3 {
     font-weight: normal;
 }
+
 main {
     flex: 1 0 auto;
     padding: 0 1rem;
 }
+
 pre {
     /* for code chunks */
     overflow-x: auto;
