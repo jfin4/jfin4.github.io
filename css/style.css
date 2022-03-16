@@ -12,6 +12,7 @@ a {
 .portrait {
         border-radius: 50%;
         margin: auto;
+        width: 20rem;
         display: block;
 }
 
