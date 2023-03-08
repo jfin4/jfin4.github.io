@@ -36,24 +36,19 @@ h2,h3,h4,h5,h6 {
     font-weight: normal;
 }
 
-figure {
-    margin: 1rem;
-    max-width: 350px;
-}
-
-.left {
+.fig-left {
     margin: 1rem;
     max-width: 350px;
     float: left;
 }
 
-.right {
+.fig-right {
     margin: 1rem;
     max-width: 350px;
     float: right;
 }
 
-.center {
+.fig-center {
     margin: auto;
     max-width: 350px;
 }
