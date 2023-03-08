@@ -38,24 +38,24 @@ h2,h3,h4,h5,h6 {
 
 figure {
     margin: 1rem;
-    width: 350px;
+    max-width: 350px;
 }
 
 .left {
     margin: 1rem;
-    width: 350px;
+    max-width: 350px;
     float: left;
 }
 
 .right {
     margin: 1rem;
-    width: 350px;
+    max-width: 350px;
     float: right;
 }
 
 .center {
     margin: auto;
-    width: 350px;
+    max-width: 350px;
 }
 
 img {
