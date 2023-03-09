@@ -10,10 +10,11 @@
 
 @font-face {
     font-family: terminus;
-    src: url("/font/TerminusTTFWindows-4.47.0.ttf")
+    src: url("/font/TerminusTTF-4.49.2.ttf")
 }
 
 body {
+    /* keeps captions big when viewing in landscape */
     -webkit-text-size-adjust: 100%;
     box-sizing: border-box;
     font-family: roboto;
