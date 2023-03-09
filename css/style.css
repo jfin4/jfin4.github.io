@@ -8,7 +8,13 @@
     src: url("/font/Roboto-Medium.ttf");
 }
 
+@font-face {
+    font-family: terminus;
+    src: url("/font/TerminusTTFWindows-4.47.0.ttf")
+}
+
 body {
+    -webkit-text-size-adjust: 100%;
     box-sizing: border-box;
     font-family: roboto;
     font-size: 16px;
@@ -65,6 +71,7 @@ figcaption {
 
 pre {
     background: #f5f5f5;
+    font-family: terminus;
     overflow-x: auto;
     padding: 1rem;
 }
