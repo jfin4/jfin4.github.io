@@ -46,19 +46,18 @@ h2,h3,h4,h5,h6 {
 .fig-left {
     float: left;
     max-width: 350px;
-    padding: 0.5rem;
+    padding: 1rem;
 }
 
 .fig-right {
     float: right;
     max-width: 350px;
-    padding: 0.5rem;
+    padding: 1rem;
 }
 
 .fig-center {
     margin: auto;
     max-width: 350px;
-    padding: 0.5rem;
 }
 
 img {
