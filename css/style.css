@@ -45,20 +45,20 @@ h2,h3,h4,h5,h6 {
 
 .fig-left {
     float: left;
-    max-width: 350px;
+    max-width: 320px;
     padding: 8px 16px 8px 0px;
 }
 
 .fig-right {
     float: right;
-    max-width: 350px;
+    max-width: 320px;
     padding: 8px 0px 8px 16px;
 }
 
 .fig-center {
     margin: auto;
-    max-width: 350px;
-    padding: 8px 0px 8px 0rem;
+    max-width: 320px;
+    padding: 8px 0px 8px 0px;
 }
 
 img {
