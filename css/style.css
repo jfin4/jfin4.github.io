@@ -43,10 +43,10 @@ h2,h3,h4,h5,h6 {
     font-weight: normal;
 }
 
-/* figure { */
-/*     margin: 0px; */
-/*     padding: 8px 0px 8px 0px; */
-/* } */
+figure {
+    margin: 0px;
+    padding: 8px 0px 8px 0px;
+}
 
 .fig-left {
     float: left;
