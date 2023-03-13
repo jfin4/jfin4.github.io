@@ -43,6 +43,11 @@ h2,h3,h4,h5,h6 {
     font-weight: normal;
 }
 
+figure {
+    margin: 0px;
+    padding: 8px 16px 8px 16px;
+}
+
 .fig-left {
     float: left;
     max-width: 360px;
@@ -72,8 +77,12 @@ figcaption {
 
 pre {
     background: #f5f5f5;
-    font-family: roboto-mono;
-    font-size: 14px;
     overflow-x: auto;
     padding: 14px;
+}
+
+code {
+    background: #f5f5f5;
+    font-family: roboto-mono;
+    font-size: 14px;
 }

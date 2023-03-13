@@ -19,16 +19,65 @@
             <a href="/contact">Contact</a>
         </header>
         <main>
-            <h1 id="version-control-using-git">Version Control Using
+            <h1 id="version-control-with-git">Version Control With
             Git</h1>
-            <h2 id="advantages-of-version-control-software">Advantages
-            of Version Control Software</h2>
-            <p>Imagine not using version control software. How do you
-            safeguard against inadvertantly adding bugs to your code?
-            You make a copy, maybe with the date appended to the name,
-            and blaze ahead.</p>
-            <p>Can be hosted online Good for code review</p>
-            <p>ReLEPTON (ReLEP subaTOmic kNock-off)</p>
+            <h2 id="life-without-version-control">Life Without Version
+            Control</h2>
+            <p>The lone developer can get by without dedicated version
+            control software. When it comes time to change code, fix a
+            bug, or add a feature they can simply make a copy of the
+            project directory, append the date to the directory name of
+            the old version, and blaze ahead, admiring the
+            ever-lengthening stack of directories as the residue of
+            productivity.</p>
+            <p>This approach becomes problematic in a team setting. How
+            can Developer B be sure they are not steamrolling recent
+            changes made by Developer A? How can Developers A and B work
+            simultaneously in the same files without bumping into one
+            another? How can they efficiently inform their supervisor of
+            the changes they have made?</p>
+            <h2 id="version-control-is-for-teams">Version Control is for
+            Teams</h2>
+            <p>Version control software allows teams to develop code
+            harmoniously and efficiently. It tracks changes to the
+            codebase as they are made. If a bug is inadvertently
+            introduced then the code can be rolled back. Changelogs can
+            be quickly generated for supervisor review. Remote
+            repositories uploaded to the cloud allow users to always
+            have access to the most recent changes. Finally, branching
+            allows developers to work concurrently in the same codebase,
+            and to test experimental features before merging them back
+            into the main branch.</p>
+            <p>One of the most popular version control systems used
+            today is git, which tracks changes in a special database
+            called a repository. Though humble in name, its virtues are
+            many: it is free and open source, it is widely used and well
+            documented, it is distributed rather than centralized, it
+            tracks changes to text rather than making copies changed
+            files so its repositories are lightweight, and it supports
+            concurrent development through branching. It integrates with
+            many development environments (RStudio, VSCode, etc.) and is
+            supported by many websites that will host your repositories
+            for free (Github, Gitlab, Bitbucket, etc.). All this in
+            exchange for a moderately steep learning curve.</p>
+            <h2 id="git-demonstration-using-relepton">Git Demonstration
+            using ReLEPTON</h2>
+            <p>Let us examine git in action. Here I will demonstrate a
+            typical git workflow in which a stable codebase is given a
+            new feature. We do not want to go fiddling with the codebase
+            willy-nilly so we will create a new branch for development
+            and testing before merging the changes back into the main
+            branch in a three step process. A screencast of these steps
+            is shown in <a href="image/screencast.gif">Figure 2</a> at
+            the bottom of the page.</p>
+            <h3 id="step-0-current-codebase">Step 0: Current
+            Codebase</h3>
+            <p><a href="https://github.com/jfinmaniv/relepton">ReLEPTON
+            (ReLEP subaTOmic kNock-off)</a> is a fake water quality
+            analysis tool that processes a curated subset of CEDEN data
+            into a table of temperature exceedances for the lower
+            Salinas River. The codebase resides in the main branch of a
+            git repository. Here is the entire codebase:</p>
             <pre><code>data_import &lt;- read.csv(&quot;./data.csv&quot;) 
 data &lt;- within(data_import, date &lt;- as.Date(date))
 criteria &lt;- 21 # C°
@@ -41,8 +90,9 @@ loes_exceedances &lt;- aggregate(Temperature_C ~ Monitoring_Site,
                               FUN = \(x) sum(x &gt;= criteria))
 names(loes_exceedances) &lt;- c(&quot;Monitoring_Site&quot;, &quot;Exceedances&quot;)
 loes &lt;- merge(loes_exceedances, loes_total)
-# write.csv(loes, &quot;loes.csv&quot;)</code></pre>
-            <pre><code>loes
+# write.csv(loes, &quot;loes.csv&quot;)
+
+print(loes)
 #&gt;    Monitoring_Site Exceedances Total
 #&gt; 1     309-SALIN-32           0     5
 #&gt; 2     309-SALIN-33           0     5
@@ -58,6 +108,14 @@ loes &lt;- merge(loes_exceedances, loes_total)
 #&gt; 12          309SBR           9    56
 #&gt; 13          309SDD           9    38
 #&gt; 14          309SSP          48   164</code></pre>
+            <p>In addition to this elegant and useful table, Water Board
+            staff would like ReLEPTON to generate some sort of trend
+            analysis output, preferably with colors.</p>
+            <h3 id="step-1-create-development-branch">Step 1: Create
+            Development Branch</h3>
+            <p>A development branch can be created with
+            <code>git checkout -b trend-analysis</code> and the code can
+            be amended with the highlighted sections below:</p>
             <div class="sourceCode" id="hl"><pre
             class="sourceCode r"><code class="sourceCode r"><span id="hl-1"><a href="#hl-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="hl-2"><a href="#hl-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -103,19 +161,59 @@ loes &lt;- merge(loes_exceedances, loes_total)
             <style> #hl-28 { background-color: #dcdcdc; } </style>
             <style> #hl-29 { background-color: #dcdcdc; } </style>
             <style> #hl-30 { background-color: #dcdcdc; } </style></p>
+            <p>This additional code will generate a nice, some would say
+            stunning, plot showing temperature trends in the Lower
+            Salinas River over the past 21 years (Figure 1). Once you
+            have made your changes you can “commit” them with
+            <code>git commit -a -m "Added trend analysis feature"</code>.
+            Commits are the changes that git tracks and each commit
+            requires a message describing the changes. More detailed
+            messages are, of course, more useful.</p>
             <figure>
             <img src="image/graph.png"
-            alt="Trend analysis plot. What’s up with 309SDD?" />
-            <figcaption aria-hidden="true">Trend analysis plot. What’s
-            up with 309SDD?</figcaption>
+            alt="Figure 1. Temperature in the Lower Salinas River, 2000–2020. Data are grouped by monitoring station. What’s up with 309SDD?" />
+            <figcaption aria-hidden="true">Figure 1. Temperature in the
+            Lower Salinas River, 2000–2020. Data are grouped by
+            monitoring station. What’s up with 309SDD?</figcaption>
             </figure>
+            <h3 id="step-2-test-the-code">Step 2: Test the Code</h3>
+            <p>My original intention for this article was to talk about
+            automated testing, or unit testing, but I don’t know as much
+            about it. I think it is important, though, and would like to
+            learn more. In any case, new code should be thoroughly
+            tested before being merged back into the main branch.</p>
+            <h3 id="step-3-merge-main-and-development-branches">Step 3:
+            Merge Main and Development Branches</h3>
+            <p>Once you are confident that the added feature is, in
+            fact, a feature (and not a bug) you can merge the
+            development branch back into the main branch with
+            <code>git checkout main; git merge trend-analysis</code>. If
+            you have a remote repository hosted somewhere like Github
+            then you can push these changes to it with
+            <code>git push</code>. These changes can then be accessed by
+            any internet-connected person with <code>git pull</code> or,
+            in this case,
+            <code>git clone 'https://github.com/jfinmaniv/relepton</code>.</p>
+            <h2 id="summary">Summary</h2>
+            <p>Advantages of using git:</p>
+            <ul>
+            <li>Allows teams to work on the same code at the same
+            time</li>
+            <li>Tracks changes so code can be reverted if necessary</li>
+            <li>Allows for easy distribution of code</li>
+            <li>Simplifies summarizing changes for code review</li>
+            <li>Transferable, widely used skill</li>
+            </ul>
+            <p>Disadvantages of using git:</p>
+            <ul>
+            <li>Non-negligible learning curve</li>
+            </ul>
             <figure>
-            <img src="image/output.gif"
-            alt="Using git to create and merge a development branch. Open image in new tab to replay." />
-            <figcaption aria-hidden="true">Using git to create and merge
-            a development branch. Open image in new tab to <a
-            href="image/output.gif"
-            target="_blank">replay</a>.</figcaption>
+            <img src="image/screencast.gif"
+            alt="Figure 2. Using git to create a development branch and then merge it back into the main branch. Open image in new tab to replay." />
+            <figcaption aria-hidden="true">Figure 2. Using git to create
+            a development branch and then merge it back into the main
+            branch. Open image in new tab to replay.</figcaption>
             </figure>
         </main>
     </body>
