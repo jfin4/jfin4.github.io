@@ -41,8 +41,8 @@ Let us examine git in action. Here I will demonstrate a typical git workflow
 in which a stable codebase is given a new feature. We do not want to go
 fiddling with the codebase willy-nilly so we will create a new branch for
 development and testing before merging the changes back into the main branch
-in a three step process. A screencast of these steps is shown in [Figure
-2](image/screencast.gif) at the bottom of the page.
+in a three step process. A screencast of these steps can be found
+[here](image/screencast.gif).
 
 ### Step 0: Current Codebase
 
@@ -181,6 +181,3 @@ Advantages of using git:
 Disadvantages of using git:
 
 - Non-negligible learning curve
-
-![Figure 2. Using git to create a development branch and then merge it back
-into the main branch. Open image in new tab to replay.](image/screencast.gif)
