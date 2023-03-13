@@ -166,7 +166,7 @@ a bug) you can merge the development branch back into the main branch with
 hosted somewhere like Github then you can push these changes to it with `git
 push`. These changes can then be accessed by any internet-connected person
 with `git pull` or, in this case, `git clone
-'https://github.com/jfinmaniv/relepton`.
+'https://github.com/jfinmaniv/relepton'`.
 
 ## Summary
 
