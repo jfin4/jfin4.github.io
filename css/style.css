@@ -1,23 +1,23 @@
 @font-face {
-    font-family: roboto;
-    src: url("/font/Roboto-Regular.ttf");
+    font-family: regular;
+    src: url("/font/source-sans-3/static/SourceSans3-Regular.ttf");
 }
 
 @font-face {
-    font-family: roboto-medium;
-    src: url("/font/Roboto-Medium.ttf");
+    font-family: medium;
+    src: url("/font/source-sans-3/static/SourceSans3-Medium.ttf");
 }
 
 @font-face {
-    font-family: roboto-mono;
-    src: url("/font/RobotoMono-Regular.ttf")
+    font-family: mono;
+    src: url("/font/source-code-pro/static/SourceCodePro-Regular.ttf")
 }
 
 body {
     /* keeps captions big when viewing in landscape */
     -webkit-text-size-adjust: 100%;
     box-sizing: border-box;
-    font-family: roboto;
+    font-family: regular;
     font-size: 16px;
     hyphens: auto;
     line-height: 1.5;
@@ -28,19 +28,24 @@ body {
 
 a {
     color: #666666;
-    font-family: roboto-medium;
+    font-family: medium;
     text-decoration: none;
 }
 
 h1 {
-    font-family: roboto-medium;
+    font-family: medium;
     font-weight: normal;
     text-align: center;
 }
 
 h2,h3,h4,h5,h6 {
-    font-family: roboto-medium;
+    font-family: medium;
     font-weight: normal;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
 }
 
 figure {
@@ -71,7 +76,7 @@ img {
 }
 
 figcaption {
-    font-family: roboto-medium;
+    font-family: medium;
     font-size: 14px;
 }
 
@@ -83,6 +88,6 @@ pre {
 
 code {
     background: #f5f5f5;
-    font-family: roboto-mono;
+    font-family: mono;
     font-size: 14px;
 }
