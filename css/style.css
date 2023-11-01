@@ -45,7 +45,7 @@ h2,h3,h4,h5,h6 {
     font-weight: normal;
 }
 
-.header {
+header {
     display: flex;
     justify-content: space-between;
 }
@@ -71,6 +71,15 @@ figure {
     margin: auto;
     max-width: 360px;
     padding: 8px 0px 8px 0px;
+}
+
+
+.circular-image {
+    border-radius: 50%;
+}
+
+.center-text {
+    text-align: center;
 }
 
 img {
