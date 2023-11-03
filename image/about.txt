@@ -1,7 +1,12 @@
-https://favicon.io/favicon-generator/
-This favicon was generated using the following font:
+2023-11-03
 
-- Font Title: Roboto
-- Font Author: Copyright 2011 Google Inc. All Rights Reserved.
-- Font Source: http://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf
-- Font License: Apache License, version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html))
+https://www.prepostseo.com/favicon-generator
+font source sans pro
+size 140
+
+2023-11-02
+
+https://favicon.io/favicon-generator/
+font roboto
+size 110
+
