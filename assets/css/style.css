@@ -1,0 +1,77 @@
+@font-face {
+    font-family: regular;
+    src: url("/assets/font/source-sans-3/static/SourceSans3-Regular.ttf");
+}
+
+@font-face {
+    font-family: medium;
+    src: url("/assets/font/source-sans-3/static/SourceSans3-Medium.ttf");
+}
+
+@font-face {
+    font-family: mono;
+    src: url("/assets/font/source-code-pro/static/SourceCodePro-Regular.ttf")
+}
+
+body {
+    /* keeps captions big when viewing in landscape */
+    -webkit-text-size-adjust: 100%;
+    background: white;
+    box-sizing: border-box;
+    color: black;
+    font-family: regular;
+    font-size: 16px;
+    hyphens: auto;
+    line-height: 1.5;
+    margin: auto;
+    max-width: 640px;
+    padding: 16px;
+}
+
+a {
+    color: steelblue;
+    font-family: medium;
+    text-decoration: none;
+}
+
+a:visited {
+    color: slateblue;
+}
+
+h1 {
+    text-align: center;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: medium;
+    font-weight: normal;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+img {
+  display: block; /* Makes the image a block element */
+  height: auto; /* Keeps the image aspect ratio */
+  margin: 0 auto; /* Auto margin on left and right for center alignment */
+}
+
+figcaption {
+    font-family: medium;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* utilities */
+
+/* site-wide */
+
+/* contact page */
+
+.portrait {
+  border-radius: 50%; /* Adjusts the roundness of corners */
+  max-width: 360px; /* Ensures image fits on small screen */
+}
+
