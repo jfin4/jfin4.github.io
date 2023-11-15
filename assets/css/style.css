@@ -14,8 +14,7 @@
 }
 
 body {
-    /* keeps captions big when viewing in landscape */
-    -webkit-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%; /* maintain caption size in landscape */
     background: white;
     box-sizing: border-box;
     color: black;
@@ -54,24 +53,28 @@ header {
 
 img {
   display: block; /* Makes the image a block element */
-  height: auto; /* Keeps the image aspect ratio */
-  margin: 0 auto; /* Auto margin on left and right for center alignment */
+  margin: auto; /* Auto margin on left and right for center alignment */
+}
+
+figure {
+  margin: auto;
 }
 
 figcaption {
     font-family: medium;
     font-size: 14px;
-    text-align: center;
 }
 
 /* utilities */
+.circular {
+  border-radius: 50%; /* Adjusts the roundness of corners */
+}
+
+.half-width {
+  max-width: 320px; /* Ensures image fits on small screen */
+}
 
 /* site-wide */
 
 /* contact page */
-
-.portrait {
-  border-radius: 50%; /* Adjusts the roundness of corners */
-  max-width: 360px; /* Ensures image fits on small screen */
-}
 
