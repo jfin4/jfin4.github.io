@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>John Inman</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/icons/site.webmanifest">
+  </head>
+  <body>
+    <header>
+      <div><a href="/">John Inman</a></div>
+      <div><a href="/contact">Contact</a></div>
+    </header>
+    <main>
+      <figure class="half-width">
+        <img class="circular" src="/contact/images/johninman.jpg" alt="Picture of John Inman." />
+        <figcaption>
+          Hi, I’m John. I work as an environmental scientist.
+        </figcaption>
+      </figure>
+      <p> Email: <a href="mailto:john@johninman.dev">john@johninman.dev</a></p>
+    </main>
+  </body>
+</html>

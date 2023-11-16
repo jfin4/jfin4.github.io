@@ -1,16 +1,16 @@
 @font-face {
     font-family: regular;
-    src: url("/assets/font/source-sans-3/static/SourceSans3-Regular.ttf");
+    src: url("/assets/fonts/source-sans-3/static/SourceSans3-Regular.ttf");
 }
 
 @font-face {
     font-family: medium;
-    src: url("/assets/font/source-sans-3/static/SourceSans3-Medium.ttf");
+    src: url("/assets/fonts/source-sans-3/static/SourceSans3-Medium.ttf");
 }
 
 @font-face {
     font-family: mono;
-    src: url("/assets/font/source-code-pro/static/SourceCodePro-Regular.ttf")
+    src: url("/assets/fonts/source-code-pro/static/SourceCodePro-Regular.ttf")
 }
 
 body {
@@ -49,6 +49,7 @@ h1,h2,h3,h4,h5,h6 {
 header {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 80px;
 }
 
 img {
@@ -72,6 +73,10 @@ figcaption {
 
 .half-width {
   max-width: 320px; /* Ensures image fits on small screen */
+}
+
+.centered {
+    margin: auto;
 }
 
 /* site-wide */

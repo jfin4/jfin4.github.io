@@ -1,3 +1,14 @@
+#!/bin/sh
+
+# File paths
+md_content_file="$1"
+output_file="${1%content.md}index.html"
+
+
+# convert md contenct to html
+html_content=$(pandoc $md_content_file)
+
+cat << EOF > "$output_file"
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,15 +27,12 @@
             <div><a href="/contact">Contact</a></div>
         </header>
         <main>
-            <div class="centered half-width">
-<figure>
-<img src="images/johninman.jpg" class="circular"
-alt="Hi, I’m John. I work as an environmental scientist." />
-<figcaption aria-hidden="true">Hi, I’m John. I work as an environmental
-scientist.</figcaption>
-</figure>
-</div>
-<p>Email: <a href="mailto:john@johninman.dev">john@johninman.dev</a></p> 
+            $html_content 
         </main>
     </body>
 </html>
+EOF
+
+
+
+
