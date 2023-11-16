@@ -2,7 +2,7 @@
 
 # File paths
 md_content_file="$1"
-output_file="${1%content.md}index.html"
+output_file="${1%/*}/index.html"
 
 
 # convert md contenct to html
@@ -24,7 +24,7 @@ cat << EOF > "$output_file"
     <body>
         <header> 
             <div><a href="/">John Inman</a></div>
-            <div><a href="/contact">Contact</a></div>
+            <div><a href="/pages/contact">Contact</a></div>
         </header>
         <main>
             $html_content 
