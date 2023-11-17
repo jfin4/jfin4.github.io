@@ -37,10 +37,6 @@ a:visited {
     color: slateblue;
 }
 
-h1 {
-    text-align: center;
-}
-
 h1,h2,h3,h4,h5,h6 {
     font-family: medium;
     font-weight: normal;
@@ -49,7 +45,7 @@ h1,h2,h3,h4,h5,h6 {
 header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 80px;
+    margin-bottom: 32px;
 }
 
 img {
@@ -63,23 +59,52 @@ figure {
 
 figcaption {
     font-family: medium;
+    font-size: 15px;
+}
+
+pre {
+    background: whitesmoke;
+    border-radius: 14px;
+    overflow: auto;
+    padding: 14px;
+}
+
+code {
+    background: whitesmoke;
+    border-radius: 7px;
     font-size: 14px;
+    padding: 0 7px;
+}
+
+pre code {
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
 }
 
 /* utilities */
-.circular {
+.circular-image {
   border-radius: 50%; /* Adjusts the roundness of corners */
 }
 
-.half-width {
+.half-width-block {
   max-width: 320px; /* Ensures image fits on small screen */
 }
 
-.centered {
-    margin: auto;
+/* site-wide */
+.title {
+    margin-bottom: 0;
 }
 
-/* site-wide */
+.date {
+    font-size: 14px;
+    color: gray;
+}
+
+.date p {
+    margin-top: 0;
+}
+
 
 /* contact page */
 
