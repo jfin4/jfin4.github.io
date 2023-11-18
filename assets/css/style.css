@@ -9,7 +9,7 @@
 }
 
 html {
-    -webkit-text-size-adjust: 100%; /* maintain caption size in landscape */
+    /* -webkit-text-size-adjust: 100%; /1* maintain caption size in landscape *1/ */
     background: white;
     box-sizing: border-box;
     color: black;
