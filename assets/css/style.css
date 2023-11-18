@@ -20,7 +20,7 @@ html {
 
 body {
     /* hyphens: auto; */
-    /* -webkit-text-size-adjust: 100%; /1* maintain caption size in landscape *1/ */
+    -webkit-text-size-adjust: 100%; /* maintain caption size in landscape */
     background: white;
     box-sizing: border-box;
     color: black;
