@@ -10,7 +10,7 @@
 
 @media (max-width: 600px) {
     html {
-        font-size: 20px; /* Larger font size for screens smaller than 600px */
+        font-size: 50px; /* Larger font size for screens smaller than 600px */
     }
 }
 
