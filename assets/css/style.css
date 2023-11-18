@@ -12,7 +12,7 @@ html {
     font-size: 16px;
 }
 
-@media (resolution >= 2dppx) {
+@media (min-resolution: 2dppx) {
     html { /* must be after html above */
         font-size: 20px; /* Larger font size for screens smaller than 600px */
     }
