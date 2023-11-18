@@ -12,7 +12,7 @@ html {
     font-size: 16px;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 700px) {
     html { /* must be after html above */
         font-size: 20px; /* Larger font size for screens smaller than 600px */
     }
@@ -27,6 +27,8 @@ body {
     margin: auto;
     max-width: 40rem;
     padding: 1rem;
+    -webkit-text-size-adjust: none; /* maintain caption size in landscape */
+    text-size-adjust: none; 
 }
 
 a {
