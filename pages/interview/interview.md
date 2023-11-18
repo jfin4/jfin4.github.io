@@ -1,4 +1,8 @@
+:::{.title-block}
 # Version Control With Git
+
+December 31, 2022
+:::
 
 ## Life Without Version Control
 
@@ -92,7 +96,7 @@ colors.
 ### Step 1: Create Development Branch
 
 A development branch can be created with `git checkout -b trend-analysis` and
-the code can be amended with the highlighted sections below: 
+the code can be amended as shown below: 
 
 ```{.r #hl}
 library(tidyverse)
@@ -126,20 +130,6 @@ graph <-
 # graph
 # dev.off()
 ```
-`<style> #hl-1  { background-color: #dcdcdc; } </style>`{=html}
-`<style> #hl-18 { background-color: #dcdcdc; } </style>`{=html}
-`<style> #hl-19 { background-color: #dcdcdc; } </style>`{=html}
-`<style> #hl-20 { background-color: #dcdcdc; } </style>`{=html}
-`<style> #hl-21 { background-color: #dcdcdc; } </style>`{=html}
-`<style> #hl-22 { background-color: #dcdcdc; } </style>`{=html}
-`<style> #hl-23 { background-color: #dcdcdc; } </style>`{=html}
-`<style> #hl-24 { background-color: #dcdcdc; } </style>`{=html}
-`<style> #hl-25 { background-color: #dcdcdc; } </style>`{=html}
-`<style> #hl-26 { background-color: #dcdcdc; } </style>`{=html}
-`<style> #hl-27 { background-color: #dcdcdc; } </style>`{=html}
-`<style> #hl-28 { background-color: #dcdcdc; } </style>`{=html}
-`<style> #hl-29 { background-color: #dcdcdc; } </style>`{=html}
-`<style> #hl-30 { background-color: #dcdcdc; } </style>`{=html}
 
 This additional code will generate a nice, some would say stunning, plot
 showing temperature trends in the Lower Salinas River over the past 21 years

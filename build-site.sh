@@ -30,29 +30,37 @@ inject_template() {
 add_index_entry() {
 	read -r -d '' index <<- EOF 
 		$index
-		<p><a href="$1">$2</a><br />
-		<span class="date">$3</span></p>
+		<p class="index-entry"><a href="$1">$2</a><br />
+		<span>$3</span></p>
 	EOF
 }
 
 # process posts 
-for markdown_file in posts/*/*.md; do
+for markdown_file in $(ls -r posts/*/*.md); do
 	
-	# add index entries
-	markdown_content=$(< "$markdown_file")
-	path=${markdown_file%/*}
-	date=${markdown_content%$'\n':::*} # $'\n' is newline character
-	date=${date##*\}$'\n'} 
-	title=${markdown_content%% {*} 
-	title=${title#* } 
-	add_index_entry "$path" "$title" "$date"
-
 	# convert markdown 
-	html_file="${markdown_file%/*}/index.html"
+	dir=${markdown_file%/*}
+	html_file="$dir/index.html"
+	title=$(sed --quiet '2p;2q' "$markdown_file" | cut --characters=3-)
 	if [ "$markdown_file" -nt "$html_file" ]; then
+		echo building "$html_file"
 		html_content=$(pandoc "$markdown_file")
 		inject_template "$html_file" "$title" "$html_content"
 	fi
+	
+	# check folder date against article date
+	article_date=$(sed --quiet '4p;4q' "$markdown_file")
+	article_date_ymd=$(date -d "$article_date" +'%Y-%m-%d')
+	tail_dir=${dir##*/}
+	if [ "$article_date_ymd" != "$tail_dir" ]; then
+		echo moving "$dir" to posts/"$article_date_ymd"
+		echo rerun script to reorder index
+		mv posts/"$tail_dir" posts/"$article_date_ymd"
+		dir=posts/"$article_date_ymd"
+	fi
+
+	# add index entry
+	add_index_entry "$dir" "$title" "$article_date"
 
 done 
 

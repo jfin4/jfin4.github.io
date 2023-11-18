@@ -13,18 +13,21 @@
     src: url("/assets/fonts/source-code-pro/static/SourceCodePro-Regular.ttf")
 }
 
-body {
+html {
     -webkit-text-size-adjust: 100%; /* maintain caption size in landscape */
     background: white;
     box-sizing: border-box;
     color: black;
     font-family: regular;
     font-size: 16px;
-    hyphens: auto;
+    /* hyphens: auto; */
     line-height: 1.5;
+}
+
+body {
     margin: auto;
-    max-width: 640px;
-    padding: 16px;
+    max-width: 38rem;
+    padding: 1rem;
 }
 
 a {
@@ -37,6 +40,10 @@ a:visited {
     color: slateblue;
 }
 
+h1 {
+    font-size: 2rem; /* so h1 in sections aren't smaller */
+}
+
 h1,h2,h3,h4,h5,h6 {
     font-family: medium;
     font-weight: normal;
@@ -45,12 +52,13 @@ h1,h2,h3,h4,h5,h6 {
 header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 32px;
+    margin-bottom: 2rem;
 }
 
 img {
   display: block; /* Makes the image a block element */
   margin: auto; /* Auto margin on left and right for center alignment */
+  max-width: 100%;
 }
 
 figure {
@@ -59,52 +67,59 @@ figure {
 
 figcaption {
     font-family: medium;
-    font-size: 15px;
+    font-size: 0.95rem;
+    padding-left: 1rem;
 }
 
 pre {
     background: whitesmoke;
-    border-radius: 14px;
+    border-radius: 0.4rem;
     overflow: auto;
-    padding: 14px;
+    padding: 0 0.4rem;
 }
 
 code {
     background: whitesmoke;
-    border-radius: 7px;
-    font-size: 14px;
-    padding: 0 7px;
+    border-radius: 0.4rem;
+    font-size: 0.80rem;
+    padding: 0 0.4rem;
 }
 
 pre code {
-    background: transparent;
-    border-radius: 0;
     padding: 0;
 }
 
 /* utilities */
-.circular-image {
-  border-radius: 50%; /* Adjusts the roundness of corners */
-}
-
-.half-width-block {
-  max-width: 320px; /* Ensures image fits on small screen */
-}
 
 /* site-wide */
-.title {
-    margin-bottom: 0;
+
+/* home page */
+.index-entry {
+    span { /* date */
+        font-size: 0.85rem;
+        color: gray;
+    }
 }
 
-.date {
-    font-size: 14px;
-    color: gray;
+/* posts */
+.title-block {
+    h1 { /* title */
+        margin-bottom: 0;
+    }
+    p { /* date */
+        margin-top: 0;
+        font-size: 0.85rem;
+        color: gray;
+    }
 }
-
-.date p {
-    margin-top: 0;
-}
-
 
 /* contact page */
+.profile-picture {
+    figure {
+        max-width: 50%; /* Ensures image fits on small screen */
+    }
+    img {
+        border-radius: 50%; /* Adjusts the roundness of corners */
+    }
+}
 
