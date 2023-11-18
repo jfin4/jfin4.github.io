@@ -27,8 +27,6 @@ body {
     margin: auto;
     max-width: 40rem;
     padding: 1rem;
-    -webkit-text-size-adjust: none; /* maintain caption size in landscape */
-    text-size-adjust: none; 
 }
 
 a {
