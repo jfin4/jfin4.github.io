@@ -4,11 +4,6 @@
 }
 
 @font-face {
-    font-family: medium;
-    src: url("/assets/fonts/source-sans-3/static/SourceSans3-Medium.ttf");
-}
-
-@font-face {
     font-family: mono;
     src: url("/assets/fonts/source-code-pro/static/SourceCodePro-Regular.ttf")
 }
@@ -32,7 +27,6 @@ body {
 
 a {
     color: steelblue;
-    font-family: medium;
     text-decoration: none;
 }
 
@@ -45,7 +39,7 @@ h1 {
 }
 
 h1,h2,h3,h4,h5,h6 {
-    font-family: medium;
+    font-family: regular;
     font-weight: normal;
 }
 
@@ -62,26 +56,25 @@ img {
 }
 
 figure {
-  margin: auto;
+  margin: 2rem auto;
 }
 
 figcaption {
-    font-family: medium;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
 }
 
 pre {
     background: whitesmoke;
-    border-radius: 0.4rem;
+    border-radius: 0.5rem;
     overflow: auto;
-    padding: 0 0.4rem;
+    padding: 0 0.5rem;
 }
 
 code {
     background: whitesmoke;
-    border-radius: 0.4rem;
+    border-radius: 0.5rem;
     font-size: 0.80rem;
-    padding: 0 0.4rem;
+    padding: 0 0.5rem;
 }
 
 pre code {

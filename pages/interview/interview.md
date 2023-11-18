@@ -46,7 +46,7 @@ in which a stable codebase is given a new feature. We do not want to go
 fiddling with the codebase willy-nilly so we will create a new branch for
 development and testing before merging the changes back into the main branch
 in a three step process. A screencast of these steps can be found
-[here](image/screencast.gif).
+[here](images/screencast.gif).
 
 ### Step 0: Current Codebase
 
@@ -139,7 +139,7 @@ tracks and each commit requires a message describing the changes. More
 detailed messages are, of course, more useful.
 
 ![Figure 1. Temperature in the Lower Salinas River, 2000--2020. Data are
-grouped by monitoring station. What's up with 309SDD?](image/graph.png)
+grouped by monitoring station. What's up with 309SDD?](images/graph.png)
 
 ### Step 2: Test the Code
 
