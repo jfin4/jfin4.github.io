@@ -39,7 +39,7 @@ a:visited {
 }
 
 h1 {
-    font-size: 2em; /* so h1 in sections aren't smaller */
+    font-size: 2rem; /* so h1 in sections aren't smaller */
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -64,7 +64,7 @@ figure {
 }
 
 figcaption {
-    font-size: 0.85em;
+    font-size: 0.85rem;
 }
 
 pre {
@@ -76,9 +76,9 @@ pre {
 
 code {
     background: whitesmoke;
-    border-radius: 0.5em;
-    font-size: 0.80em;
-    padding: 0 0.5em;
+    border-radius: 0.5rem;
+    font-size: 0.80rem;
+    padding: 0 0.5rem;
 }
 
 pre code {
@@ -92,7 +92,7 @@ pre code {
 /* home page */
 .index-entry {
     & span { /* date */
-        font-size: 0.85em;
+        font-size: 0.85rem;
         color: gray;
     }
 }
@@ -104,7 +104,7 @@ pre code {
     }
     & p { /* date */
         margin-top: 0;
-        font-size: 0.85em;
+        font-size: 0.85rem;
         color: gray;
     }
 }
@@ -112,7 +112,7 @@ pre code {
 /* contact page */
 .profile-picture {
     & figure {
-        max-width: 50%; /* Ensures image fits on small screen */
+        max-width: 320px; /* Ensures image fits on small screen */
     }
     & img {
         border-radius: 50%; /* Adjusts the roundness of corners */
