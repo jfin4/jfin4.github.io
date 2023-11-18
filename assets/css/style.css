@@ -8,26 +8,26 @@
     src: url("/assets/fonts/source-code-pro/static/SourceCodePro-Regular.ttf")
 }
 
-html {
-    font-size: 16px; /* set in root for rem */
-}
-
 @media (max-width: 600px) {
     html {
         font-size: 18px; /* Larger font size for screens smaller than 600px */
     }
 }
 
+html {
+    font-size: 16px; /* set in root for rem */
+}
+
 body {
-    /* -webkit-text-size-adjust: 100%; /1* maintain caption size in landscape *1/ */
     /* hyphens: auto; */
+    -webkit-text-size-adjust: 100%; /* maintain caption size in landscape */
     background: white;
     box-sizing: border-box;
     color: black;
     font-family: regular;
     line-height: 1.5;
     margin: auto;
-    max-width: 38rem;
+    max-width: 40rem;
     padding: 1rem;
 }
 
