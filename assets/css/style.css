@@ -8,19 +8,20 @@
     src: url("/assets/fonts/source-code-pro/static/SourceCodePro-Regular.ttf")
 }
 
-@media (max-width: 600px) {
+html {
+    font-size: 16px;
+}
+
+@media screen only (max-width: 600px) {
     html {
-        font-size: 50px; /* Larger font size for screens smaller than 600px */
+        font-size: 20px; /* Larger font size for screens smaller than 600px */
     }
 }
 
-html {
-    font-size: 16px; /* set in root for rem */
-}
 
 body {
     /* hyphens: auto; */
-    -webkit-text-size-adjust: 100%; /* maintain caption size in landscape */
+    /* -webkit-text-size-adjust: 100%; /1* maintain caption size in landscape *1/ */
     background: white;
     box-sizing: border-box;
     color: black;
@@ -41,7 +42,7 @@ a:visited {
 }
 
 h1 {
-    font-size: 2rem; /* so h1 in sections aren't smaller */
+    font-size: 2em; /* so h1 in sections aren't smaller */
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -66,7 +67,7 @@ figure {
 }
 
 figcaption {
-    font-size: 0.85rem;
+    font-size: 0.85em;
 }
 
 pre {
@@ -78,9 +79,9 @@ pre {
 
 code {
     background: whitesmoke;
-    border-radius: 0.5rem;
-    font-size: 0.80rem;
-    padding: 0 0.5rem;
+    border-radius: 0.5em;
+    font-size: 0.80em;
+    padding: 0 0.5em;
 }
 
 pre code {
@@ -94,7 +95,7 @@ pre code {
 /* home page */
 .index-entry {
     & span { /* date */
-        font-size: 0.85rem;
+        font-size: 0.85em;
         color: gray;
     }
 }
@@ -106,7 +107,7 @@ pre code {
     }
     & p { /* date */
         margin-top: 0;
-        font-size: 0.85rem;
+        font-size: 0.85em;
         color: gray;
     }
 }
