@@ -87,7 +87,7 @@ pre code {
 
 /* home page */
 .index-entry {
-    span { /* date */
+    & span { /* date */
         font-size: 0.85rem;
         color: gray;
     }
@@ -95,10 +95,10 @@ pre code {
 
 /* posts */
 .title-block {
-    h1 { /* title */
+    & h1 { /* title */
         margin-bottom: 0;
     }
-    p { /* date */
+    & p { /* date */
         margin-top: 0;
         font-size: 0.85rem;
         color: gray;
@@ -107,10 +107,10 @@ pre code {
 
 /* contact page */
 .profile-picture {
-    figure {
+    & figure {
         max-width: 50%; /* Ensures image fits on small screen */
     }
-    img {
+    & img {
         border-radius: 50%; /* Adjusts the roundness of corners */
     }
 }
