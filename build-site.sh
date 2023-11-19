@@ -31,37 +31,29 @@ add_index_entry() {
 	read -r -d '' index <<- EOF 
 		$index
 		<div class="index-entry">
-			<p><a href="$1">$2<br />
-			<span>$3</span></a></p>
+			<p><a href="$dir">$title<br />
+			<span>$article_date</span></a></p>
 		</div>
 	EOF
 }
 
-# process contact page
-markdown_file="pages/contact/contact.md"
-dir=${markdown_file%/*}
-html_file="$dir/index.html"
-if [ "$markdown_file" -nt "$html_file" ]; then
-	echo building "$html_file"
-	html_content=$(pandoc "$markdown_file")
-	inject_template "$html_file" "Contact" "$html_content"
-fi
-
-# process posts 
-for markdown_file in $(ls -r posts/*/*.md); do
-	
-	# convert markdown 
+make_vars() {
+	markdown_file="$1"
 	dir=${markdown_file%/*}
-	html_file="$dir/index.html"
 	title=$(sed --quiet '2p;2q' "$markdown_file" | cut --characters=3-)
+	article_date=$(sed --quiet '4p;4q' "$markdown_file" | sed -e 's/ (.*//')
+}
+
+convert_markdown() {
+	html_file="$dir/index.html"
 	if [ "$markdown_file" -nt "$html_file" ]; then
 		echo building "$html_file"
 		html_content=$(pandoc "$markdown_file")
 		inject_template "$html_file" "$title" "$html_content"
 	fi
-	
-	# check folder date against article date
-	article_date=$(sed --quiet '4p;4q' "$markdown_file")
+}
+
+check_date() {
 	article_date_ymd=$(date -d "$article_date" +'%Y-%m-%d')
 	tail_dir=${dir##*/}
 	if [ "$article_date_ymd" != "$tail_dir" ]; then
@@ -70,10 +62,18 @@ for markdown_file in $(ls -r posts/*/*.md); do
 		mv posts/"$tail_dir" posts/"$article_date_ymd"
 		dir=posts/"$article_date_ymd"
 	fi
+}
 
-	# add index entry
-	add_index_entry "$dir" "$title" "$article_date"
+# process contact page
+make_vars pages/contact/contact.md
+convert_markdown 
 
+# process posts 
+for markdown_file in $(ls -r posts/*/*.md); do
+	make_vars "$markdown_file"
+	convert_markdown 
+	check_date
+	add_index_entry
 done 
 
 # create index
