@@ -40,6 +40,14 @@ add_index_entry() {
 make_vars() {
 	markdown_file="$1"
 	dir=${markdown_file%/*}
+	# title block structure:
+	#
+	# 	::: title-block
+	# 	# title
+	#
+	# 	date (updated)
+	# 	:::
+	#
 	title=$(sed --quiet '2p;2q' "$markdown_file" | cut --characters=3-)
 	article_date=$(sed --quiet '4p;4q' "$markdown_file" | sed -e 's/ (.*//')
 }
