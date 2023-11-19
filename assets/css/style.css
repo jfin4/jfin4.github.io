@@ -14,7 +14,7 @@ body {
     font-family: regular;
     line-height: 1.5;
     margin: auto;
-    max-width: 38rem; /* 78 monospace characters with sourcecode pro at 0.80rem */
+    max-width: 32rem; /* 78 monospace characters with sourcecode pro at 0.80rem */
     padding: 1rem;
     -webkit-text-size-adjust: none; /* maintain caption size in landscape */
     text-size-adjust: none; 
@@ -82,7 +82,7 @@ pre code {
         color: gray;
     }
     & a:visited {
-        color:  #8fb4d3;
+        color:  #8fb4d3; /* lighten steelblue 40% */
     }
 }
 
@@ -101,7 +101,7 @@ pre code {
 /* contact page */
 .profile-picture {
     & figure {
-        max-width: 19rem; /* don't want my face too big */
+        max-width: 16rem; /* don't want my face too big */
     }
     & img {
         border-radius: 50%; /* Adjusts the roundness of corners */
