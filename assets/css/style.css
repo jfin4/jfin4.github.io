@@ -50,7 +50,7 @@ figure {
 }
 
 figcaption {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 }
 
 pre {
@@ -77,13 +77,17 @@ pre code {
 
 /* home page */
 .index-entry {
-    & span { /* date */
-        font-size: 0.85rem;
-        color: gray;
-    }
-    & a:visited {
-        color:  #8fb4d3; /* lighten steelblue 40% */
-    }
+	& a:visited {
+		color:  #8fb4d3; /* lighten steelblue 40% */
+		& span { /* date */
+			font-size: 0.8rem;
+			color: #b1b1b1; /* lightened steelblue desaturated */
+		}
+	}
+	& span { /* date */
+		font-size: 0.8rem;
+		color: #7d7d7d; /* steelblue desaturated */
+	}
 }
 
 /* posts */
@@ -93,16 +97,14 @@ pre code {
     }
     & p { /* date */
         margin-top: 0;
-        font-size: 0.85rem;
-        color: gray;
+        font-size: 0.8rem;
     }
 }
 
 /* contact page */
 .profile-picture {
-    & figure {
-        max-width: 16rem; /* don't want my face too big */
-    }
+	max-width: 16rem; /* don't want my face too big */
+	margin: 2rem auto;
     & img {
         border-radius: 50%; /* Adjusts the roundness of corners */
     }

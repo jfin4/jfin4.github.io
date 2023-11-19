@@ -1,4 +1,4 @@
-:::{.title-block}
+::: title-block
 # Version Control With Git
 
 March 12, 2023

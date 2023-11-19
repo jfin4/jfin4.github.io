@@ -30,10 +30,20 @@ inject_template() {
 add_index_entry() {
 	read -r -d '' index <<- EOF 
 		$index
-		<p class="index-entry"><a href="$1">$2</a><br />
-		<span>$3</span></p>
+		<p class="index-entry"><a href="$1">$2<br />
+		<span>$3</span></a></p>
 	EOF
 }
+
+# process contact page
+markdown_file="pages/contact/contact.md"
+dir=${markdown_file%/*}
+html_file="$dir/index.html"
+if [ "$markdown_file" -nt "$html_file" ]; then
+	echo building "$html_file"
+	html_content=$(pandoc "$markdown_file")
+	inject_template "$html_file" "Contact" "$html_content"
+fi
 
 # process posts 
 for markdown_file in $(ls -r posts/*/*.md); do
@@ -66,3 +76,4 @@ done
 
 # create index
 inject_template index.html "John Inman" "$index"
+
