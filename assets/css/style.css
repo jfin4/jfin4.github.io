@@ -9,9 +9,7 @@
 }
 
 body {
-    /* font-size: clamp(1rem, 1vw, 2rem); */
     background: white;
-    /* box-sizing: border-box; */
     color: black;
     font-family: regular;
     line-height: 1.5;
@@ -36,7 +34,6 @@ h1 {
 }
 
 h1,h2,h3,h4,h5,h6 {
-    font-family: regular;
     font-weight: normal;
 }
 
@@ -105,7 +102,7 @@ pre code {
 /* contact page */
 .profile-picture {
     & figure {
-        max-width: 320px; /* Ensures image fits on small screen */
+        max-width: 19rem; /* don't want my face too big */
     }
     & img {
         border-radius: 50%; /* Adjusts the roundness of corners */
