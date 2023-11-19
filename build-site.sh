@@ -30,8 +30,10 @@ inject_template() {
 add_index_entry() {
 	read -r -d '' index <<- EOF 
 		$index
-		<p class="index-entry"><a href="$1">$2<br />
-		<span>$3</span></a></p>
+		<div class="index-entry">
+			<p><a href="$1">$2<br />
+			<span>$3</span></a></p>
+		</div>
 	EOF
 }
 

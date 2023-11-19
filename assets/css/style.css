@@ -77,16 +77,16 @@ pre code {
 
 /* home page */
 .index-entry {
-	& a:visited {
-		color:  #8fb4d3; /* lighten steelblue 40% */
-		& span { /* date */
-			font-size: 0.8rem;
-			color: #b1b1b1; /* lightened steelblue desaturated */
-		}
-	}
 	& span { /* date */
 		font-size: 0.8rem;
 		color: #7d7d7d; /* steelblue desaturated */
+	}
+	& a:visited {
+		color:  #8fb4d3; /* lighten steelblue 40% */
+		& span { 
+			font-size: 0.8rem;
+			color: #b1b1b1; /* lighten #7d7d7d 40% */
+		}
 	}
 }
 
