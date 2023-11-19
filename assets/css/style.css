@@ -25,6 +25,11 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: steelblue;
+    text-decoration: underline;
+}
+
 h1 {
     font-size: 2rem; /* so h1 in sections aren't smaller */
 }
