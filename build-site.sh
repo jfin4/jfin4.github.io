@@ -31,8 +31,8 @@ add_index_entry() {
 	read -r -d '' index <<- EOF 
 		$index
 		<div class="index-entry">
-			<p><a href="$dir">$title<br />
-			<span>$article_date</span></a></p>
+			<a href="$dir"><p>$title<br />
+			<span>$article_date</span></p></a>
 		</div>
 	EOF
 }

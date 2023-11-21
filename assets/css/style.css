@@ -80,37 +80,33 @@ pre code {
 /* site-wide */
 
 /* home page */
-.index-entry {
-	& span { /* date */
-		font-size: 0.8rem;
-		color: #7d7d7d; /* steelblue desaturated */
-	}
-	& a:visited {
-		color:  #8fb4d3; /* lighten steelblue 40% */
-		& span { 
-			font-size: 0.8rem;
-			color: #b1b1b1; /* lighten #7d7d7d 40% */
-		}
-	}
+/* css nesting doesn't work with firefox 115 (esr) */
+.index-entry span { /* date */
+  font-size: 0.8rem;
+  color: #7d7d7d; /* steelblue desaturated */
+}
+.index-entry a:visited {
+  color:  #8fb4d3; /* lighten steelblue 40% */
+}
+.index-entry a:visited span { /* date */
+  color: #b1b1b1; /* lighten #7d7d7d 40% */
 }
 
 /* posts */
-.title-block {
-    & h1 { /* title */
-        margin-bottom: 0;
-    }
-    & p { /* date */
-        margin-top: 0;
-        font-size: 0.8rem;
-    }
+.title-block h1 { /* title */
+  margin-bottom: 0;
+}
+.title-block p { /* date */
+  margin-top: 0;
+  font-size: 0.8rem;
 }
 
 /* contact page */
 .profile-picture {
-	max-width: 16rem; /* don't want my face too big */
-	margin: 2rem auto;
-    & img {
-        border-radius: 50%; /* Adjusts the roundness of corners */
-    }
+  max-width: 16rem; /* don't want my face too big */
+  margin: 2rem auto;
+}
+.profile-picture img {
+  border-radius: 50%; /* Adjusts the roundness of corners */
 }
 
