@@ -26,8 +26,7 @@ a {
 }
 
 a:hover {
-    color: steelblue;
-    text-decoration: underline;
+		color:  #8fb4d3; /* lighten steelblue 40% */
 }
 
 h1 {
