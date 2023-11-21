@@ -31,59 +31,62 @@ add_index_entry() {
 	read -r -d '' index <<- EOF 
 		$index
 		<div class="index-entry">
-			<a href="$dir"><p>$title<br />
-			<span>$article_date</span></p></a>
+			<a href="$1"><p>$2<br />
+			<span>$3</span></p></a>
 		</div>
 	EOF
 }
 
-make_vars() {
-	markdown_file="$1"
-	dir=${markdown_file%/*}
-	# title block structure:
-	#
-	# 	::: title-block
-	# 	# title
-	#
-	# 	date (updated)
-	# 	:::
-	#
-	title=$(sed --quiet '2p;2q' "$markdown_file" | cut --characters=3-)
-	article_date=$(sed --quiet '4p;4q' "$markdown_file" | sed -e 's/ (.*//')
-}
-
-convert_markdown() {
-	html_file="$dir/index.html"
-	if [ "$markdown_file" -nt "$html_file" ]; then
-		echo building "$html_file"
-		html_content=$(pandoc "$markdown_file")
-		inject_template "$html_file" "$title" "$html_content"
-	fi
-}
-
-check_date() {
-	article_date_ymd=$(date -d "$article_date" +'%Y-%m-%d')
-	tail_dir=${dir##*/}
-	if [ "$article_date_ymd" != "$tail_dir" ]; then
-		echo moving "$dir" to posts/"$article_date_ymd"
-		echo rerun script to reorder index
-		mv posts/"$tail_dir" posts/"$article_date_ymd"
-		dir=posts/"$article_date_ymd"
-	fi
-}
-
 # process contact page
-make_vars pages/contact/contact.md
-convert_markdown 
+markdown_file="pages/contact/contact.md"
+link_path=${markdown_file%/*}
+title="Contact"
+html_file="$link_path/index.html"
+if [ "$markdown_file" -nt "$html_file" ]; then
+  echo building "$html_file"
+  html_content=$(pandoc "$markdown_file")
+  inject_template "$html_file" "$title" "$html_content"
+fi
 
 # process posts 
 for markdown_file in $(ls -r posts/*/*.md); do
-	make_vars "$markdown_file"
-	convert_markdown 
-	check_date
-	add_index_entry
+  
+  # sed commands for title/date assume title block structure:
+  #
+  # 	::: title-block
+  # 	# title
+  #
+  # 	date (updated)
+  # 	:::
+  #
+
+  # convert markdown
+  link_path=${markdown_file%/*}
+	title=$(sed --quiet '2p;2q' "$markdown_file" | cut --characters=3-)
+  html_file="$link_path/index.html"
+  if [ "$markdown_file" -nt "$html_file" ]; then
+    echo building "$html_file"
+    html_content=$(pandoc "$markdown_file")
+    inject_template "$html_file" "$title" "$html_content"
+  fi
+
+  # check date
+	article_date=$(sed --quiet '4p;4q' "$markdown_file" | sed -e 's/ (.*//')
+	article_date_ymd=$(date -d "$article_date" +'%Y-%m-%d')
+	link_path_date=${link_path##*/} # post dirs are dates in yyyy-mm-dd format
+	if [ "$article_date_ymd" != "$link_path_date" ]; then
+		echo moving posts/"$link_path_date" to posts/"$article_date_ymd"
+		echo rerun script to reorder index
+		mv posts/"$link_path_date" posts/"$article_date_ymd"
+		link_path=posts/"$article_date_ymd"
+	fi
+
+  # add index entry
+	add_index_entry "$link_path" "$title" "$article_date"
+
 done 
 
 # create index
-inject_template index.html "John Inman" "$index"
-
+html_file=index.html
+title="John Inman"
+inject_template "$html_file" "$title" "$index"
