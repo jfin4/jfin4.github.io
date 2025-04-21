@@ -1,87 +1,82 @@
-# Load required libraries
-library(ggplot2)
-library(dplyr)
+# set up
+# ------------------------------------------------------------------------------
+library(tidyverse)
+library(ggforce)
 
-# Set seed for reproducibility
 set.seed(123)
 
-# Create 15 random circles with normally distributed radii between 0.5 and 1.5
 n_circles <- 15
-circle_centers <- data.frame(
-  x = runif(n_circles, 0, 10),
-  y = runif(n_circles, 0, 10)
-)
-circle_centers$radius <- rnorm(n_circles, mean = 1, sd = 0.25) |> 
-  pmax(0.5) |> 
-  pmin(1.5)
+n_points <- 40
+plot_dim <- 10
+point_y <- plot_dim / 2
+point_x_start <- 0.25
+point_x_end <- plot_dim
+radius_mean <- 1.0
+radius_sd <- 0.25
+circle_color <- "#009900"
+circle_alpha <- 0.5
+hit_color <- "#ff0000"
+miss_color <- "white"
+point_border_color <- hit_color
+point_size <- 1.5
 
-# Create 40 points for horizontal bisection
-points_data <- data.frame(
-  x = seq(0.25, 10, length.out = 40),
-  y = rep(5, 40)  # Horizontal line at y = 5
+# make data
+# ------------------------------------------------------------------------------
+circles <- tibble(id = 1:n_circles,
+                      x = runif(n_circles, 0, plot_dim),
+                      y = runif(n_circles, 0, plot_dim),
+                      radius = rnorm(n_circles, 
+                                     mean = radius_mean, 
+                                     sd = radius_sd))
+
+points <- tibble(x = seq(point_x_start, point_x_end, length.out = n_points),
+                     y = rep(point_y, n_points)
 )
 
-# Function to check if a point is inside any circle
-is_point_in_any_circle <- function(px, py, circles) {
-  for (i in 1:nrow(circles)) {
-    distance <- sqrt((px - circles$x[i])^2 + (py - circles$y[i])^2)
-    if (distance <= circles$radius[i]) {
-      return(TRUE)
-    }
-  }
-  return(FALSE)
+# check intersections
+is_hit <- function(px, py, circles) {
+    dist_sq <- (px - circles$x)^2 + (py - circles$y)^2
+    any(dist_sq <= circles$radius^2)
 }
 
-# Determine if each point is inside any circle
-points_data$in_circle <- sapply(1:nrow(points_data), function(i) {
-  is_point_in_any_circle(points_data$x[i], points_data$y[i], circle_centers)
-})
+points <- 
+    points %>%
+    mutate(is_hit = map2_lgl(x, y, \(x, y) is_hit(x, y, circles)),
+           status = factor(if_else(is_hit, "Presence", "Absence"),
+                           levels = c("Presence", "Absence"))) # legend order
 
-# Create a dataframe for drawing the circles
-# Each circle is approximated by 100 points
-circle_data <- do.call(rbind, lapply(1:n_circles, function(i) {
-  theta <- seq(0, 2 * pi, length.out = 100)
-  data.frame(
-    x = circle_centers$x[i] + circle_centers$radius[i] * cos(theta),
-    y = circle_centers$y[i] + circle_centers$radius[i] * sin(theta),
-    circle_id = i
-  )
-}))
+# plot
+# ------------------------------------------------------------------------------
+ggplot() +
+    geom_circle(data = circles,
+                aes(x0 = x, y0 = y, r = radius),
+                fill = circle_color,
+                alpha = circle_alpha,
+                color = NA ) + # border color
+    geom_point(data = points,
+               aes(x = x, y = y, fill = status), # Map fill to status
+               shape = 21, # Shape 21 allows fill and border color
+               color = point_border_color, # Set border color directly
+               size = point_size) +
+    scale_fill_manual(name = NULL, # No legend title
+                      values = c("Presence" = hit_color, 
+                                 "Absence" = miss_color),
+                      drop = FALSE) + # absent levels are shown 
+    coord_fixed(ratio = 1, 
+                xlim = c(0, plot_dim), 
+                ylim = c(0, plot_dim), 
+                expand = FALSE) + # clips circles
+    scale_x_continuous(breaks = c(0, plot_dim),
+                        labels = c("0", paste0(plot_dim, " m"))) +
+    scale_y_continuous(breaks = NULL) + # No y-axis labels
+    theme_minimal() +
+    theme(panel.border = element_rect(colour = "black", 
+                                      fill = NA, 
+                                      linewidth = 0.5),
+          panel.grid = element_blank(), # No grid lines
+          axis.title = element_blank(), # No axis titles
+          axis.text.y = element_blank(), # No y-axis text
+          axis.ticks = element_blank(), # No tick marks
+          axis.line = element_blank()) # No axis lines
 
-# Create the plot
-p <- ggplot() +
-  # Add circles
-  geom_polygon(data = circle_data, 
-               aes(x = x, y = y, group = circle_id), 
-               fill = "darkgreen", 
-               alpha = 0.3,
-               color = NA) +
-  # Add points
-  geom_point(data = points_data, 
-             aes(x = x, y = y, fill = in_circle, shape = in_circle), 
-             size = 3, 
-             color = "red") +
-  # Set plot limits and remove grid, title, etc.
-  scale_x_continuous(limits = c(0, 10), breaks = c(0, 10), labels = c("0", "10m")) +
-  scale_y_continuous(limits = c(0, 10), breaks = NULL) +
-  scale_fill_manual(values = c("white", "darkgreen"), 
-                   labels = c("absence", "presence"),
-                   name = NULL) +
-  scale_shape_manual(values = c(21, 21), 
-                    labels = c("absence", "presence"),
-                    name = NULL) +
-  # Set theme
-  theme_minimal() +
-  theme(
-    panel.grid = element_blank(),
-    axis.title = element_blank(),
-    panel.border = element_rect(fill = NA, color = "black", linewidth = 0.5),
-    legend.position = "right",
-    legend.box.margin = margin(0, 0, 0, 10),
-    legend.title = element_blank(),
-    aspect.ratio = 1  # Square plot area
-  )
-
-# Print the plot
-print(p)
-
+ggsave('plot.png')
