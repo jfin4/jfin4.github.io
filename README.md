@@ -1,3 +1,3 @@
 # jfin4.github.io
 
-Personal website at https://www.johnfinman.com.
+Personal website at https://jfin.net.
