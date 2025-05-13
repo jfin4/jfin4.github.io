@@ -16,8 +16,8 @@ inject_template() {
 		  </head>
 		  <body>
 		    <header> 
-		      <div><a href="/">John F. Inman</a></div>
-		      <div><a href="/pages/contact">Contact</a></div>
+		      <div><a href="/">jfin.net</a></div>
+		      <div><a href="/pages/contact">contact</a></div>
 		    </header>
 		    <main>
 		      $3
