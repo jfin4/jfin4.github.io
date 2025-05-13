@@ -1,8 +1,8 @@
 :root {
-  --main-color: steelblue;
-  --main-gray: #7d7d7d; /* steelblue desaturated */
-  --light-color: #a1c1db; /* steelblue lightened 50% */
-  --light-gray: #bebebe; /* light-blue desaturated */
+  --main-color: #3399cc;
+  --main-gray: #999999;
+  --light-color: #66ccff;
+  --light-gray: #cccccc; 
 }
 
 @font-face {

@@ -40,7 +40,7 @@ add_index_entry() {
 # process contact page
 markdown_file="pages/contact/contact.md"
 link_path=${markdown_file%/*}
-title="Contact"
+title="contact"
 html_file="$link_path/index.html"
 if [ "$markdown_file" -nt "$html_file" ]; then
   echo building "$html_file"
@@ -89,7 +89,7 @@ done
 
 # create index
 html_file=index.html
-title="John F. Inman"
+title="jfin.net"
 inject_template "$html_file" "$title" "$index"
 
 echo done
