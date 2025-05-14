@@ -18,7 +18,7 @@ inject_template() {
 		  <body>
 		    <header> 
 		      <div><a href="/">jfin.net</a></div>
-		      <div><a href="/pages/contact">contact</a></div>
+		      <div><a href="/pages/about">about</a></div>
 		    </header>
 		    <main>
 		      $3
@@ -38,10 +38,10 @@ add_index_entry() {
 	EOF
 }
 
-# process contact page
-markdown_file="pages/contact/contact.md"
+# process about page
+markdown_file="pages/about/about.md"
 link_path=${markdown_file%/*}
-title="contact"
+title="about"
 html_file="$link_path/index.html"
 if [ "$markdown_file" -nt "$html_file" ]; then
   echo building "$html_file"
