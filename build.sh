@@ -44,9 +44,9 @@ link_path=${markdown_file%/*}
 title="about"
 html_file="$link_path/index.html"
 if [ "$markdown_file" -nt "$html_file" ]; then
-  echo building "$html_file"
-  html_content=$(pandoc "$markdown_file")
-  inject_template "$html_file" "$title" "$html_content"
+    echo building "$html_file"
+    html_content=$(pandoc "$markdown_file")
+    inject_template "$html_file" "$title" "$html_content"
 fi
 
 # process posts 
@@ -77,10 +77,10 @@ $(ls --reverse posts/*/*.md 2> /dev/null) \
   article_date_ymd=$(date -d "$article_date" +'%Y-%m-%d')
   link_path_date=${link_path##*/} # post dirs are dates in yyyy-mm-dd format
   if [ "$article_date_ymd" != "$link_path_date" ]; then
-    echo moving posts/"$link_path_date" to posts/"$article_date_ymd"
-    echo rerun script to reorder index
-    mv posts/"$link_path_date" posts/"$article_date_ymd"
-    link_path=posts/"$article_date_ymd"
+      echo moving posts/"$link_path_date" to posts/"$article_date_ymd"
+      echo rerun script to reorder index
+      mv posts/"$link_path_date" posts/"$article_date_ymd"
+      link_path=posts/"$article_date_ymd"
   fi
 
   # add index entry
