@@ -3,13 +3,15 @@
   --main-gray: #999999;
   --light-color: #66ccff;
   --light-gray: #cccccc; 
+
+  --font: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+  --font-code: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
 }
 
 body {
     background: white;
     color: black;
-    font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
-    font-weight: normal;
+    font-family: var(--font);
     line-height: 1.5;
     margin: auto;
     max-width: 32rem; /* 78 monospace characters with sourcecode pro at 0.80rem */
@@ -74,8 +76,7 @@ code {
     background: whitesmoke;
     border-radius: 0.5rem;
     font-size: 0.80rem;
-    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-    font-weight: normal;
+    font-family: var(--font-code);
     padding: 0 0.5rem;
 }
 
