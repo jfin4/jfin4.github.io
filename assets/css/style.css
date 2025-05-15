@@ -5,20 +5,11 @@
   --light-gray: #cccccc; 
 }
 
-@font-face {
-    font-family: regular;
-    src: url("/assets/fonts/source-sans-3/static/SourceSans3-Regular.ttf");
-}
-
-@font-face {
-    font-family: mono;
-    src: url("/assets/fonts/source-code-pro/static/SourceCodePro-Regular.ttf")
-}
-
 body {
     background: white;
     color: black;
-    font-family: regular;
+    font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+    font-weight: normal;
     line-height: 1.5;
     margin: auto;
     max-width: 32rem; /* 78 monospace characters with sourcecode pro at 0.80rem */
@@ -83,6 +74,8 @@ code {
     background: whitesmoke;
     border-radius: 0.5rem;
     font-size: 0.80rem;
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+    font-weight: normal;
     padding: 0 0.5rem;
 }
 
