@@ -12,7 +12,7 @@ rsync -a --delete pages/about/public/ public/pages/about
 
 # posts 
 for source in posts/*/*.md; do 
-    [[ $source = posts/*/*.md ]] && break
+    [[ $source = 'posts/*/*.md' ]] && break
     target=${source%/*}/public/index.html
     if [[ $source -nt $target ]]; then
         export title=$(head -n1 $source)
@@ -27,7 +27,7 @@ rsync -a --delete posts/public/ public/posts
 # index
 toc=""
 for post in posts/public/*; do
-    [[ $post = posts/public/* ]] && break
+    [[ $post = 'posts/public/*' ]] && break
     export date=${post##*/}
     export url=posts/$date
     export title=$(grep '<title>' $post/index.html | sed -e 's#.*>\(.*\)<.*#\1#')
