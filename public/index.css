@@ -1,0 +1,106 @@
+/* https://plainvanillaweb.com/pages/styling.html */
+:root {
+    box-sizing: border-box;
+    line-height: 1.4;
+    /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+    font-size: 16px;
+
+    --color: #3399cc;
+    --light-color: #66ccff;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0rem;
+    margin-bottom: 1rem;
+    padding: 0;
+    font-weight: normal;
+}
+
+img {
+    max-width:100%;
+    height:auto;
+    display: block; /* Makes the image a block element, required for centering */
+    margin: auto; /* Auto margin on left and right for center alignment */
+}
+
+body {
+    margin: auto;
+    max-width: 32rem;
+    padding: 0.5rem;
+}
+
+a {
+    color: var(--color);
+    text-decoration: none;
+}
+
+a:hover {
+		color: var(--light-color); 
+}
+
+h1 {
+    font-size: 2rem; /* so h1 in sections aren't smaller */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.toc-row {
+    display: flex;
+}
+
+.toc-date {
+    width: 7rem;
+}
+
+.toc-title {
+    flex: 1; 
+}
+
+figure {
+  margin: 1rem auto;
+}
+
+figcaption {
+    font-size: 0.8rem;
+}
+
+pre {
+    background: whitesmoke;
+    border-radius: 0.5rem;
+    overflow: auto;
+    padding: 0 0.5rem;
+}
+
+code {
+    background: whitesmoke;
+    border-radius: 0.5rem;
+    font-size: 0.80rem;
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+    padding: 0 0.5rem;
+}
+
+pre code {
+    padding: 0;
+}
+
+td {
+  text-align: left;
+  vertical-align: top;
+}
+
+td.date {
+  padding-right: 1rem;
+  /* font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif; */
+}

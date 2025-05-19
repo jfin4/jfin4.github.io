@@ -1,96 +1,38 @@
 #!/bin/bash
 
-inject_template() {
-  cat <<- EOF > "$1"
-		<!DOCTYPE html>
-		<html lang="en">
-		  <head>
-		    <meta charset="UTF-8">
-		    <meta name="viewport" content="width=device-width, initial-scale=1">
-		    <title>$2</title>
-		    <link rel="stylesheet" href="/assets/css/style.css">
-		    <link rel="icon" type="image/png" href="/assets/icons/favicon-96x96.png" sizes="96x96">
-		    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
-		    <link rel="shortcut icon" href="/assets/icons/favicon.ico">
-		    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
-		    <link rel="manifest" href="/assets/icons/site.webmanifest">
-		  </head>
-		  <body>
-		    <header> 
-		      <div><a href="/">jfin.net</a></div>
-		      <div><a href="/pages/about">about</a></div>
-		    </header>
-		    <main>
-		      $3
-		    </main>
-		  </body>
-		</html>
-	EOF
-}
-
-add_index_entry() {
-  read -r -d '' index <<- EOF 
-		$index
-		<div class="index-entry">
-		  <a href="$1"><p>$2<br />
-		  <span>$3</span></p></a>
-		</div>
-	EOF
-}
-
-# process about page
-markdown_file="pages/about/about.md"
-link_path=${markdown_file%/*}
-title="about"
-html_file="$link_path/index.html"
-if [ "$markdown_file" -nt "$html_file" ]; then
-    echo building "$html_file"
-    html_content=$(pandoc "$markdown_file")
-    inject_template "$html_file" "$title" "$html_content"
+# about
+source=pages/about/about.md
+target=pages/about/public/index.html
+if [[ $source -nt $target ]]; then
+    export title=about
+    export content=$(pandoc $source)
+    envsubst < templates/index.html > $target
 fi
+rsync -a --delete pages/about/public/ public/about
 
-# process posts 
-$(ls --reverse posts/*/*.md 2> /dev/null) \
-    && for markdown_file in $(ls --reverse posts/*/*.md); do 
-
-  # sed commands for title/date assume title block structure:
-  #
-  # 	::: title-block
-  # 	# title
-  #
-  # 	date (updated)
-  # 	:::
-  #
-
-  # convert markdown
-  link_path=${markdown_file%/*}
-  title=$(sed --quiet '2p;2q' "$markdown_file" | cut --characters=3-)
-  html_file="$link_path/index.html"
-  if [ "$markdown_file" -nt "$html_file" ]; then
-    echo building "$html_file"
-    html_content=$(pandoc "$markdown_file")
-    inject_template "$html_file" "$title" "$html_content"
-  fi
-
-  # check date
-  article_date=$(sed --quiet '4p;4q' "$markdown_file" | sed -e 's/ (.*//')
-  article_date_ymd=$(date -d "$article_date" +'%Y-%m-%d')
-  link_path_date=${link_path##*/} # post dirs are dates in yyyy-mm-dd format
-  if [ "$article_date_ymd" != "$link_path_date" ]; then
-      echo moving posts/"$link_path_date" to posts/"$article_date_ymd"
-      echo rerun script to reorder index
-      mv posts/"$link_path_date" posts/"$article_date_ymd"
-      link_path=posts/"$article_date_ymd"
-  fi
-
-  # add index entry
-  add_index_entry "$link_path" "$title" "$article_date"
-
+# posts 
+for source in posts/*/*.md; do 
+    [[ $source = posts/*/*.md ]] && break
+    target=${source%/*}/public/index.html
+    if [[ $source -nt $target ]]; then
+        export title=$(head -n1 $source)
+        export content=$(pandoc $source)
+        envsubst < templates/index.html > $target
+    fi
+    date=$(grep -o -e '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}' $source)
+    rsync -a --delete ${source%/*}/public/ posts/public/$date
 done 
+rsync -a --delete posts/public/ public/posts
 
-# create index
-html_file=index.html
-title="jfin.net"
-inject_template "$html_file" "$title" "$index"
-
-echo done
+# index
+toc=""
+for post in posts/public/*; do
+    [[ $post = posts/public/* ]] && break
+    export date=${post##*/}
+    export url=posts/$date
+    export title=$(grep '<title>' $post/index.html | sed -e 's#.*>\(.*\)<.*#\1#')
+    toc="$toc"$'\n'$(envsubst < templates/toc.html)
+done
+export title=jfin.net
+export content="$toc"
+envsubst < templates/index.html > public/index.html

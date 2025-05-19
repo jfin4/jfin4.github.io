@@ -1,5 +1,5 @@
 ::: profile-picture
-![](images/johninman.jpg)
+![](johninman.jpg)
 :::
 
 Hi, I'm John. I work for the California State Water Resources Control Board
