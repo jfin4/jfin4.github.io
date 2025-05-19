@@ -8,7 +8,7 @@ if [[ $source -nt $target ]]; then
     export content=$(pandoc $source)
     envsubst < templates/index.html > $target
 fi
-rsync -a --delete pages/about/public/ public/about
+rsync -a --delete pages/about/public/ public/pages/about
 
 # posts 
 for source in posts/*/*.md; do 
