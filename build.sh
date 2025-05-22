@@ -1,37 +1,35 @@
-#!/bin/bash
+#!/usr/bin/env -i bash
 
-# about
-source=pages/about/about.md
-target=pages/about/public/index.html
-if [[ $source -nt $target ]]; then
-    export title=about
-    export content=$(pandoc $source)
-    envsubst < templates/index.html > $target
-fi
-rsync -a --delete pages/about/public/ public/pages/about
-
-# posts 
-for source in posts/*/*.md; do 
-    [[ $source = 'posts/*/*.md' ]] && break
-    target=${source%/*}/public/index.html
+source_files=$(find content -name '*.md')
+for source in $source_files; do
+    dir=$(dirname $source)
+    target=$dir/public/index.html
     if [[ $source -nt $target ]]; then
-        export title=$(head -n1 $source)
-        export content=$(pandoc $source)
+        if [[ $target =~ '/about/' ]]; then
+            title=about
+            slug=about
+        else
+            title=$(head -n1 $source)
+            slug=$(head $source | grep -E '[0-9]{4}-[0-9]{2}-[0-9]{2}')
+        fi
+        content=$(pandoc $source)
+        export title content
+        [[ -d $dir/public ]] || mkdir $dir/public
         envsubst < templates/index.html > $target
+        rsync -a --delete $dir/public/ content/public/$slug
     fi
-    date=$(grep -o -e '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}' $source)
-    rsync -a --delete ${source%/*}/public/ posts/public/$date
 done 
-rsync -a --delete posts/public/ public/posts
+rsync -a --delete content/public/ public/content
 
-# index
 toc=""
-for post in posts/public/*; do
-    [[ $post = 'posts/public/*' ]] && break
-    export date=${post##*/}
-    export url=posts/$date
-    export title=$(grep '<title>' $post/index.html | sed -e 's#.*>\(.*\)<.*#\1#')
-    toc="$toc"$'\n'$(envsubst < templates/toc.html)
+posts=$(find content/public | grep -E '[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+for post in $posts; do
+    date=$(basename $post)
+    url=/content/$date
+    description=$(grep -Po '(?<=<title>).*?(?=</title>)' $post/index.html)
+    export date url description
+    toc_entry=$(envsubst < templates/toc.html)
+    toc="$toc"$'\n'$toc_entry
 done
 export title=jfin.net
 export content="$toc"
