@@ -1,4 +1,4 @@
-#!/usr/bin/env -i bash
+#!/bin/bash
 
 source_files=$(find content -name '*.md')
 for source in $source_files; do
@@ -19,13 +19,12 @@ for source in $source_files; do
         rsync -a --delete $dir/public/ content/public/$slug
     fi
 done 
-rsync -a --delete content/public/ public/content
 
 toc=""
 posts=$(find content/public | grep -E '[0-9]{4}-[0-9]{2}-[0-9]{2}$')
 for post in $posts; do
     date=$(basename $post)
-    url=/content/$date
+    url=/$date
     description=$(grep -Po '(?<=<title>).*?(?=</title>)' $post/index.html)
     export date url description
     toc_entry=$(envsubst < templates/toc.html)
@@ -33,4 +32,6 @@ for post in $posts; do
 done
 export title=jfin.net
 export content="$toc"
-envsubst < templates/index.html > public/index.html
+envsubst < templates/index.html > content/public/index.html
+
+rsync -a --delete content/public/ public
