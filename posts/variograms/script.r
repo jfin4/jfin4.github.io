@@ -136,7 +136,7 @@ plot <- ggplot() +
           axis.ticks = element_blank(), # No tick marks
           axis.text.y = element_blank(), # No y-axis text
           axis.text.x = element_text(color = "black")) 
-ggsave('_public/pen.svg', width = image_size, height = image_size, units = "px")
+ggsave('_public/pen.svg', width = image_size, height = image_size, units = "px", bg = "transparent")
 
 # gstat
 # ------------------------------------------------------------------------------

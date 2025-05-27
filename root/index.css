@@ -37,6 +37,12 @@ body {
     padding: 1rem;
 }
 
+@media (prefers-color-scheme: dark) {
+  svg text {
+    fill: white;
+  }
+}
+
 a {
     color: var(--color);
     text-decoration: none;
