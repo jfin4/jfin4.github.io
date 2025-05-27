@@ -107,8 +107,9 @@ plant_alpha <- 0.2
 plant_color <- "#006600"
 point_color <- "#990000"
 point_size <- 2
-image_size <- 1600
-text_size <- 16
+image_size <- 1594
+text_size <- 13
+font <- "Calibri"
 plot <- ggplot() +
     geom_circle(data = plants,
                 aes(x0 = x, y0 = y, r = r),
@@ -130,21 +131,15 @@ plot <- ggplot() +
                 expand = FALSE) + # clips circles
     scale_x_continuous(breaks = c(0, plot_dim),
                        labels = c("0", paste0(plot_dim, " m"))) +
-    theme_minimal(base_size = text_size) +
+    # theme_void(base_size = text_size) +
+    theme_void() +
     theme(
-          axis.line = element_line(color = "black"),
-          axis.text = element_text(color = "black"), 
-          axis.text.y = element_blank(), # No y-axis text
-          axis.ticks = element_blank(), # No tick marks
-          axis.title = element_blank(), # No axis titles
-          legend = element_blank(),
-          legend.text = element_text(color = "black"),
-          panel.background = element_blank(),
-          panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
-          panel.grid = element_blank(), # No grid lines
-          plot.background = element_blank(),
+          plot.margin = margin(t = 0, r = 0, b = 0, l = text_size / 2),  # tweak as needed
+          panel.border = element_rect(color = "black", linewidth = 1),
+          axis.text.x = element_text(size = text_size, family = font),
+          legend.text = element_text(size = text_size, family = font),
     )
-ggsave('_public/pen.svg', width = image_size, height = image_size, units = "px", bg = "transparent")
+ggsave('_public/pen.svg', width = image_size, height = image_size, units = "px")
 
 
 # gstat

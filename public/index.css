@@ -35,7 +35,7 @@ body {
     margin: auto;
     max-width: 32rem;
     padding: 1rem;
-    color: "black";
+    color: black;
 }
 
 @media (prefers-color-scheme: dark) {
