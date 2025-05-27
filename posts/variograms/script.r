@@ -132,15 +132,15 @@ plot <- ggplot() +
                        labels = c("0", paste0(plot_dim, " m"))) +
     theme_minimal(base_size = text_size) +
     theme(
-          axis.line = element_line(color = "currentColor"),
-          axis.text = element_text(color = "currentColor"), 
+          axis.line = element_line(color = "black"),
+          axis.text = element_text(color = "black"), 
           axis.text.y = element_blank(), # No y-axis text
           axis.ticks = element_blank(), # No tick marks
           axis.title = element_blank(), # No axis titles
           legend = element_blank(),
-          legend.text = element_text(color = "currentColor"),
+          legend.text = element_text(color = "black"),
           panel.background = element_blank(),
-          panel.border = element_rect(color = "currentColor", fill = NA, linewidth = 1),
+          panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
           panel.grid = element_blank(), # No grid lines
           plot.background = element_blank(),
     )
