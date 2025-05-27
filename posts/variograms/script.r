@@ -107,7 +107,7 @@ plant_alpha <- 0.2
 plant_color <- "#006600"
 point_color <- "#990000"
 point_size <- 2
-image_size <- 4
+image_size <- 1700
 plot <- ggplot() +
     geom_circle(data = plants,
                 aes(x0 = x, y0 = y, r = r),
@@ -134,8 +134,8 @@ plot <- ggplot() +
           axis.title = element_blank(), # No axis titles
           axis.ticks = element_blank(), # No tick marks
           axis.text.y = element_blank()) # No y-axis text
-ggsave('_public/pen.svg', width = image_size, height = image_size)
-
+# ggsave('_public/pen.svg', width = image_size, height = image_size)
+ggsave('_public/pen.svg', width = image_size, height = image_size, units = "px")
 
 # gstat
 # ------------------------------------------------------------------------------
