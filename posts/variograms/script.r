@@ -130,21 +130,22 @@ plot <- ggplot() +
                 expand = FALSE) + # clips circles
     scale_x_continuous(breaks = c(0, plot_dim),
                        labels = c("0", paste0(plot_dim, " m"))) +
-    theme_bw(base_size = text_size) +
-    theme(panel.grid = element_blank(), # No grid lines
-          axis.title = element_blank(), # No axis titles
-          axis.ticks = element_blank(), # No tick marks
-          axis.text = element_text(color = "black")) 
+    theme_minimal(base_size = text_size) +
+    theme(
+          axis.line = element_line(color = "currentColor"),
+          axis.text = element_text(color = "currentColor"), 
           axis.text.y = element_blank(), # No y-axis text
-    p + theme(
-  panel.background = element_blank(),
-  plot.background = element_blank(),
-  panel.grid = element_blank(),
-  axis.ticks = element_line(color = "black"),  # or blank if you want
-  axis.text = element_text(color = "black")    # set explicitly if needed
-)
-
+          axis.ticks = element_blank(), # No tick marks
+          axis.title = element_blank(), # No axis titles
+          legend = element_blank(),
+          legend.text = element_text(color = "currentColor"),
+          panel.background = element_blank(),
+          panel.border = element_rect(color = "currentColor", fill = NA, linewidth = 1),
+          panel.grid = element_blank(), # No grid lines
+          plot.background = element_blank(),
+    )
 ggsave('_public/pen.svg', width = image_size, height = image_size, units = "px", bg = "transparent")
+
 
 # gstat
 # ------------------------------------------------------------------------------

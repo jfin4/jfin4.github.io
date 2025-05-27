@@ -35,12 +35,18 @@ body {
     margin: auto;
     max-width: 32rem;
     padding: 1rem;
+    color: "black";
 }
 
 @media (prefers-color-scheme: dark) {
-  svg text {
-    fill: white;
+  body {
+    color: white;
   }
+}
+
+svg text, svg line, svg path {
+  stroke: currentColor;
+  fill: currentColor;
 }
 
 a {
