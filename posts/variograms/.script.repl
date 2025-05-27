@@ -31,7 +31,7 @@ plot <- ggplot() +
     theme_void() +
     theme(
           plot.margin = margin(t = 0, r = 0, b = 0, l = text_size / 2),  # tweak as needed
-          plot.background = element_rect(color = "white"),
+          panel.background = element_rect(color = "white"),
           panel.border = element_rect(color = "black", linewidth = 1),
           axis.text.x = element_text(size = text_size, family = font),
           legend.text = element_text(size = text_size, family = font),
