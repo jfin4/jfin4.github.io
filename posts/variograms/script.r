@@ -108,7 +108,7 @@ plant_color <- "#006600"
 point_color <- "#990000"
 point_size <- 2
 image_size <- 1594
-text_size <- 13
+text_size <- 12
 font <- c('Seravek', 'Gill Sans Nova', 'Ubuntu', 'Calibri', 'DejaVu Sans', 'source-sans-pro', 'sans-serif')
 plot <- ggplot() +
     geom_circle(data = plants,
@@ -135,6 +135,7 @@ plot <- ggplot() +
     theme_void() +
     theme(
           plot.margin = margin(t = 0, r = 0, b = 0, l = text_size / 2),  # tweak as needed
+          plot.background = element_rect(color = "white"),
           panel.border = element_rect(color = "black", linewidth = 1),
           axis.text.x = element_text(size = text_size, family = font),
           legend.text = element_text(size = text_size, family = font),
