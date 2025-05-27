@@ -37,11 +37,11 @@ body {
     padding: 1rem;
 }
 
-@media (prefers-color-scheme: light) {
-  svg text {
-    fill: black;
-  }
-}
+/* @media (prefers-color-scheme: light) { */
+/*   svg text { */
+/*     fill: black; */
+/*   } */
+/* } */
 
 a {
     color: var(--color);
