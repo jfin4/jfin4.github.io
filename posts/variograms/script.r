@@ -134,8 +134,16 @@ plot <- ggplot() +
     theme(panel.grid = element_blank(), # No grid lines
           axis.title = element_blank(), # No axis titles
           axis.ticks = element_blank(), # No tick marks
+          axis.text = element_text(color = "black")) 
           axis.text.y = element_blank(), # No y-axis text
-          axis.text.x = element_text(color = "black")) 
+    p + theme(
+  panel.background = element_blank(),
+  plot.background = element_blank(),
+  panel.grid = element_blank(),
+  axis.ticks = element_line(color = "black"),  # or blank if you want
+  axis.text = element_text(color = "black")    # set explicitly if needed
+)
+
 ggsave('_public/pen.svg', width = image_size, height = image_size, units = "px", bg = "transparent")
 
 # gstat

@@ -31,5 +31,7 @@ plot <- ggplot() +
           axis.title = element_blank(), # No axis titles
           axis.ticks = element_blank(), # No tick marks
           axis.text.y = element_blank(), # No y-axis text
-          axis.text.x = element_text(color = "black")) 
+          axis.text = element_text(color = "black"), 
+          panel.background = element_blank(),
+          plot.background = element_blank())
 ggsave('_public/pen.svg', width = image_size, height = image_size, units = "px", bg = "transparent")
