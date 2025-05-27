@@ -107,7 +107,8 @@ plant_alpha <- 0.2
 plant_color <- "#006600"
 point_color <- "#990000"
 point_size <- 2
-image_size <- 1700
+image_size <- 1600
+text_size <- 16
 plot <- ggplot() +
     geom_circle(data = plants,
                 aes(x0 = x, y0 = y, r = r),
@@ -129,12 +130,12 @@ plot <- ggplot() +
                 expand = FALSE) + # clips circles
     scale_x_continuous(breaks = c(0, plot_dim),
                        labels = c("0", paste0(plot_dim, " m"))) +
-    theme_bw() +
+    theme_bw(base_size = text_size) +
     theme(panel.grid = element_blank(), # No grid lines
           axis.title = element_blank(), # No axis titles
           axis.ticks = element_blank(), # No tick marks
-          axis.text.y = element_blank()) # No y-axis text
-# ggsave('_public/pen.svg', width = image_size, height = image_size)
+          axis.text.y = element_blank(), # No y-axis text
+          axis.text.x = element_text(color = "black")) 
 ggsave('_public/pen.svg', width = image_size, height = image_size, units = "px")
 
 # gstat
