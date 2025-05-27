@@ -26,7 +26,7 @@ for dir in posts/*; do
 
     # make index entry
     export date=$slug
-    export url=/$slug
+    export url=$slug
     export description=$(head -n1 $source)
     entry=$(envsubst < templates/toc.html)
     entries="$entries"$'\n'"$entry"

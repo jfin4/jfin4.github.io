@@ -106,7 +106,8 @@ ggplot(variogram, aes(dist, semivariance)) +
 plant_alpha <- 0.2
 plant_color <- "#006600"
 point_color <- "#990000"
-point_size <- 3
+point_size <- 2
+image_width <- 4.5
 plot <- ggplot() +
     geom_circle(data = plants,
                 aes(x0 = x, y0 = y, r = r),
@@ -123,17 +124,17 @@ plot <- ggplot() +
                                  "Absent" = "white"),
                       drop = FALSE) + # absent levels are shown 
     coord_fixed(ratio = 1, 
-                xlim = c(0, xmax), 
-                ylim = c(0, ymax), 
+                xlim = c(0, plot_dim), 
+                ylim = c(0, plot_dim), 
                 expand = FALSE) + # clips circles
-    scale_x_continuous(breaks = c(0, xmax),
-                       labels = c("0", paste0(xmax, " m"))) +
+    scale_x_continuous(breaks = c(0, plot_dim),
+                       labels = c("0", paste0(plot_dim, " m"))) +
     theme_bw() +
     theme(panel.grid = element_blank(), # No grid lines
           axis.title = element_blank(), # No axis titles
           axis.ticks = element_blank(), # No tick marks
           axis.text.y = element_blank()) # No y-axis text
-ggsave('plot.png')
+ggsave('_public/pen.png', width = image_width)
 
 
 # gstat

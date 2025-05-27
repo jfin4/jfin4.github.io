@@ -1,0 +1,33 @@
+# plot plot
+plant_alpha <- 0.2
+plant_color <- "#006600"
+point_color <- "#990000"
+point_size <- 2
+image_size <- 4.25
+plot <- ggplot() +
+    geom_circle(data = plants,
+                aes(x0 = x, y0 = y, r = r),
+                fill = plant_color,
+                alpha = plant_alpha,
+                color = NA ) + # border color
+    geom_point(data = points,
+               aes(x = x, y = y, fill = result), # Map fill to status
+               shape = 21, # Shape 21 allows fill and border color
+               color = point_color, # Set border color directly
+               size = point_size) +
+    scale_fill_manual(name = NULL, # No legend title
+                      values = c("Present" = point_color, 
+                                 "Absent" = "white"),
+                      drop = FALSE) + # absent levels are shown 
+    coord_fixed(ratio = 1, 
+                xlim = c(0, plot_dim), 
+                ylim = c(0, plot_dim), 
+                expand = FALSE) + # clips circles
+    scale_x_continuous(breaks = c(0, plot_dim),
+                       labels = c("0", paste0(plot_dim, " m"))) +
+    theme_bw() +
+    theme(panel.grid = element_blank(), # No grid lines
+          axis.title = element_blank(), # No axis titles
+          axis.ticks = element_blank(), # No tick marks
+          axis.text.y = element_blank()) # No y-axis text
+ggsave('_public/pen.png', width = image_size, height = image_size)
