@@ -109,7 +109,7 @@ point_color <- "#990000"
 point_size <- 2
 image_size <- 1594
 text_size <- 13
-font <- "Calibri"
+font <- c('Seravek', 'Gill Sans Nova', 'Ubuntu', 'Calibri', 'DejaVu Sans', 'source-sans-pro', 'sans-serif')
 plot <- ggplot() +
     geom_circle(data = plants,
                 aes(x0 = x, y0 = y, r = r),
