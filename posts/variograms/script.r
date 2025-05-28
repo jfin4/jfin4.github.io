@@ -107,7 +107,7 @@ plant_alpha <- 0.2
 plant_color <- "#006600"
 point_color <- "#990000"
 point_size <- 2
-image_size <- 1594
+image_size <- 5
 text_size <- 12
 font <- c('Seravek', 'Gill Sans Nova', 'Ubuntu', 'Calibri', 'DejaVu Sans', 'source-sans-pro', 'sans-serif')
 plot <- ggplot() +
@@ -131,16 +131,19 @@ plot <- ggplot() +
                 expand = FALSE) + # clips circles
     scale_x_continuous(breaks = c(0, plot_dim),
                        labels = c("0", paste0(plot_dim, " m"))) +
-    # theme_void(base_size = text_size) +
     theme_void() +
     theme(
-          plot.margin = margin(t = 0, r = 0, b = 0, l = text_size / 2),  # tweak as needed
-          panel.background = element_rect(color = "white"),
-          panel.border = element_rect(color = "black", linewidth = 1),
+          plot.margin = margin(t = 0, r = text_size, b = 0, l = text_size),  # tweak as needed
+          # plot.background = element_rect(fill = "white", color = NA),
+          # panel.background = element_rect(fill = "white", color = NA),
+          # panel.ontop = F,
+          # legend.background = element_rect(fill = "white"),
+          # legend.box.background = element_rect(fill = "white"),
+          panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
           axis.text.x = element_text(size = text_size, family = font),
           legend.text = element_text(size = text_size, family = font),
     )
-ggsave('_public/pen.svg', width = image_size, height = image_size, units = "px")
+ggsave('_public/pen.svg', width = image_size, height = image_size, bg = "white")
 
 
 # gstat
