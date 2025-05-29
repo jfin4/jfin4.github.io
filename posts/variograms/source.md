@@ -3,4 +3,4 @@ Draft: About Variograms
 
 2025-05-22
 
-![](./pen.svg)
+![](./transect.svg)

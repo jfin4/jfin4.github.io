@@ -3,10 +3,12 @@ library("tidyverse")
 library("fs")
 library("readxl")
 library("writexl")
+library("magrittr")
 library("gstat")
 library("sp")
 library("ggforce")
-library("magrittr")
+library("Cairo")
+library("glue")
 
 # generate data
 # ------------------------------------------------------------------------------
@@ -89,27 +91,28 @@ plants <- make_plants(plot_dim, plant_width, target_cover)
 points_interval <- 0.25
 points <- make_points(points_interval, plot_dim, plants)
 
-# Calculate for multiple lags
-lags <- 1:20
-n <- 1e2
-variogram <- 
-    map(1:n, function(x) make_variogram(lags)) %>%
-    reduce(`+`) %>%
-    mutate(across(everything(), function(x) x / n))
-# Plot manual variogram
-ggplot(variogram, aes(dist, semivariance)) +
-  geom_point() +
-  geom_line() +
-  labs(title = "Empirical Variogram")
+# # Calculate for multiple lags
+# lags <- 1:20
+# n <- 1e2
+# variogram <- 
+#     map(1:n, function(x) make_variogram(lags)) %>%
+#     reduce(`+`) %>%
+#     mutate(across(everything(), function(x) x / n))
+# # Plot manual variogram
+# ggplot(variogram, aes(dist, semivariance)) +
+#   geom_point() +
+#   geom_line() +
+#   labs(title = "Empirical Variogram")
 
 # plot plot
 plant_alpha <- 0.2
 plant_color <- "#006600"
 point_color <- "#990000"
-point_size <- 2
-image_size <- 5
-text_size <- 12
+point_size <- 1
+image_width <- 5
+text_size <- 10
 font <- c('Seravek', 'Gill Sans Nova', 'Ubuntu', 'Calibri', 'DejaVu Sans', 'source-sans-pro', 'sans-serif')
+file <- "_public/transect.svg"
 plot <- ggplot() +
     geom_circle(data = plants,
                 aes(x0 = x, y0 = y, r = r),
@@ -123,27 +126,33 @@ plot <- ggplot() +
                size = point_size) +
     scale_fill_manual(name = NULL, # No legend title
                       values = c("Present" = point_color, 
-                                 "Absent" = "white"),
+                                 "Absent" = "transparent"),
                       drop = FALSE) + # absent levels are shown 
     coord_fixed(ratio = 1, 
                 xlim = c(0, plot_dim), 
                 ylim = c(0, plot_dim), 
-                expand = FALSE) + # clips circles
+                clip = "off",
+                expand = TRUE) + # clips circles
     scale_x_continuous(breaks = c(0, plot_dim),
                        labels = c("0", paste0(plot_dim, " m"))) +
-    theme_void() +
+    theme_minimal() +
     theme(
-          plot.margin = margin(t = 0, r = text_size, b = 0, l = text_size),  # tweak as needed
-          # plot.background = element_rect(fill = "white", color = NA),
-          # panel.background = element_rect(fill = "white", color = NA),
-          # panel.ontop = F,
-          # legend.background = element_rect(fill = "white"),
-          # legend.box.background = element_rect(fill = "white"),
-          panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
-          axis.text.x = element_text(size = text_size, family = font),
-          legend.text = element_text(size = text_size, family = font),
+          panel.grid = element_blank(),
+          axis.title.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.title = element_blank(),
+          axis.text.x = element_text(color = "black", size = text_size),
+          axis.line.x = element_line(linewidth = 0.3),
+          axis.ticks.x = element_line(linewidth = 0.3),
+          legend.text = element_text(size = text_size)
     )
-ggsave('_public/pen.svg', width = image_size, height = image_size, bg = "white")
+ggsave(file, width = image_width, device = CairoSVG, pointsize = text_size)
+# clip
+system(paste("inkscape",
+        "--export-area-drawing",
+        "--export-plain-svg",
+        "--export-filename=_public/transect.svg",
+        "_public/transect.svg"))
 
 
 # gstat

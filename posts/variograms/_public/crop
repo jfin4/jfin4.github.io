@@ -1,2 +1,0 @@
-"C:\Program Files\Inkscape\bin\inkscape.exe" plot.svg --actions="export-area-drawing; export-type:svg; export-filename:plot-cropped.svg; export-do"
-
