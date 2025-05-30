@@ -1,6 +1,6 @@
 #!/bin/bash
 
-public=/var/www/html
+public=/usr/share/nginx/jfin.net
 /usr/bin/rm -r $public/*
 
 # process posts
