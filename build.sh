@@ -1,6 +1,7 @@
 #!/bin/bash
 
-/usr/bin/rm -r public/*
+public=/var/www/html
+/usr/bin/rm -r $public/*
 
 # process posts
 # ------------------------------------------------------------------------------
@@ -22,7 +23,7 @@ for dir in posts/*; do
 
     # copy to temp build dir
     slug=$(head $source | grep -Eo "[0-9]{4}-[0-9]{2}-[0-9]{2}")
-    cp -r $dir/_public public/$slug
+    cp -r $dir/_public $public/$slug
 
     # make index entry
     export date=$slug
@@ -36,7 +37,7 @@ done
 # make index
 export title=jfin.net
 export content="$entries"
-envsubst < templates/index.html > public/index.html
+envsubst < templates/index.html > $public/index.html
 
 # process pages
 # ------------------------------------------------------------------------------
@@ -56,11 +57,11 @@ for dir in pages/*; do
 
     # copy to temp build dir
     slug=$(basename $dir)
-    cp -r $dir/_public public/$slug
+    cp -r $dir/_public $public/$slug
 
 done
 
 # process root files
 # ------------------------------------------------------------------------------
 
-cp -r root/* public
+cp -r root/* $public
