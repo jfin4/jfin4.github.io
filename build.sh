@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 project_root=$(realpath ${0%/*})
 cd "$project_root"
@@ -72,7 +72,7 @@ cp -r root/* public
 
 server_root=/var/www/jfin.net
 if [[ -d $server_root ]]; then
-    sudo rsync -a --delete public/* $server_root
+    doas rsync -a --delete public/* $server_root
 fi
 
 # finish
