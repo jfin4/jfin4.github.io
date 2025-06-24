@@ -3,4 +3,5 @@ Draft: About Variograms
 
 2025-05-22
 
-![](./transect.svg)
+![](./plot.svg)
+![](./variogram.svg)

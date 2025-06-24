@@ -3,136 +3,114 @@ library("tidyverse")
 library("fs")
 library("readxl")
 library("writexl")
-library("magrittr")
-library("gstat")
-library("sp")
-library("ggforce")
+library("sf")
 library("Cairo")
-library("glue")
+library("gstat")
 
-# generate data
+rm(list = ls())
+set.seed(42)
+
+target_cover <- 0.5
+dispersion_factor <- 00.5
+n <- 1e3
+
+start <- now()
+# generate data{{{
 # ------------------------------------------------------------------------------
 
-# 95% of plants between 1 and 2 meters
-# total cover is ~ 40%
-
-make_circle <- function(max, mean, sd) {
-    tibble(x = runif(n = 1, max = max),
-           y = runif(n = 1, max = max),
-           r = rnorm(n = 1, mean = mean, sd = sd))
+plot_dim <- 10 # plot is 10 x 10 m
+mean_r <- 0.75 # mean shrub diameter is 1.5m 
+sd_r <- mean_r / 6 # 96% shrubs are 1.5m +/- 0.5m; 2 sd = 0.5m/1.5m = 1/3
+make_circle <- function() {# {{{
+    x = runif(n = 1, max = plot_dim)
+    y = runif(n = 1, max = plot_dim)
+    r = rnorm(n = 1, mean = mean_r, sd = sd_r)
+    center <- st_point(c(x, y)) %>% st_sfc()
+    circle <- st_buffer(center, dist = r) %>% st_sfc()
+    circles <- st_sf(r = r, center = center, circle = circle)
+    st_geometry(circles) <- "circle" # make circle col active geometry column
+    return(circles)
 }
+# }}}
 
-check_for_overlap <- function(x, y, r, data) {
-    distance <- sqrt((x - data$x)^2 + (y - data$y)^2)
-    # or(r > distance, 
-    #    data$r > distance)  %>%
-    (r + data$r > distance)  %>%
-    any()
-}
-
-calculate_cover <- function(data, dim) {
-        area <- data$r^2 * pi
-        sum(area) / (dim^2)
-}
-
-make_plants <- function(plot_dim, plant_width, target_cover) {
-    plants <- make_circle(plot_dim, plant_width / 2, plant_width / 12)
-    percent_cover <- 0
+plot_area <- plot_dim^2
+make_circles <- function() {
+    circles <- make_circle()
+    percent_cover <- st_area(circles$circle) / plot_area
     while (percent_cover < target_cover) {
-        plant <- make_circle(plot_dim, plant_width / 2, plant_width / 12)
-        has_overlap <- check_for_overlap(plant$x, plant$y, plant$r, plants)
-        if (!has_overlap) {
-            plants <- bind_rows(plants, plant)
+        new_circle <- make_circle()
+        # simulate dispersion
+        dist <- st_distance(new_circle$center, circles$center)
+        r_sum <- new_circle$r + circles$r
+        meets_dispersion_req <- (dist >= r_sum * dispersion_factor) %>% all()
+        if (meets_dispersion_req) {
+            circles <- bind_rows(circles, new_circle)
+            circles_area <- st_union(circles$circle) %>%
+                st_area(circles_union)
+            percent_cover <- circles_area / plot_area
         }
-        percent_cover <- calculate_cover(plants, plot_dim)
     }
-    return(plants)
+    return(circles)
+    # return(circles_combined)
 }
 
-make_points <- function(points_interval, plot_dim, plants) {
-    tibble(x = seq(from = points_interval, 
-                    to = plot_dim, 
-                    by = points_interval),
-            y = plot_dim / 2) %>% 
-    mutate(r = 0,
-            has_overlap = pmap_lgl(list(x, y, r), function(x, y, r) {
-                                        check_for_overlap(x, y, r, plants)
-                    }),
-            result = factor(if_else(has_overlap, "Present", "Absent"),
-                            levels = c("Present", "Absent"))) # legend order
-}
-
-get_semivariance <- function(data, lag) {
-    # γ(h) = ½ × E[(Z(x) - Z(x+h))²]
-    data %>% 
-    mutate(value_lag = lag(has_overlap, n = lag),
-           variance = (value_lag - has_overlap)^2) %>%
-    filter(!is.na(value_lag)) %>%
-    pull(variance) %>% 
-    mean() * 0.5
-}
-
-make_variogram <- function(lags) {
-    plants <- make_plants(plot_dim, plant_width, target_cover)
-    points <- make_points(points_interval, plot_dim, plants)
-    tibble(lag = lags,
-            dist = points$x[lags],
-            semivariance = map_dbl(lags, function(x) get_semivariance(points, x)))
-}
-
-# make plants
-set.seed(0112358)
-plot_dim <- 10
-plant_width <- 1.5
-target_cover <- 0.5
-plants <- make_plants(plot_dim, plant_width, target_cover)
-
-# make points
 points_interval <- 0.25
-points <- make_points(points_interval, plot_dim, plants)
+make_points <- function() {
+    x <- seq(from = points_interval, to = plot_dim, by = points_interval)
+    # y <- runif(n = 1, max = plot_dim)
+    y <- 5
+    tibble(x = x,
+           y = y) %>% 
+    st_as_sf(coords = c("x", "y"), sf_column_name = "point")
+}
 
-# # Calculate for multiple lags
-# lags <- 1:20
-# n <- 1e2
-# variogram <- 
-#     map(1:n, function(x) make_variogram(lags)) %>%
-#     reduce(`+`) %>%
-#     mutate(across(everything(), function(x) x / n))
-# # Plot manual variogram
-# ggplot(variogram, aes(dist, semivariance)) +
-#   geom_point() +
-#   geom_line() +
-#   labs(title = "Empirical Variogram")
+circles <- make_circles()
+points_1 <- make_points()
+points_1 <-
+    points_1 %>% 
+    mutate(result = {
+               st_intersects(point, circles$circle) %>% 
+                   lengths() %>% `>`(0)
+           },
+           legend = {
+               if_else(result, "Presence", "Absence") %>% 
+               factor(levels = c("Presence", "Absence"))
+           })
+# ig_within_1m <- TRUE
+# while (is_within_1m) { # transects must be at least 1m apart
+#     points_2 <- make_points()
+#     is_within_1m <- st_distance(points_1[1, ], points_2[1, ]) < 1
+# }
+# points_2 <-
+#     points_2 %>% 
+#     mutate(result = {
+#                st_intersects(point, circles$circle) %>% 
+#                    lengths() %>% `>`(0)
+#            },
+#            legend = {
+#                if_else(result, "Presence", "Absence") %>% 
+#                factor(levels = c("Presence", "Absence"))
+#            })
+# }}}
+# plot plot{{{
+# ------------------------------------------------------------------------------
 
-# plot plot
-plant_alpha <- 0.2
-plant_color <- "#006600"
-point_color <- "#990000"
-point_size <- 1
-image_width <- 5
-text_size <- 10
-font <- c('Seravek', 'Gill Sans Nova', 'Ubuntu', 'Calibri', 'DejaVu Sans', 'source-sans-pro', 'sans-serif')
-file <- "_public/transect.svg"
-plot <- ggplot() +
-    geom_circle(data = plants,
-                aes(x0 = x, y0 = y, r = r),
-                fill = plant_color,
-                alpha = plant_alpha,
-                color = NA ) + # border color
-    geom_point(data = points,
-               aes(x = x, y = y, fill = result), # Map fill to status
-               shape = 21, # Shape 21 allows fill and border color
-               color = point_color, # Set border color directly
-               size = point_size) +
+alpha <- 0.8
+circle_color <- '#cccccc'
+point_size <- 2
+text_size <- 14
+x <- ggplot() +
+    geom_sf(data = circles, fill = circle_color, color = NA, alpha = alpha) +
+    geom_sf(data = points_1, aes(fill = legend), 
+            shape = 21, 
+            size = point_size) +
+    # geom_sf(data = points_2, aes(fill = legend), 
+    #         shape = 21, 
+    #         size = point_size) +
     scale_fill_manual(name = NULL, # No legend title
-                      values = c("Present" = point_color, 
-                                 "Absent" = "transparent"),
+                      values = c("Presence" = "black", 
+                                 "Absence" = "transparent"),
                       drop = FALSE) + # absent levels are shown 
-    coord_fixed(ratio = 1, 
-                xlim = c(0, plot_dim), 
-                ylim = c(0, plot_dim), 
-                clip = "off",
-                expand = TRUE) + # clips circles
     scale_x_continuous(breaks = c(0, plot_dim),
                        labels = c("0", paste0(plot_dim, " m"))) +
     theme_minimal() +
@@ -146,111 +124,94 @@ plot <- ggplot() +
           axis.ticks.x = element_line(linewidth = 0.3),
           legend.text = element_text(size = text_size)
     )
-ggsave(file, width = image_width, device = CairoSVG, pointsize = text_size)
-# clip
-system(paste("inkscape",
-        "--export-area-drawing",
-        "--export-plain-svg",
-        "--export-filename=_public/transect.svg",
-        "_public/transect.svg"))
+    ggsave("_public/plot.svg", device = CairoSVG)
 
+# }}}
 
-# gstat
+# variogram from scratch{{{
 # ------------------------------------------------------------------------------
-# Convert to spatial object
-points_sp <- points
-coordinates(points_sp) <- ~x + y
-# Calculate empirical variogram
-v <- variogram(has_overlap ~ 1, points_sp)
+
+get_semivariance <- function(data, lag) {
+    # γ(h) = ½ × E[(Z(x) - Z(x+h))²]
+    value_at_lag = lag(data, n = lag)
+    variance = (value_at_lag - data)^2
+    0.5 * mean(variance, na.rm = TRUE)
+}
+
+max_lag <- (plot_dim / points_interval) / 2
+lags <- 1:max_lag
+make_variogram <- function(data) {
+    tibble(lag = lags,
+           `dist (m)` = lags * points_interval,
+           semivariance = map_dbl(lags, function(x) {
+                                      get_semivariance(data, x)
+                                 }))
+}
+
+variogram_data <- make_variogram(points_1$result)
+# first 12 rows (3 m) to mimic gstat
+ggplot(variogram_data[1:12, ], aes(x = `dist (m)`, y = semivariance)) +
+  geom_point() +
+  geom_line() +
+  labs(title = "Empirical Variogram")
+# }}}
+# confirm with gstat{{{
+# ------------------------------------------------------------------------------
+v <- variogram(result ~ 1, points_1)
 ggplot(v, aes(dist, gamma)) +
   geom_point() +
   geom_line() +
   labs(title = "Empirical Variogram")
+# }}}
+# plot variogram{{{
+# ------------------------------------------------------------------------------
 
-  # # Convert to raster and calculate total coverage
-# library(raster)
-
-# # Create a fine-resolution raster grid
-# grid_res <- 0.1  # 10cm resolution
-# r <- raster(extent(0, 10, 0, 10), res = grid_res)
-
-# # For each shrub, create a circular raster
-# shrub_rasters <- list()
-# for(i in 1:nrow(shrub_data)) {
-  # # Create points around shrub perimeter
-  # center_x <- shrub_data$x[i]
-  # center_y <- shrub_data$y[i]
-  # radius <- shrub_data$width[i] / 2
-
-  # # Rasterize shrub as circle
-  # shrub_rasters[[i]] <- rasterize(circle_polygon, r, field = 1)
-# }
-
-# # Combine all shrubs (overlaps automatically handled)
-# total_canopy <- Reduce(`+`, shrub_rasters)
-# total_canopy[total_canopy > 0] <- 1  # Convert to binary
-
-# # Calculate actual area
-# actual_area <- sum(values(total_canopy), na.rm = TRUE) * (grid_res^2)
-# coverage_percent <- actual_area / 100  # For 10x10m pen
-
-library(sf)
-
-# Convert shrubs to circular polygons
-shrub_circles <- list()
-for(i in 1:nrow(shrub_data)) {
-  center <- st_point(c(shrub_data$x[i], shrub_data$y[i]))
-  radius <- shrub_data$width[i] / 2
-  shrub_circles[[i]] <- st_buffer(center, radius)
+run_simulation <- function() {
+    circles <- make_circles()
+    points <- make_points() %>%
+        mutate(result = {
+               st_intersects(point, circles$circle) %>% 
+                   lengths() %>% `>`(0)
+           })
+    make_variogram(points$result)
 }
 
-# Union all polygons (automatically handles overlaps)
-all_shrubs <- do.call(c, shrub_circles)
-union_polygon <- st_union(all_shrubs)
+.variogram_data <- 
+    map(1:n, function(x) run_simulation()) %>%
+    reduce(`+`) %>%
+    mutate(across(everything(), function(x) x / n))
 
-# Calculate actual area
-actual_area <- st_area(union_polygon)
+x <- ggplot() +
+    geom_line(data = .variogram_data, aes(x = `dist (m)`, y = semivariance)) +
+    labs(x = "Lag Distance (m)", y = "Semivariance") +
+    theme_minimal() +
+    theme(
+          panel.grid = element_blank(),
+          # panel.grid.major.y = element_blank(),
+          # panel.grid.minor.y = element_blank(),
+          axis.title = element_text(size = text_size),
+          axis.text.y = element_blank(),
+          axis.line.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          axis.text.x = element_text(color = "black", size = text_size),
+          axis.line.x = element_line(linewidth = 0.3),
+          axis.ticks.x = element_line(linewidth = 0.3),
+    )
+ggsave("_public/variogram.svg", height = 3, device = CairoSVG)
+# }}}
+finish <- now()
+print(finish - start)
 
-# make and plot circles
+# compare to moran's I{{{
 # ------------------------------------------------------------------------------
-library(sf)
-library(ggplot2)
 
-# > plants
-# # A tibble: 29 × 3
-#        x     y     r
-#    <dbl> <dbl> <dbl>
-#  1 5.68   7.22 0.737
-#  2 3.60   7.16 0.696
-#  3 5.57   5.47 0.888
-#  4 4.15   2.96 0.787
-#  5 9.90   2.03 0.668
-#  6 6.12   3.65 0.724
-#  7 0.563  3.88 0.605
-#  8 0.185  9.87 0.329
-#  9 8.65   7.79 0.833
-# 10 2.23   5.69 0.613
-# # ℹ 19 more rows
-# # ℹ Use `print(n = ...)` to see more rows
-# Create circles as sf objects
-shrub_circles <- lapply(1:nrow(plants), function(i) {
-  center <- st_point(c(plants$x[i], plants$y[i]))
-  st_buffer(st_sfc(center), plants$r[i])
-})
-# Combine into single sf object
-all_circles <- do.call(c, shrub_circles)
-circles_sf <- st_sf(geometry = all_circles, shrub_id = 1:length(all_circles))
-# > circles_sf <- st_sf(geometry = all_circles, shrub_id = 1:length(all_circles))
-# Error in st_sf(geometry = all_circles, shrub_id = 1:length(all_circles)) :
-#   no simple features geometry column present
-
-# Union all polygons (automatically handles overlaps)
-union_polygon <- st_union(all_circles)
-
-# Calculate actual area
-actual_area <- st_area(union_polygon)
-
-# Plot
-ggplot(circles_sf) +
-  geom_sf(fill = "lightgreen", color = "darkgreen", alpha = 0.7) +
-  theme_minimal()
+make_points() %>%
+mutate(result = test_intersection(point, circles$circle))
+# }}}
+# # clip{{{
+# system(paste("inkscape",
+#         "--export-area-drawing",
+#         "--export-plain-svg",
+#         "--export-filename=_public/transect.svg",
+#         "_public/transect.svg"))
+# }}}
