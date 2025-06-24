@@ -7,8 +7,8 @@ rm -r public/* > /dev/null 2>&1
 # process posts
 # ------------------------------------------------------------------------------
 
-dirs=$(echo posts/*)
-for dir in $dirs; do
+entries=""
+for dir in posts/*; do
     source=$dir/source.md
     [[ -f $source ]] || continue
     
@@ -30,11 +30,7 @@ for dir in $dirs; do
     export url=$slug
     export description=$(head -n1 $source)
     entry=$(envsubst < templates/toc.html)
-    if [[ $dir == ${dir[1]} ]]; then
-        entries="$entry"
-    else
-        entries="$entries$entry"
-    fi
+    entries=$(printf '%s\n%s' "$entries" "$entry")
 done
 
 # make index
