@@ -1,7 +1,8 @@
 #!/bin/bash
 
-cd /home/jfin/jfin4.github.io
-/usr/bin/rm -r public/*
+project_root=$(realpath ${0%/*})
+cd "$project_root"
+rm -r public/*
 
 # process posts
 # ------------------------------------------------------------------------------
@@ -69,7 +70,10 @@ cp -r root/* public
 # sync with server
 # ------------------------------------------------------------------------------
 
-sudo rsync -a --delete public/* /usr/share/nginx/jfin.net/
+server_root=/var/www/jfin.net
+if [[ -d $server_root ]]; then
+    sudo rsync -a --delete public/* $server_root
+fi
 
 # finish
 # ------------------------------------------------------------------------------
