@@ -2,14 +2,13 @@
 
 project_root=$(realpath ${0%/*})
 cd "$project_root"
-rm -r public/*
+rm -r public/* > /dev/null 2>&1
 
 # process posts
 # ------------------------------------------------------------------------------
 
-entries=""
-
-for dir in posts/*; do
+dirs=$(echo posts/*)
+for dir in $dirs; do
     source=$dir/source.md
     [[ -f $source ]] || continue
     
@@ -31,8 +30,11 @@ for dir in posts/*; do
     export url=$slug
     export description=$(head -n1 $source)
     entry=$(envsubst < templates/toc.html)
-    entries="$entries"$'\n'"$entry"
-
+    if [[ $dir == ${dir[1]} ]]; then
+        entries="$entry"
+    else
+        entries="$entries$entry"
+    fi
 done
 
 # make index
