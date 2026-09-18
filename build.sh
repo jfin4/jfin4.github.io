@@ -4,28 +4,22 @@
 root=$(dirname $0)
 source=$root/content
 site=$root/public
-icon=🐩
+favicon=🐩
 banner="John Inman"
 
 # start fresh ------------------------------------------------------------------
 rm -rf $site
 
 # make favicon -----------------------------------------------------------------
-printf '%s' \
-  '<link rel="icon" href="data:image/svg+xml,' \
-  '<svg xmlns=%22http://www.w3.org/2000/svg%22' \
-  ' viewBox=%220 0 100 100%22>' \
-  '<text y=%22.9em%22 font-size=%2290%22>' \
-  "$icon" \
-  '</text></svg>">' \
-  > /tmp/favicon.h
+printf '%s' '<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://ww'\
+  'w.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size'\
+  '=%2290%22>'"$favicon"'</text></svg>">' > /tmp/favicon.h
 
 # load google fonts ------------------------------------------------------------
-printf '%s' \
-  '<link rel="preconnect" href="https://fonts.googleapis.com">' \
-  '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' \
-  '<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">' \
-  > /tmp/googlefonts.h
+printf '%s' '<link rel="preconnect" href="https://fonts.googleapis.com"><link '\
+  'rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="h'\
+  'ttps://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&family'\
+  '=Source+Code+Pro&display=swap" rel="stylesheet">' > /tmp/googlefonts.h
 
 # configure pandoc -------------------------------------------------------------
 my_pandoc() {
@@ -34,14 +28,15 @@ my_pandoc() {
     --include-in-header=/tmp/favicon.h \
     --include-in-header=/tmp/googlefonts.h \
     --math-method=mathjax \
-    -V mainfont='Source Sans Pro' \
-    -V monofont='Source Code Pro' \
+    -V mainfont='Source Sans Pro, sans-serif' \
+    -V monofont='Source Code Pro, monospace' \
     -V fontsize='20px' \
     "$@"
 }
 
 # render entries ---------------------------------------------------------------
 entries=
+# LC_COLLATE=C sorts by ascii
 for dir in $(LC_COLLATE=C ls -rd $source/*); do
   date=$(basename $dir)
   file=$(ls $dir/*.md)
