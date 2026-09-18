@@ -1,13 +1,13 @@
 #!/bin/sh
 
-source=content
-site=public
+root=$(dirname $0)
+source=$root/content
+site=$root/public
 icon=🐩
 banner="John Inman"
 temp=/tmp/favicon.h
 
-root=$(dirname $0)
-rm -rf $root/$site
+rm -rf $site
 
 printf '%s' \
   '<link rel="icon" href="data:image/svg+xml,' \
@@ -18,21 +18,27 @@ printf '%s' \
   '</text></svg>">' \
   > $temp
 
+my_pandoc() {
+  pandoc \
+    --standalone \
+    --include-in-header=$temp \
+    --math-method=mathjax \
+    -V mainfont='Source Sans Pro, Helvetica, Arial, sans-serif' \
+    -V monofont='Source Code Pro, Courier New, Courier, monospace' \
+    "$@"
+}
+
 entries=
-for dir in $(LC_COLLATE=C ls -rd $root/$source/*); do
+for dir in $(LC_COLLATE=C ls -rd $source/*); do
   date=$(basename $dir)
   file=$(ls $dir/*.md)
   [ -f "$file" ] || continue
 
-  mkdir -p $root/$site/$date
-  pandoc \
-    --standalone \
-    --include-in-header=$temp \
-    -o $root/$site/$date/index.html \
-    "$file"
+  mkdir -p $site/$date
+  my_pandoc -o $site/$date/index.html "$file"
 
   for img in $(sed -n 's/.*!\[.*\](\([^)]*\)).*/\1/p' "$file"); do
-    cp $dir/$img $root/$site/$date/
+    cp $dir/$img $site/$date/
   done
 
   title=$(sed -n '/^# /{ s/^# //p;q; }' "$file")
@@ -40,7 +46,4 @@ for dir in $(LC_COLLATE=C ls -rd $root/$source/*); do
 done
 
 printf '<table>%s</table>\n' "$entries" \
-  | pandoc --standalone \
-  --metadata title="$banner" \
-  --include-in-header=$temp \
-  -o $root/$site/index.html
+  | my_pandoc --metadata title="$banner" -o $site/index.html
