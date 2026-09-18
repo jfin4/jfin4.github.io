@@ -4,6 +4,7 @@ source=content
 site=public
 icon=ji
 
+root=${0%/*}
 rm -rf $root/$site
 
 printf '%s' \
@@ -15,7 +16,6 @@ printf '%s' \
   '</text></svg>">' \
   > /tmp/fav.h
 
-root=${0%/*}
 entries=
 for dir in $root/$source/*; do
   date=${dir##*/}
