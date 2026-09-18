@@ -2,9 +2,11 @@
 
 source=content
 site=public
-icon=ji
+icon=🐩
+banner="John Inman"
+temp=/tmp/favicon.h
 
-root=${0%/*}
+root=$(dirname $0)
 rm -rf $root/$site
 
 printf '%s' \
@@ -14,19 +16,18 @@ printf '%s' \
   '<text y=%22.9em%22 font-size=%2290%22>' \
   "$icon" \
   '</text></svg>">' \
-  > /tmp/fav.h
+  > $temp
 
 entries=
-for dir in $root/$source/*; do
-  date=${dir##*/}
-  for file in $dir/*.md; do break; done
+for dir in $(LC_COLLATE=C ls -rd $root/$source/*); do
+  date=$(basename $dir)
+  file=$(ls $dir/*.md)
   [ -f "$file" ] || continue
-  title=$(sed -n '/^# /{s/^# //p;q}' "$file")
 
   mkdir -p $root/$site/$date
   pandoc \
     --standalone \
-    --include-in-header=/tmp/fav.h \
+    --include-in-header=$temp \
     -o $root/$site/$date/index.html \
     "$file"
 
@@ -34,11 +35,12 @@ for dir in $root/$source/*; do
     cp $dir/$img $root/$site/$date/
   done
 
+  title=$(sed -n '/^# /{ s/^# //p;q; }' "$file")
   entries="$entries<tr><td>$date</td><td><a href=/$date>$title</a></td></tr>"
 done
 
 printf '<table>%s</table>\n' "$entries" \
   | pandoc --standalone \
-  --metadata title="John Inman" \
-  --include-in-header=/tmp/fav.h \
+  --metadata title="$banner" \
+  --include-in-header=$temp \
   -o $root/$site/index.html
