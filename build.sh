@@ -1,79 +1,33 @@
 #!/bin/sh
+rm -rf public
 
-project_root=$(realpath ${0%/*})
-cd "$project_root"
-rm -r public/* > /dev/null 2>&1
+printf '%s\n' \
+  '<link rel="icon" href="data:image/svg+xml,'\
+  '<svg xmlns=%22http://www.w3.org/2000/svg%22'\
+  ' viewBox=%220 0 100 100%22>'\
+  '<text y=%22.9em%22 font-size=%2290%22>ji</text></svg>">' \
+  > /tmp/fav.h
 
-# process posts
-# ------------------------------------------------------------------------------
+entries=
+for dir in entries/*; do
+    date=$(basename $dir)
+    for source in $dir/*.md; do break; done
+    [ -f "$source" ] || continue
+    title=$(sed -n '/^# /{s/^# //p;q}' "$source")
 
-entries=""
-for dir in posts/*; do
-    source=$dir/source.md
-    [[ -f $source ]] || continue
-    
-    # convert
-    target=$dir/_public/index.html
-    if [[ $source -nt $target ]]; then
-        export title=$(head -n1 $source)
-        export content=$(pandoc $source)
-        [[ -d $dir/_public ]] || mkdir $dir/_public
-        envsubst < templates/index.html > $target
-    fi
+    mkdir -p public/$date
+    pandoc --standalone --include-in-header=/tmp/fav.h \
+        -o public/$date/index.html "$source"
 
-    # copy to temp build dir
-    slug=$(head $source | grep -Eo "[0-9]{4}-[0-9]{2}-[0-9]{2}")
-    cp -r $dir/_public public/$slug
+    for img in $(sed -n 's/.*!\[.*\](\([^)]*\)).*/\1/p' "$source"); do
+        cp $dir/$img public/$date/
+    done
 
-    # make index entry
-    export date=$slug
-    export url=$slug
-    export description=$(head -n1 $source)
-    entry=$(envsubst < templates/toc.html)
-    entries=$(printf '%s\n%s' "$entries" "$entry")
+    entries="$entries<tr><td>$date</td><td><a href=/$date>$title</a></td></tr>"
 done
 
-# make index
-export title=jfin.net
-export content="$entries"
-envsubst < templates/index.html > public/index.html
-
-# process pages
-# ------------------------------------------------------------------------------
-
-for dir in pages/*; do
-    source=$dir/source.md
-    [[ -f $source ]] || continue
-    
-    # convert
-    target=$dir/_public/index.html
-    if [[ $source -nt $target ]]; then
-        export title=$(basename $dir)
-        export content=$(pandoc $source)
-        [[ -d $dir/_public ]] || mkdir $dir/_public
-        envsubst < templates/index.html > $target
-    fi
-
-    # copy to temp build dir
-    slug=$(basename $dir)
-    cp -r $dir/_public public/$slug
-
-done
-
-# process root files
-# ------------------------------------------------------------------------------
-
-cp -r root/* public
-
-# sync with server
-# ------------------------------------------------------------------------------
-
-server_root=/var/www/jfin.net
-if [[ -d $server_root ]]; then
-    doas rsync -a --delete public/* $server_root
-fi
-
-# finish
-# ------------------------------------------------------------------------------
-
-cd - > /dev/null
+printf '<table>%s</table>\n' "$entries" \
+  | pandoc --standalone \
+        --metadata title="John Inman" \
+        --include-in-header=/tmp/fav.h -f html \
+        -o public/index.html

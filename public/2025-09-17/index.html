@@ -1,0 +1,3383 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ceden-playbook</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="icon" href="data:image/svg+xml,
+  <svg xmlns=%22http://www.w3.org/2000/svg%22
+   viewBox=%220 0 100 100%22>
+  <text y=%22.9em%22 font-size=%2290%22>ji</text></svg>">
+</head>
+<body>
+<h1
+id="ceden-dataset-reformatting-playbook-california-integrated-report-303d-datasets">CEDEN
+Dataset Reformatting Playbook: California Integrated Report (303(d))
+Datasets</h1>
+<p><a href="/">John Inman</a></p>
+<p>2025-09-17</p>
+<h2 id="document-control-purpose">Document Control &amp; Purpose</h2>
+<ul>
+<li><strong>Target Audience:</strong> Automated execution agent (and
+supporting data engineers) responsible for writing and running R
+reformatting scripts.</li>
+<li><strong>Objective:</strong> Transform heterogeneous water quality
+assessment reference datasets in <code>./refs/</code> (and archives
+extracted to <code>./refs_extracted/</code>) into standardized,
+CEDEN-compliant Comma-Separated Values (<code>.csv</code>) data files
+stored in <code>./output/</code>, with comprehensive sidecar metadata
+CSV files (<code>_metadata.csv</code>).</li>
+<li><strong>Target Schema:</strong> California Environmental Data
+Exchange Network (CEDEN) submission format, primarily modeled on the
+<strong>CEDEN FieldResults</strong> schema (water chemistry, field
+measurements, sediment, tissue chemistry, and continuous sensor
+data).</li>
+<li><strong>Output Formats:</strong>
+<ul>
+<li><strong>Reformatted Data:</strong> Standard RFC 4180 Comma-Separated
+Values (<code>.csv</code>).</li>
+<li><strong>Metadata Sidecar:</strong> Standard RFC 4180 Comma-Separated
+Values (<code>_metadata.csv</code>).</li>
+</ul></li>
+<li><strong>Execution Mandate:</strong> This document is a concrete,
+numbered operational playbook. Every transformation, column mapping,
+controlled vocabulary (CV) crosswalk, and validation rule must be
+executed exactly as specified. No code is contained in this document;
+this document serves as the formal specification for the R scripts to be
+written by the executing agent.</li>
+</ul>
+<hr />
+<h2 id="executive-summary-non-negotiable-rules">1. Executive Summary
+&amp; Non-Negotiable Rules</h2>
+<h3 id="context">1.1 Context</h3>
+<p>The files in <code>./refs/</code> comprise water quality monitoring
+datasets collected across California for the Clean Water Act Section
+303(d) / 305(b) Integrated Report. The reference files originate from
+regional water boards, municipalities, state and federal agencies (e.g.,
+USGS, DPR, DWR, SWAMP, CCAMP), academic institutions, and citizen
+monitoring groups. The collection includes approximately 1,322 top-level
+reference files and thousands of extracted sub-files spanning standard
+modern CEDEN/SWAMP templates, legacy flat spreadsheets, wide
+analyte-by-sheet workbooks, continuous logger text files, relational
+database extracts, and supporting Quality Assurance Project Plans
+(QAPPs).</p>
+<h3 id="non-negotiable-operational-rules">1.2 Non-Negotiable Operational
+Rules</h3>
+<p>The executing agent must strictly enforce the following six rules
+without exception. Any script that violates these rules will produce
+invalid regulatory data.</p>
+<ol type="1">
+<li><strong>Rule 1: Never guess a value (Strict MDL / RL Rule).</strong>
+<ul>
+<li>If Method Detection Limit (MDL) or Reporting Limit (RL) is missing,
+unrecorded, blank, or represented by sentinel values (<code>-88</code>,
+<code>-99</code>, <code>Not Recorded</code>, <code>NR</code>,
+<code>ND</code>) in the raw data, search the associated QAPP PDF or
+document for that reference ID.</li>
+<li>If an explicit detection limit table in the associated QAPP defines
+the MDL/RL for that exact analyte and method, populate the value and
+record <code>rule_1_mdl_rl_provenance = "extracted_from_qapp"</code> in
+the metadata CSV.</li>
+<li>If the value cannot be verified with certainty from an associated
+QAPP, leave it as <code>NA</code> (empty string in output CSV).
+<strong>Never invent, interpolate, or guess detection limits.</strong>
+Document the missing values in <code>_metadata.csv</code>.</li>
+</ul></li>
+<li><strong>Rule 2: Never create a synthetic StationCode.</strong>
+<ul>
+<li>If a station code is missing, blank, or unrecorded in the source
+data, leave it as an empty string (<code>""</code> /
+<code>NA</code>).</li>
+<li><strong>Never synthesize or fabricate station codes</strong> (e.g.,
+do not generate <code>STATION_001</code>, <code>UNKNOWN_SITE</code>, or
+<code>REF4708_SITE_A</code>).</li>
+<li>Flag every record with a missing station code in the sidecar
+metadata CSV under <code>blank_station_codes_count</code>.</li>
+</ul></li>
+<li><strong>Rule 3: Never approximate coordinates.</strong>
+<ul>
+<li>Coordinates (<code>TargetLatitude</code>,
+<code>TargetLongitude</code>, <code>Datum</code>) must originate
+strictly from the source data or from an exact match in CEDEN’s official
+<code>StationLookUp</code> list.</li>
+<li><strong>Never approximate, geocode by street name, interpolate, or
+assign waterbody centroids.</strong> If coordinates are absent in both
+the source record and <code>StationLookUp</code>, leave latitude and
+longitude empty (<code>NA</code>).</li>
+</ul></li>
+<li><strong>Rule 4: Never alter a numeric result value.</strong>
+<ul>
+<li>All numeric measurements must pass through exactly as read from the
+source.</li>
+<li>Do not round, truncate, trim significant digits, or apply conversion
+factors to numeric results.</li>
+<li>For non-detect measurements where the qualifier is embedded in the
+string (e.g., <code>&lt; 0.05</code>), extract the numeric component
+(<code>0.05</code>) verbatim as <code>Result</code> and assign the
+non-detect qualifier to <code>ResQualCode</code>. Do not alter the value
+<code>0.05</code>.</li>
+</ul></li>
+<li><strong>Rule 5: Strict row dropping criterion.</strong>
+<ul>
+<li>A row may be dropped <strong>if and only if</strong> it is
+completely unparseable: <span class="math display">Drop
+Row ⇔ is.na(<em>StationCode</em>) ∧ is.na(<em>AnalyteName</em>) ∧ is.na(<em>Result</em>)</span></li>
+<li>Rows meeting this condition represent blank rows, separator lines,
+or sheet summary blocks (e.g., “Average: 14.2”, “Total Samples:
+100”).</li>
+<li>If a row contains an AnalyteName and a Result, even if StationCode
+is missing: <strong>DO NOT DROP IT.</strong> Retain the record, leave
+StationCode blank, and record the missing station code in the metadata
+CSV.</li>
+</ul></li>
+<li><strong>Rule 6: Mandatory metadata sidecar for every
+dataset.</strong>
+<ul>
+<li>Every single <code>.csv</code> dataset generated in
+<code>./output/</code> must be accompanied by an identical-basename CSV
+sidecar file (<code>&lt;filename&gt;_metadata.csv</code>).</li>
+<li>The metadata CSV must document every column mapping applied, CV
+match counts, unmatched values, raw vs. output row counts, dropped
+summary row counts, and data quality flags using the standardized
+4-column schema (<code>Section</code>, <code>Property</code>,
+<code>Value</code>, <code>Notes</code>).</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="directory-architecture-environment-setup">2. Directory
+Architecture &amp; Environment Setup</h2>
+<h3 id="directory-layout">2.1 Directory Layout</h3>
+<p>The executing agent must establish and operate within the following
+standardized directory tree:</p>
+<pre><code>/workspace/
+├── refs/                       # Read-only source datasets (1,322+ files: .xlsx, .xls, .zip, .csv, .txt, .pdf, .doc)
+├── refs_extracted/             # Working directory for extracted archive contents (partitioned by ref ID)
+│   ├── ref36/
+│   ├── ref428/
+│   ├── ref3656/
+│   └── ...
+├── cv_lookups/                 # Local cache of CEDEN Controlled Vocabulary lookup lists (.csv)
+│   ├── AnalyteLookUp.csv
+│   ├── UnitLookUp.csv
+│   ├── MatrixLookUp.csv
+│   ├── FractionLookUp.csv
+│   ├── MethodLookUp.csv
+│   ├── CollectionMethodLookUp.csv
+│   ├── SampleTypeLookUp.csv
+│   ├── ResQualLookUp.csv
+│   ├── QALookUp.csv
+│   └── StationLookUp.csv
+├── res/                        # Integrated Report assessments &amp; S-drive index
+│   ├── ComprehensiveReportTab.txt
+│   └── s-drive.txt
+├── output/                     # Production target for reformatted datasets and CSV sidecars
+│   ├── ref4708_WaterSedimentField.csv
+│   ├── ref4708_WaterSedimentField_metadata.csv
+│   ├── ref5865_Field.csv
+│   ├── ref5865_Field_metadata.csv
+│   └── ...
+└── logs/                       # Batch execution logs and error traces
+    ├── extraction.log
+    ├── reformatting.log
+    └── cv_validation.log</code></pre>
+<h3 id="environment-package-prerequisites">2.2 Environment &amp; Package
+Prerequisites</h3>
+<p>The executing agent must verify that the following R packages are
+loaded and available in the execution environment:</p>
+<ol type="1">
+<li><code>readxl</code> — Reading <code>.xls</code> (BIFF8) and
+<code>.xlsx</code> (OpenXML) workbooks.</li>
+<li><code>readr</code> — High-performance reading and writing of
+standardized CSV files (<code>read_csv</code>,
+<code>write_csv</code>).</li>
+<li><code>data.table</code> — High-performance data manipulation,
+joining, filtering, and fast CSV export (<code>fwrite</code>).</li>
+<li><code>dplyr</code> &amp; <code>tidyr</code> — Relational operations,
+schema reshaping (pivoting wide-to-long).</li>
+<li><code>lubridate</code> — Standardizing heterogeneous date and time
+formats into ISO-8601 (<code>YYYY-MM-DD</code>,
+<code>HH:MM:SS</code>).</li>
+<li><code>stringr</code> — Regular expressions, text cleaning,
+whitespace trimming.</li>
+<li><code>purrr</code> — Functional iteration over sheets and
+files.</li>
+<li><code>foreign</code> — Reading legacy DBF attribute tables
+(<code>read.dbf</code>) found in GIS archives.</li>
+</ol>
+<hr />
+<h2 id="phase-1-archive-extraction-pre-processing-playbook">3. Phase 1:
+Archive Extraction &amp; Pre-Processing Playbook</h2>
+<h3 id="extraction-specification">3.1 Extraction Specification</h3>
+<p>All compressed archives (<code>.zip</code>) in <code>./refs/</code>
+must be extracted systematically prior to tabular parsing.</p>
+<ol type="1">
+<li><p><strong>Extraction Target Directory:</strong> Extract each
+archive <code>refs/ref&lt;ID&gt;.zip</code> into a dedicated
+subdirectory: <span class="math display">Extraction Path:
+./<em>refs</em>_<em>extracted</em>/<em>ref</em>⟨<em>ID</em>⟩/</span>
+Example: <code>refs/ref4448.zip</code> extracts to
+<code>./refs_extracted/ref4448/</code>.</p></li>
+<li><p><strong>Recursive Archive Handling:</strong> Certain archives
+contain nested zip files (e.g., <code>ref2518.zip</code> contains
+<code>Benthic.zip</code>, <code>Chemistry.zip</code>,
+<code>ToxData.zip</code>, <code>TrawlData.zip</code>).</p>
+<ul>
+<li>The extraction algorithm must scan
+<code>./refs_extracted/ref&lt;ID&gt;/</code> for any <code>.zip</code>
+files.</li>
+<li>For every child zip located at
+<code>./refs_extracted/ref&lt;ID&gt;/path/subarchive.zip</code>, extract
+its contents into
+<code>./refs_extracted/ref&lt;ID&gt;/path/subarchive_extracted/</code>.</li>
+<li>Repeat recursively until no unextracted <code>.zip</code> files
+remain.</li>
+</ul></li>
+<li><p><strong>Artifact Sanitization:</strong> During or immediately
+following extraction, prune operating system artifacts and corrupt
+non-data files:</p>
+<ul>
+<li>Delete all directories named <code>__MACOSX</code> and all contents
+therein.</li>
+<li>Delete all files matching <code>.*</code> (hidden files, e.g.,
+<code>.DS_Store</code>).</li>
+<li>Delete all temporary lock files matching <code>~$*.xlsx</code> or
+<code>~$*.xls</code>.</li>
+</ul></li>
+<li><p><strong>Standalone vs. Extracted Archive Precedence:</strong> In
+approximately 147 instances, a reference ID exists as both a standalone
+spreadsheet (e.g., <code>refs/ref4448.xlsx</code>) and an archive (e.g.,
+<code>refs/ref4448.zip</code> containing
+<code>ShastaTailwaterReduction_WaterChem_Sediment_Field.xlsx</code>).</p>
+<ul>
+<li>The executing script must inspect both files.</li>
+<li>If the spreadsheet inside the archive is identical in sheet
+structure and row count to the standalone file, process the standalone
+file and note archive redundancy in metadata.</li>
+<li>If the archive contains additional sheets, supplementary data files
+(e.g., separate water and habitat workbooks), or more comprehensive
+column headers, process each distinct data file as an independent
+sub-dataset:
+<ul>
+<li>Target naming convention:
+<code>ref&lt;ID&gt;_&lt;subfilename&gt;_&lt;sheetname&gt;.csv</code>.</li>
+</ul></li>
+</ul></li>
+<li><p><strong>File Provenance Tracking:</strong> Every record processed
+from an extracted file must retain its exact origin:</p>
+<ul>
+<li><code>RefID</code>: e.g., <code>"ref4448"</code></li>
+<li><code>SourceArchive</code>: e.g., <code>"refs/ref4448.zip"</code>
+(or <code>NA</code> if standalone)</li>
+<li><code>SourceFile</code>: e.g.,
+<code>"refs_extracted/ref4448/ShastaTailwaterReduction/ShastaTailwaterReduction_WaterChem_Sediment_Field.xlsx"</code></li>
+<li><code>SourceSheet</code>: e.g.,
+<code>"WaterSedimentField"</code></li>
+</ul></li>
+</ol>
+<hr />
+<h2
+id="phase-2-source-file-inventory-archetype-classification-playbook">4.
+Phase 2: Source File Inventory &amp; Archetype Classification
+Playbook</h2>
+<h3 id="archetype-classification-matrix">4.1 Archetype Classification
+Matrix</h3>
+<p>Every file in <code>./refs/</code> and <code>./refs_extracted/</code>
+must be classified into one of the following eight operational
+archetypes:</p>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 11%" />
+<col style="width: 46%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Archetype Code</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Key Identifying Signatures</th>
+<th style="text-align: left;">Primary Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>ARCH-1</strong></td>
+<td style="text-align: left;"><strong>Modern CEDEN / SWAMP
+Export</strong></td>
+<td style="text-align: left;">Sheets named
+<code>WaterSedimentField</code>, <code>Water</code>, <code>Field</code>,
+<code>Habitat</code>, <code>Tissue</code>, <code>Benthic</code>,
+<code>Toxicity</code> with 50+ standardized columns. Often has
+<code>ReadMe</code> sheet.</td>
+<td style="text-align: left;">Direct column-to-column mapping to CEDEN
+schema; emit <code>.csv</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ARCH-2</strong></td>
+<td style="text-align: left;"><strong>CIWQS Regulatory
+Export</strong></td>
+<td style="text-align: left;">Sheet named <code>CIWQS</code> with 65
+standardized columns (<code>WQID</code>, <code>StationCode</code>,
+<code>AnalyteName</code>, <code>Result</code>, etc.).</td>
+<td style="text-align: left;">Direct column-to-column mapping; emit
+<code>.csv</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ARCH-3</strong></td>
+<td style="text-align: left;"><strong>WQX / Water Quality Portal
+Export</strong></td>
+<td style="text-align: left;">Sheet named <code>WQX</code> or
+<code>WaterQualityPortal</code> with national WQX header layout.</td>
+<td style="text-align: left;">Map WQX column aliases to CEDEN target
+names; emit <code>.csv</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ARCH-4</strong></td>
+<td style="text-align: left;"><strong>CCAMP / Regional Board
+Formats</strong></td>
+<td style="text-align: left;">Sheets named <code>Ccamp_WQ_Data</code>,
+<code>Swamp_WQ_Data</code>, <code>SQL_Query_Results</code> with 45
+columns (<code>LabSampleID</code>, <code>StationCode</code>,
+<code>ResultQualCode</code>, <code>ccampid</code>).</td>
+<td style="text-align: left;">Apply CCAMP column crosswalk dictionary;
+emit <code>.csv</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ARCH-5</strong></td>
+<td style="text-align: left;"><strong>CDPR Pesticide
+Database</strong></td>
+<td style="text-align: left;">Sheet named <code>CDPR_Data</code> or text
+files like <code>ref2966.txt</code>. Columns: <code>County_Name</code>,
+<code>site description</code>, <code>chemical</code>, <code>date</code>,
+<code>Conc [ug/L]</code>, <code>loq</code>, <code>study_cd</code>.</td>
+<td style="text-align: left;">Reformat CDPR columns; generate default
+units and fractions; emit <code>.csv</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ARCH-6</strong></td>
+<td style="text-align: left;"><strong>Analyte-Per-Sheet
+Workbooks</strong></td>
+<td style="text-align: left;">Multiple sheets named after chemical
+constituents (e.g., <code>ref2427.xls</code> with sheets
+<code>Arsenic</code>, <code>Copper</code>, <code>E. coli</code>,
+<code>Lead</code>, <code>Turbidity</code>).</td>
+<td style="text-align: left;">Extract analyte name from sheet title or
+<code>Analyte</code> column; iterate and append rows; emit
+<code>.csv</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ARCH-7</strong></td>
+<td style="text-align: left;"><strong>Wide Matrix /
+Station-Per-Sheet</strong></td>
+<td style="text-align: left;">Sheets named after stations (e.g.,
+<code>USGS9427520</code>) or waterbodies (<code>Lake Oroville</code>,
+<code>MET_WET</code>). Wide columns for each analyte (<code>AS_W</code>,
+<code>PB_W</code>, <code>HG_W</code>).</td>
+<td style="text-align: left;">Pivot wide columns to long format
+(<code>AnalyteName</code>, <code>Result</code>); emit
+<code>.csv</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ARCH-8</strong></td>
+<td style="text-align: left;"><strong>Delimited Continuous / Probe
+Data</strong></td>
+<td style="text-align: left;">CSV/TXT logger files (e.g.,
+<code>ref3697.txt</code>, <code>ref4503.csv</code>,
+<code>ref6628.csv</code>) with metadata header blocks followed by time
+series.</td>
+<td style="text-align: left;">Skip non-tabular header rows; parse
+timestamp and parameter values; emit <code>.csv</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>DOC-META</strong></td>
+<td style="text-align: left;"><strong>Supporting Documents /
+QAPP</strong></td>
+<td style="text-align: left;"><code>.pdf</code>, <code>.doc</code>,
+<code>.docx</code> files. Often titled <code>*QAPP*</code>,
+<code>*Report*</code>, <code>*QA*</code>.</td>
+<td style="text-align: left;">Do <strong>not</strong> parse as tabular
+results. Scan during Phase 7 for missing MDL/RL lookups.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>NON-DATA</strong></td>
+<td style="text-align: left;"><strong>Ancillary Media /
+GIS</strong></td>
+<td style="text-align: left;"><code>.jpg</code>, <code>.png</code>,
+<code>.html</code>, <code>.msg</code>, <code>.isc</code>,
+<code>.dat</code> (raw binary sensor files).</td>
+<td style="text-align: left;">Ignore for tabular data; catalog in
+reference index. If <code>.dbf</code> contains station coordinates, use
+for coordinate lookup.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sheet-filtering-triage-specification">4.2 Sheet Filtering &amp;
+Triage Specification</h3>
+<p>When an Excel workbook is opened:</p>
+<ol type="1">
+<li><strong>Scan Sheet Names:</strong> Retrieve all sheet names via
+<code>readxl::excel_sheets()</code>.</li>
+<li><strong>Identify Metadata Sheets:</strong> Do <strong>not</strong>
+process sheets named <code>ReadMe</code>, <code>Readme</code>,
+<code>README</code>, <code>Title</code>, <code>title</code>,
+<code>Table of contents</code>, <code>Qualifier Definitions</code>,
+<code>StationCode List</code>, <code>Delisting Criteria</code>,
+<code>Notes</code>, <code>Study References</code>,
+<code>BPExceedance Tables</code>, or <code>Graphs</code> as result
+tables.
+<ul>
+<li>Instead, read <code>ReadMe</code> sheets to extract project-level
+metadata (<code>Parent Project</code>, <code>Data Source</code>,
+<code>QAPPCode</code>, <code>Data Dictionary URL</code>). Store these
+attributes in memory to populate missing project metadata.</li>
+</ul></li>
+<li><strong>Select Target Data Sheets:</strong>
+<ul>
+<li>If an ARCH-1 sheet exists (<code>WaterSedimentField</code>,
+<code>Water</code>, <code>Field</code>, <code>Habitat</code>,
+<code>Tissue</code>, <code>Benthic</code>, <code>Toxicity</code>),
+select and process each of those sheets independently.</li>
+<li>If an ARCH-2 or ARCH-3 sheet exists (<code>CIWQS</code>,
+<code>WQX</code>), select and process.</li>
+<li>If sheets correspond to chemical names (ARCH-6), process all
+chemical sheets that contain data rows.</li>
+<li>If only generic sheets exist (<code>Sheet1</code>,
+<code>Sheet 1</code>, <code>Data</code>), inspect row headers to
+determine archetype.</li>
+</ul></li>
+</ol>
+<h3 id="leading-metadata-header-detection-algorithm">4.3 Leading
+Metadata &amp; Header Detection Algorithm</h3>
+<p>Many older spreadsheets (e.g., <code>ref2452.xls</code>,
+<code>ref2666.xls</code>, <code>ref2473.xls</code>,
+<code>ref4503.csv</code>) feature leading title blocks, qualifier
+definitions, or station metadata in the first 1 to 15 rows before the
+actual data header appears.</p>
+<p>The executing script must implement the following header detection
+logic:</p>
+<ol type="1">
+<li>Read the first 25 rows of the worksheet with
+<code>col_names = FALSE</code>.</li>
+<li>For each row <span
+class="math inline"><em>i</em> ∈ {1, …, 25}</span>:
+<ul>
+<li>Convert row values to character strings, trim whitespace, and
+discard empty strings.</li>
+<li>Compute a <strong>Header Match Score</strong> (<span
+class="math inline"><em>S</em><sub><em>i</em></sub></span>) based on the
+count of matching CEDEN keyword tokens: <span
+class="math display"><em>S</em><sub><em>i</em></sub> = ∑𝕀(token ∈ {"station", "sample", "date", "time", "analyte", "parameter", "result", "matrix", "method", "unit", "qualifier", "latitude", "longitude"})</span></li>
+</ul></li>
+<li><strong>Decision Rule:</strong>
+<ul>
+<li>The header row is the row index <span
+class="math inline"><em>k</em></span> that maximizes <span
+class="math inline"><em>S</em><sub><em>k</em></sub></span>, provided
+<span
+class="math inline"><em>S</em><sub><em>k</em></sub> ≥ 3</span>.</li>
+<li>If the first row already has <span
+class="math inline"><em>S</em><sub>1</sub> ≥ 3</span>, set header row
+<span class="math inline"><em>k</em> = 1</span>.</li>
+<li>If <span class="math inline"><em>k</em> &gt; 1</span>, re-read the
+sheet setting <code>skip = k - 1</code> and
+<code>col_names = TRUE</code>.</li>
+<li>Any metadata in rows <span class="math inline">1</span> to <span
+class="math inline"><em>k</em> − 1</span> (such as station coordinates
+embedded in a title block) must be parsed into an auxiliary metadata
+dictionary.</li>
+</ul></li>
+</ol>
+<h3 id="row-filtering-summary-row-dropping-specification">4.4 Row
+Filtering &amp; Summary Row Dropping Specification</h3>
+<p>Once the tabular data is read into memory:</p>
+<ol type="1">
+<li><strong>Evaluate Rule 5 Criterion:</strong> For every row <span
+class="math inline"><em>r</em></span>, evaluate whether: <span
+class="math display">is.na(<em>r</em>.StationCode) ∧ is.na(<em>r</em>.AnalyteName) ∧ is.na(<em>r</em>.Result)</span></li>
+<li><strong>Execution Action:</strong>
+<ul>
+<li>If <strong>TRUE</strong>: Drop row <span
+class="math inline"><em>r</em></span>. Increment
+<code>rows_dropped_unparseable</code> counter.</li>
+<li>If <strong>FALSE</strong>: Retain row <span
+class="math inline"><em>r</em></span>.</li>
+</ul></li>
+<li><strong>Accounting:</strong> Record in <code>_metadata.csv</code>:
+<ul>
+<li><code>raw_rows_read</code>: Total rows loaded after header.</li>
+<li><code>rows_dropped_unparseable</code>: Total rows meeting the Rule 5
+drop criterion.</li>
+<li><code>output_rows</code>: Total rows written to <code>.csv</code>
+(<code>raw_rows_read - rows_dropped_unparseable</code>).</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="phase-3-ceden-target-schema-specification">5. Phase 3: CEDEN
+Target Schema Specification</h2>
+<p>The standardized output table matches the <strong>CEDEN
+FieldResults</strong> schema (57 standardized columns). Every output
+<code>.csv</code> file must adhere strictly to this exact column
+layout.</p>
+<h3 id="the-14-required-columns-mandatory">5.1 The 14 Required Columns
+(Mandatory)</h3>
+<p>These 14 fields must be populated for every valid record. If missing
+in the raw source, apply the mandatory fallback logic specified below
+and document the population count in the metadata CSV.</p>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 3%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 22%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Column Name</th>
+<th style="text-align: left;">Target Data Type</th>
+<th style="text-align: left;">CEDEN Definition &amp; Constraints</th>
+<th style="text-align: left;">Fallback / Population Rule if Missing in
+Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1</strong></td>
+<td
+style="text-align: left;"><strong><code>StationCode</code></strong></td>
+<td style="text-align: left;">Character (max 35)</td>
+<td style="text-align: left;">Unique alphanumeric station
+identifier.</td>
+<td style="text-align: left;"><strong>Rule 2 applies:</strong> Leave as
+<code>""</code> (empty string) / <code>NA</code>. Never synthesize. Flag
+count in metadata CSV.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2</strong></td>
+<td
+style="text-align: left;"><strong><code>SampleDate</code></strong></td>
+<td style="text-align: left;">Date (<code>YYYY-MM-DD</code>)</td>
+<td style="text-align: left;">Calendar date of sample collection.</td>
+<td style="text-align: left;">Must be parsed from date fields. Format
+strictly as <code>YYYY-MM-DD</code>. If unparseable, flag in metadata
+CSV.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3</strong></td>
+<td
+style="text-align: left;"><strong><code>ProjectCode</code></strong></td>
+<td style="text-align: left;">Character (max 50)</td>
+<td style="text-align: left;">Official CEDEN/SWAMP project code.</td>
+<td style="text-align: left;">If missing in row, check
+<code>ReadMe</code> sheet. If still absent, use
+<code>"REF_&lt;ref_id&gt;"</code> (e.g., <code>"REF_4708"</code>). Flag
+in metadata CSV.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4</strong></td>
+<td
+style="text-align: left;"><strong><code>CollectionTime</code></strong></td>
+<td style="text-align: left;">Character (<code>HH:MM:SS</code>)</td>
+<td style="text-align: left;">Time of sample collection (24-hr
+clock).</td>
+<td style="text-align: left;">If unrecorded in source, assign default
+<code>"00:00:00"</code> per CEDEN guidance. Flag count of defaulted
+times in metadata CSV.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5</strong></td>
+<td
+style="text-align: left;"><strong><code>CollectionMethodCode</code></strong></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;">Method of sample collection (e.g.,
+<code>Water_Grab</code>).</td>
+<td style="text-align: left;">Infer from matrix/analyte:
+<code>Water_Grab</code> for water chemistry; <code>Field</code> for
+probe measurements; <code>Sed_Grab</code> for sediment.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>6</strong></td>
+<td
+style="text-align: left;"><strong><code>Replicate</code></strong></td>
+<td style="text-align: left;">Integer / Numeric</td>
+<td style="text-align: left;">Field collection replicate number (usually
+1).</td>
+<td style="text-align: left;">If missing, default to <code>1</code>.
+Document default in metadata CSV.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>7</strong></td>
+<td
+style="text-align: left;"><strong><code>MatrixName</code></strong></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;">Sample matrix (e.g.,
+<code>samplewater</code>, <code>sediment</code>).</td>
+<td style="text-align: left;">Crosswalk source matrix (e.g.,
+<code>"water"</code> <span class="math inline">→</span>
+<code>"samplewater"</code>). If missing, infer from sheet name or
+analyte type.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>8</strong></td>
+<td
+style="text-align: left;"><strong><code>MethodName</code></strong></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;">Analytical method code or
+description.</td>
+<td style="text-align: left;">Crosswalk to CEDEN
+<code>MethodLookUp</code>. If unknown in source, use
+<code>"FieldMeasure"</code> for field probes or
+<code>"Unspecified"</code> and flag.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>9</strong></td>
+<td
+style="text-align: left;"><strong><code>AnalyteName</code></strong></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;">Constituent analyzed (e.g.,
+<code>Copper</code>, <code>pH</code>).</td>
+<td style="text-align: left;">Crosswalk source name to CEDEN
+<code>AnalyteLookUp</code>. Verbatim retention if unmatched; flag in
+metadata CSV.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>10</strong></td>
+<td
+style="text-align: left;"><strong><code>FractionName</code></strong></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;">Chemical fraction (e.g.,
+<code>Total</code>, <code>Dissolved</code>, <code>None</code>).</td>
+<td style="text-align: left;">Crosswalk source fraction
+(<code>Filtered</code> <span class="math inline">→</span>
+<code>Dissolved</code>). Default to <code>None</code> for field physical
+parameters (pH, Temp).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>11</strong></td>
+<td
+style="text-align: left;"><strong><code>UnitName</code></strong></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;">Unit of measurement (e.g.,
+<code>mg/L</code>, <code>ug/L</code>, <code>none</code>).</td>
+<td style="text-align: left;">Crosswalk to CEDEN
+<code>UnitLookUp</code>. Assign <code>none</code> for pH. Verbatim
+retention if unmatched; flag in metadata CSV.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>12</strong></td>
+<td style="text-align: left;"><strong><code>Result</code></strong></td>
+<td style="text-align: left;">Numeric (Double)</td>
+<td style="text-align: left;">Numerical measurement value.</td>
+<td style="text-align: left;"><strong>Rule 4 applies:</strong> Verbatim
+numeric pass-through. If non-detect (<code>&lt;0.05</code>), store
+<code>0.05</code>. Never alter value.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>13</strong></td>
+<td
+style="text-align: left;"><strong><code>ResQualCode</code></strong></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;">Result qualifier code (e.g.,
+<code>=</code>, <code>ND</code>, <code>DNQ</code>,
+<code>&lt;</code>).</td>
+<td style="text-align: left;">Crosswalk source qualifier. Default to
+<code>=</code> for detected numeric results without qualifier;
+<code>ND</code> for non-detects.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>14</strong></td>
+<td style="text-align: left;"><strong><code>QACode</code></strong></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;">Quality assurance flag (e.g.,
+<code>None</code>, <code>J</code>, <code>B</code>).</td>
+<td style="text-align: left;">Crosswalk to CEDEN <code>QALookUp</code>.
+Default to <code>"None"</code> when no quality deficiency is indicated.
+Flag unmatched codes.</td>
+</tr>
+</tbody>
+</table>
+<h3
+id="contextual-administrative-analytical-columns-optional-supplementary">5.2
+Contextual, Administrative &amp; Analytical Columns (Optional /
+Supplementary)</h3>
+<p>Populate these fields whenever source data provides corresponding
+values. If absent in source, store as empty string (<code>""</code> /
+<code>NA</code>).</p>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 16%" />
+<col style="width: 14%" />
+<col style="width: 61%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Column Name</th>
+<th style="text-align: left;">Data Type</th>
+<th style="text-align: left;">Source Field Aliases / Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>15</strong></td>
+<td style="text-align: left;"><code>ProgramCode</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>ProgramCode</code>,
+<code>Program</code>, <code>Data Source</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>16</strong></td>
+<td style="text-align: left;"><code>ParentProjectCode</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;"><code>ParentProjectCode</code>,
+<code>ParentProject</code>, <code>Parent Project</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>17</strong></td>
+<td style="text-align: left;"><code>QAPPCode</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>QAPPCode</code>,
+<code>QAPPName</code>, <code>QAPP</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>18</strong></td>
+<td style="text-align: left;"><code>StationName</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;"><code>StationName</code>,
+<code>Station Name</code>, <code>Site Name</code>,
+<code>site description</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>19</strong></td>
+<td style="text-align: left;"><code>StationDescr</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;"><code>StationDescr</code>,
+<code>Station Description</code>, <code>Site Description</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>20</strong></td>
+<td style="text-align: left;"><code>TargetLatitude</code></td>
+<td style="text-align: left;">Numeric (Double)</td>
+<td style="text-align: left;"><code>Latitude</code>,
+<code>TargetLatitude</code>, <code>ActualLatitude</code>,
+<code>SampleLatitude</code>, <code>SampleLatitiude</code>,
+<code>y coord</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>21</strong></td>
+<td style="text-align: left;"><code>TargetLongitude</code></td>
+<td style="text-align: left;">Numeric (Double)</td>
+<td style="text-align: left;"><code>Longitude</code>,
+<code>TargetLongitude</code>, <code>ActualLongitude</code>,
+<code>SampleLongitude</code>, <code>x coord</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>22</strong></td>
+<td style="text-align: left;"><code>Datum</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>Datum</code>, <code>datum</code>,
+<code>SampleDatum</code>, <code>NAD83</code>, <code>WGS84</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>23</strong></td>
+<td style="text-align: left;"><code>RegionalBoardID</code></td>
+<td style="text-align: left;">Character / Integer</td>
+<td style="text-align: left;"><code>RegionalBoardID</code>,
+<code>RegionalBoard</code>, <code>Region</code>, <code>rb_number</code>
+(Values 1 to 9)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>24</strong></td>
+<td style="text-align: left;"><code>WaterBodyType</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>WaterBodyType</code>,
+<code>Water Body Type</code>, <code>SWRCBWatTypeCode</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>25</strong></td>
+<td style="text-align: left;"><code>SampleAgencyCode</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>SampleAgencyCode</code>,
+<code>SampleAgency</code>, <code>AgencyCode</code>,
+<code>Agency</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>26</strong></td>
+<td style="text-align: left;"><code>CollectionDepth</code></td>
+<td style="text-align: left;">Numeric (Double)</td>
+<td style="text-align: left;"><code>CollectionDepth</code>,
+<code>DepthSampleCollection</code>, <code>Depth</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>27</strong></td>
+<td style="text-align: left;"><code>UnitCollectionDepth</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>UnitCollectionDepth</code>,
+<code>DepthUnit</code> (e.g., <code>m</code>, <code>ft</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>28</strong></td>
+<td style="text-align: left;"><code>CollectionDeviceCode</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>CollectionDeviceCode</code>,
+<code>CollectionDeviceName</code>, <code>SampleDevice</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>29</strong></td>
+<td style="text-align: left;"><code>PositionWaterColumn</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>PositionWaterColumn</code>,
+<code>Position</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>30</strong></td>
+<td style="text-align: left;"><code>SampleTypeCode</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>SampleTypeCode</code>,
+<code>SampleType</code>, <code>Sample Type</code> (e.g.,
+<code>Grab</code>, <code>FieldBLDup_Grab</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>31</strong></td>
+<td style="text-align: left;"><code>LocationCode</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>LocationCode</code>,
+<code>LocationName</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>32</strong></td>
+<td style="text-align: left;"><code>LabAgencyCode</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>LabAgencyCode</code>,
+<code>LabAgencyName</code>, <code>AnalyzingAgency</code>,
+<code>Analyzing Lab</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>33</strong></td>
+<td style="text-align: left;"><code>SubmittingAgency</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>SubmittingAgency</code>,
+<code>Submittee</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>34</strong></td>
+<td style="text-align: left;"><code>LabSubmissionCode</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;"><code>LabSubmissionCode</code>,
+<code>SubmissionCode</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>35</strong></td>
+<td style="text-align: left;"><code>LabBatch</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;"><code>LabBatch</code>, <code>Batch</code>,
+<code>Lab Batch</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>36</strong></td>
+<td style="text-align: left;"><code>LabSampleID</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;"><code>LabSampleID</code>,
+<code>Lab Sample ID</code>, <code>SampleID</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>37</strong></td>
+<td style="text-align: left;"><code>AnalysisDate</code></td>
+<td style="text-align: left;">Date (<code>YYYY-MM-DD</code>)</td>
+<td style="text-align: left;"><code>AnalysisDate</code>,
+<code>Analysis Date</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>38</strong></td>
+<td style="text-align: left;"><code>LabReplicate</code></td>
+<td style="text-align: left;">Integer / Numeric</td>
+<td style="text-align: left;"><code>LabReplicate</code>,
+<code>Lab Replicate</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>39</strong></td>
+<td style="text-align: left;"><code>MDL</code></td>
+<td style="text-align: left;">Numeric (Double)</td>
+<td style="text-align: left;"><code>MDL</code>,
+<code>MethodDetectionLimit</code>, <code>lod</code>. <strong>Rule 1
+applies: empty if missing and not in QAPP.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>40</strong></td>
+<td style="text-align: left;"><code>RL</code></td>
+<td style="text-align: left;">Numeric (Double)</td>
+<td style="text-align: left;"><code>RL</code>,
+<code>ReportingLimit</code>, <code>loq</code>, <code>PQL</code>.
+<strong>Rule 1 applies: empty if missing and not in QAPP.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>41</strong></td>
+<td style="text-align: left;"><code>BatchVerificationCode</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>BatchVerificationCode</code>,
+<code>BatchVerification</code>, <code>BatchQualifier</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>42</strong></td>
+<td style="text-align: left;"><code>ComplianceCode</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>ComplianceCode</code>,
+<code>ComplianceName</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>43</strong></td>
+<td style="text-align: left;"><code>DilutionFactor</code></td>
+<td style="text-align: left;">Numeric (Double)</td>
+<td style="text-align: left;"><code>DilutionFactor</code>,
+<code>Dilution</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>44</strong></td>
+<td style="text-align: left;"><code>ExpectedValue</code></td>
+<td style="text-align: left;">Numeric (Double)</td>
+<td style="text-align: left;"><code>ExpectedValue</code>,
+<code>Expected Value</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>45</strong></td>
+<td style="text-align: left;"><code>SampleComments</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;"><code>SampleComments</code>,
+<code>Sample Comments</code>, <code>Field Comments</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>46</strong></td>
+<td style="text-align: left;"><code>LabResultComments</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;"><code>LabResultComments</code>,
+<code>ResultComments</code>, <code>Lab Comments</code>,
+<code>ResultsComments</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>47</strong></td>
+<td style="text-align: left;"><code>LabBatchComments</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;"><code>LabBatchComments</code>,
+<code>BatchComments</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>48</strong></td>
+<td style="text-align: left;"><code>FieldResultComments</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;"><code>FieldResultComments</code>,
+<code>Field Result Comments</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>49</strong></td>
+<td style="text-align: left;"><code>TissueName</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>TissueName</code>,
+<code>TISSUE</code> (e.g., <code>Muscle</code>,
+<code>Whole Organism</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>50</strong></td>
+<td style="text-align: left;"><code>TissuePrep</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>TissuePrep</code> (e.g.,
+<code>Dissected</code>, <code>Homogenized</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>51</strong></td>
+<td style="text-align: left;"><code>CommonName</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>CommonName</code>,
+<code>COMMON</code>, <code>Species Name</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>52</strong></td>
+<td style="text-align: left;"><code>FinalID</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>FinalID</code>,
+<code>TaxonomicID</code>, <code>Genus</code>, <code>Species</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>53</strong></td>
+<td style="text-align: left;"><code>LifeStageName</code></td>
+<td style="text-align: left;">Character (CV)</td>
+<td style="text-align: left;"><code>LifeStageName</code>,
+<code>AGE</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>54</strong></td>
+<td style="text-align: left;"><code>TaxonomicQualifier</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;"><code>TaxonomicQualifier</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>55</strong></td>
+<td style="text-align: left;"><code>RefID</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;">Reference folder identifier (e.g.,
+<code>"ref4708"</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>56</strong></td>
+<td style="text-align: left;"><code>SourceFile</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;">Relative path to source file</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>57</strong></td>
+<td style="text-align: left;"><code>SourceSheet</code></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;">Sheet name within source workbook</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-4-controlled-vocabulary-cv-acquisition-playbook">6. Phase
+4: Controlled Vocabulary (CV) Acquisition Playbook</h2>
+<h3 id="automated-download-protocol">6.1 Automated Download
+Protocol</h3>
+<p>The CEDEN Checker hosts official controlled vocabulary tables
+downloadable via HTTP GET requests. The executing script must download
+and cache these tables into <code>./cv_lookups/</code> as
+<code>.csv</code> files prior to processing data.</p>
+<ul>
+<li><strong>Base Export URL:</strong>
+<code>https://ceden.org/CEDEN_Checker/Checker/CEDEN_export_xls.php?table=&lt;TableName&gt;</code></li>
+<li><strong>Output Format:</strong> Even though the script is named
+<code>CEDEN_export_xls.php</code>, the server returns standard Office
+OpenXML <code>.xlsx</code> files
+(<code>Content-Type: application/octet-stream</code>, PK zip
+header).</li>
+<li><strong>Caching Logic:</strong>
+<ol type="1">
+<li>Check if <code>./cv_lookups/&lt;TableName&gt;.csv</code> already
+exists.</li>
+<li>If missing, download from the URL using a timeout threshold of 180
+seconds to a temporary file.</li>
+<li>Parse the downloaded spreadsheet using
+<code>readxl::read_excel()</code>.</li>
+<li>Write the parsed lookup table as a UTF-8 CSV file:
+<code>./cv_lookups/&lt;TableName&gt;.csv</code>.</li>
+</ol></li>
+</ul>
+<h3 id="priority-lookup-tables-specification">6.2 Priority Lookup Tables
+Specification</h3>
+<p>The executing agent must download the following primary lookup
+tables:</p>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 33%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Lookup Table Name</th>
+<th style="text-align: left;">Primary Target Columns Validated</th>
+<th style="text-align: left;">Key Lookup Fields in Table</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>ResQualLookUp</code></td>
+<td style="text-align: left;"><code>ResQualCode</code></td>
+<td style="text-align: left;"><code>ResQualCode</code>,
+<code>ResQualName</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>QALookUp</code></td>
+<td style="text-align: left;"><code>QACode</code></td>
+<td style="text-align: left;"><code>QACode</code>,
+<code>QAName</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>MatrixLookUp</code></td>
+<td style="text-align: left;"><code>MatrixName</code></td>
+<td style="text-align: left;"><code>MatrixName</code>,
+<code>MatrixDescr</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>FractionLookUp</code></td>
+<td style="text-align: left;"><code>FractionName</code></td>
+<td style="text-align: left;"><code>FractionName</code>,
+<code>FractionDescr</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>UnitLookUp</code></td>
+<td style="text-align: left;"><code>UnitName</code></td>
+<td style="text-align: left;"><code>UnitName</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>AnalyteLookUp</code></td>
+<td style="text-align: left;"><code>AnalyteName</code></td>
+<td style="text-align: left;"><code>AnalyteName</code>,
+<code>AnalyteDescr</code>, <code>CASNumber</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CollectionMethodLookUp</code></td>
+<td style="text-align: left;"><code>CollectionMethodCode</code></td>
+<td style="text-align: left;"><code>CollectionMethodCode</code>,
+<code>CollectionMethodName</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SampleTypeLookUp</code></td>
+<td style="text-align: left;"><code>SampleTypeCode</code></td>
+<td style="text-align: left;"><code>SampleTypeCode</code>,
+<code>SampleTypeDescr</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>MethodLookUp</code></td>
+<td style="text-align: left;"><code>MethodName</code></td>
+<td style="text-align: left;"><code>MethodName</code>,
+<code>MethodDescr</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>StationLookUp</code></td>
+<td style="text-align: left;"><code>StationCode</code>,
+<code>TargetLatitude</code>, <code>TargetLongitude</code></td>
+<td style="text-align: left;"><code>StationCode</code>,
+<code>StationName</code>, <code>TargetLatitude</code>,
+<code>TargetLongitude</code>, <code>Datum</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ProgramLookUp</code></td>
+<td style="text-align: left;"><code>ProgramCode</code></td>
+<td style="text-align: left;"><code>ProgramCode</code>,
+<code>ProgramName</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ProjectLookUp</code></td>
+<td style="text-align: left;"><code>ProjectCode</code></td>
+<td style="text-align: left;"><code>ProjectCode</code>,
+<code>ProjectName</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>QAPPLookUp</code></td>
+<td style="text-align: left;"><code>QAPPCode</code></td>
+<td style="text-align: left;"><code>QAPPCode</code>,
+<code>QAPPName</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>TissueLookUp</code></td>
+<td style="text-align: left;"><code>TissueName</code>,
+<code>TissuePrep</code></td>
+<td style="text-align: left;"><code>TissueName</code>,
+<code>TissuePrep</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="stationlookup-fallback-handling">6.3 StationLookUp Fallback
+Handling</h3>
+<p><code>StationLookUp</code> contains tens of thousands of California
+stations (~2.2 MB compressed download). If the HTTP request times out
+due to server load: 1. Re-attempt download using <code>curl</code> with
+retry parameters:
+<code>curl -L --retry 3 --connect-timeout 30 -o ./cv_lookups/StationLookUp.xlsx "&lt;URL&gt;"</code>.
+Convert to <code>./cv_lookups/StationLookUp.csv</code>. 2. If the CEDEN
+server remains unreachable, proceed using source-provided coordinates
+only. Set <code>station_lookup_status = "offline_fallback"</code> in the
+metadata CSV sidecars and flag that station lookup verification was
+deferred.</p>
+<hr />
+<h2 id="phase-5-source-to-target-column-mapping-playbook">7. Phase 5:
+Source-to-Target Column Mapping Playbook</h2>
+<p>This section details the exact mapping logic for every source
+archetype.</p>
+<h3 id="master-column-name-normalization-typo-dictionary">7.1 Master
+Column Name Normalization &amp; Typo Dictionary</h3>
+<p>Before evaluating archetype-specific mappings, cleanse all source
+column names: 1. Strip leading and trailing whitespace. 2. Remove
+non-printable / control characters. 3. Apply the following known typo
+corrections:</p>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 26%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Raw Source Header Variation</th>
+<th style="text-align: left;">Normalized Header Name</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>SampleLatitiude</code></td>
+<td style="text-align: left;"><code>TargetLatitude</code></td>
+<td style="text-align: left;">Common typo in CEDEN 2020+ exports (e.g.,
+<code>ref4708.xlsx</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>TargetLatitude</code>,
+<code>ActualLatitude</code>, <code>SampleLatitude</code></td>
+<td style="text-align: left;"><code>TargetLatitude</code></td>
+<td style="text-align: left;">Coordinate normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>TargetLongitude</code>,
+<code>ActualLongitude</code>, <code>SampleLongitude</code></td>
+<td style="text-align: left;"><code>TargetLongitude</code></td>
+<td style="text-align: left;">Coordinate normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>AnalytewFraction</code></td>
+<td style="text-align: left;">Split into <code>AnalyteName</code> &amp;
+<code>FractionName</code></td>
+<td style="text-align: left;">Common in <code>ref2427.xls</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ResultQualCode</code>,
+<code>ResQualifier</code>, <code>ResultQualifier</code></td>
+<td style="text-align: left;"><code>ResQualCode</code></td>
+<td style="text-align: left;">Qualifier normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>QACodeDescr</code>,
+<code>QA Code</code>, <code>QADescription</code></td>
+<td style="text-align: left;"><code>QACode</code></td>
+<td style="text-align: left;">QA flag normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Units</code>, <code>Unit</code>,
+<code>UnitCode</code></td>
+<td style="text-align: left;"><code>UnitName</code></td>
+<td style="text-align: left;">Unit normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Matrix</code>,
+<code>MatrixCode</code></td>
+<td style="text-align: left;"><code>MatrixName</code></td>
+<td style="text-align: left;">Matrix normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Method</code>,
+<code>MethodCode</code></td>
+<td style="text-align: left;"><code>MethodName</code></td>
+<td style="text-align: left;">Method normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SampleTime</code>,
+<code>Time</code>, <code>Collection Time</code></td>
+<td style="text-align: left;"><code>CollectionTime</code></td>
+<td style="text-align: left;">Time normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Date</code>,
+<code>Sample Date</code>, <code>CollectionDate</code></td>
+<td style="text-align: left;"><code>SampleDate</code></td>
+<td style="text-align: left;">Date normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Station ID</code>,
+<code>Station</code>, <code>Site ID</code>, <code>SiteNumber</code></td>
+<td style="text-align: left;"><code>StationCode</code></td>
+<td style="text-align: left;">Station code normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Station Name</code>,
+<code>Site Name</code>, <code>SiteDescription</code></td>
+<td style="text-align: left;"><code>StationName</code></td>
+<td style="text-align: left;">Station name normalization</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3
+id="archetype-1-modern-ceden-swamp-exports-watersedimentfield-water-field-habitat-tissue-benthic">7.2
+Archetype 1: Modern CEDEN / SWAMP Exports
+(<code>WaterSedimentField</code>, <code>Water</code>,
+<code>Field</code>, <code>Habitat</code>, <code>Tissue</code>,
+<code>Benthic</code>)</h3>
+<p>These sheets contain standardized 50+ to 80+ columns.</p>
+<h4 id="direct-column-mapping">Direct Column Mapping:</h4>
+<ul>
+<li><code>StationCode</code> <span class="math inline">→</span>
+<code>StationCode</code></li>
+<li><code>SampleDate</code> <span class="math inline">→</span>
+<code>SampleDate</code></li>
+<li><code>CollectionTime</code> <span class="math inline">→</span>
+<code>CollectionTime</code></li>
+<li><code>ProjectCode</code> <span class="math inline">→</span>
+<code>ProjectCode</code></li>
+<li><code>CollectionMethodName</code> or
+<code>CollectionMethodCode</code> <span class="math inline">→</span>
+<code>CollectionMethodCode</code></li>
+<li><code>Replicate</code> or <code>CollectionReplicate</code> <span
+class="math inline">→</span> <code>Replicate</code></li>
+<li><code>MatrixName</code> <span class="math inline">→</span>
+<code>MatrixName</code></li>
+<li><code>MethodName</code> <span class="math inline">→</span>
+<code>MethodName</code></li>
+<li><code>AnalyteName</code> (or <code>Analyte</code>) <span
+class="math inline">→</span> <code>AnalyteName</code></li>
+<li><code>FractionName</code> <span class="math inline">→</span>
+<code>FractionName</code></li>
+<li><code>UnitName</code> (or <code>Unit</code>) <span
+class="math inline">→</span> <code>UnitName</code></li>
+<li><code>Result</code> <span class="math inline">→</span>
+<code>Result</code></li>
+<li><code>ResQualCode</code> <span class="math inline">→</span>
+<code>ResQualCode</code></li>
+<li><code>QACode</code> <span class="math inline">→</span>
+<code>QACode</code></li>
+<li><code>MDL</code> <span class="math inline">→</span>
+<code>MDL</code></li>
+<li><code>RL</code> <span class="math inline">→</span>
+<code>RL</code></li>
+<li><code>Latitude</code> / <code>TargetLatitude</code> /
+<code>SampleLatitude</code> / <code>SampleLatitiude</code> <span
+class="math inline">→</span> <code>TargetLatitude</code></li>
+<li><code>Longitude</code> / <code>TargetLongitude</code> /
+<code>SampleLongitude</code> <span class="math inline">→</span>
+<code>TargetLongitude</code></li>
+<li><code>Datum</code> / <code>SampleDatum</code> <span
+class="math inline">→</span> <code>Datum</code></li>
+<li><code>SampleTypeCode</code> <span class="math inline">→</span>
+<code>SampleTypeCode</code></li>
+<li><code>CollectionDepth</code> <span class="math inline">→</span>
+<code>CollectionDepth</code></li>
+<li><code>UnitCollectionDepth</code> <span class="math inline">→</span>
+<code>UnitCollectionDepth</code></li>
+<li><code>LabBatch</code> <span class="math inline">→</span>
+<code>LabBatch</code></li>
+<li><code>LabSampleID</code> <span class="math inline">→</span>
+<code>LabSampleID</code></li>
+<li><code>AnalysisDate</code> <span class="math inline">→</span>
+<code>AnalysisDate</code></li>
+<li><code>LabReplicate</code> <span class="math inline">→</span>
+<code>LabReplicate</code></li>
+<li><code>SampleComments</code> <span class="math inline">→</span>
+<code>SampleComments</code></li>
+<li><code>LabResultComments</code> <span class="math inline">→</span>
+<code>LabResultComments</code></li>
+</ul>
+<h4 id="special-handling-for-tissue-sheets">Special Handling for Tissue
+Sheets:</h4>
+<ul>
+<li>Map <code>CommonName</code> or <code>FinalID</code> <span
+class="math inline">→</span> <code>CommonName</code></li>
+<li>Map <code>TissueName</code> <span class="math inline">→</span>
+<code>TissueName</code></li>
+<li>Map <code>TissuePrep</code> <span class="math inline">→</span>
+<code>TissuePrep</code></li>
+</ul>
+<h4 id="special-handling-for-habitat-sheets">Special Handling for
+Habitat Sheets:</h4>
+<ul>
+<li>If <code>Result</code> is empty but <code>VariableResult</code> is
+populated, copy <code>VariableResult</code> <span
+class="math inline">→</span> <code>Result</code> if numeric; if
+categorical, copy to <code>ResQualCode</code> or
+<code>Observation</code> and record in comments.</li>
+</ul>
+<hr />
+<h3 id="archetype-2-ciwqs-regulatory-exports-ciwqs">7.3 Archetype 2:
+CIWQS Regulatory Exports (<code>CIWQS</code>)</h3>
+<p>CIWQS exports (e.g., <code>ref5180.xlsx</code>) map identically to
+Archetype 1: - <code>WQID</code> <span class="math inline">→</span>
+record in <code>LabResultComments</code> as
+<code>"CIWQS_WQID: &lt;val&gt;"</code> - Columns
+<code>StationCode</code> through <code>ResQualCode</code> map 1-to-1
+with Section 7.2.</p>
+<hr />
+<h3
+id="archetype-3-wqx-water-quality-portal-exports-wqx-waterqualityportal">7.4
+Archetype 3: WQX / Water Quality Portal Exports (<code>WQX</code>,
+<code>WaterQualityPortal</code>)</h3>
+<p>WQX spreadsheets (e.g., <code>ref5831.xlsx</code>) use standard
+National WQX naming: - <code>MonitoringLocationIdentifier</code> or
+<code>StationCode</code> <span class="math inline">→</span>
+<code>StationCode</code> - <code>ActivityStartDate</code> or
+<code>SampleDate</code> <span class="math inline">→</span>
+<code>SampleDate</code> - <code>ActivityStartTime/Time</code> or
+<code>CollectionTime</code> <span class="math inline">→</span>
+<code>CollectionTime</code> - <code>ProjectIdentifier</code> or
+<code>ProjectCode</code> <span class="math inline">→</span>
+<code>ProjectCode</code> - <code>ActivityMediaName</code> or
+<code>MatrixName</code> <span class="math inline">→</span>
+<code>MatrixName</code> - <code>CharacteristicName</code> or
+<code>AnalyteName</code> <span class="math inline">→</span>
+<code>AnalyteName</code> - <code>ResultSampleFractionText</code> or
+<code>FractionName</code> <span class="math inline">→</span>
+<code>FractionName</code> - <code>ResultMeasureValue</code> or
+<code>Result</code> <span class="math inline">→</span>
+<code>Result</code> - <code>ResultMeasure/MeasureUnitCode</code> or
+<code>UnitName</code> <span class="math inline">→</span>
+<code>UnitName</code> - <code>ResultDetectionConditionText</code> <span
+class="math inline">→</span> Crosswalk to <code>ResQualCode</code>
+(e.g., <code>"Not Detected"</code> <span class="math inline">→</span>
+<code>"ND"</code>) -
+<code>DetectionQuantitationLimitMeasure/MeasureValue</code> <span
+class="math inline">→</span> <code>MDL</code> or <code>RL</code></p>
+<hr />
+<h3
+id="archetype-4-ccamp-legacy-regional-board-formats-ccamp_wq_data-swamp_wq_data">7.5
+Archetype 4: CCAMP / Legacy Regional Board Formats
+(<code>Ccamp_WQ_Data</code>, <code>Swamp_WQ_Data</code>)</h3>
+<p>Files such as <code>ref2334.xls</code> and <code>ref2335.xls</code>
+use CCAMP/SWAMP flat layouts: - <code>StationCode</code> <span
+class="math inline">→</span> <code>StationCode</code> -
+<code>SampleDate</code> <span class="math inline">→</span>
+<code>SampleDate</code> - <code>SampleTime</code> <span
+class="math inline">→</span> <code>CollectionTime</code> -
+<code>ProjectID</code> <span class="math inline">→</span>
+<code>ProjectCode</code> - <code>SampleReplicate</code> <span
+class="math inline">→</span> <code>Replicate</code> -
+<code>MatrixName</code> <span class="math inline">→</span>
+<code>MatrixName</code> - <code>MethodName</code> <span
+class="math inline">→</span> <code>MethodName</code> -
+<code>AnalyteName</code> <span class="math inline">→</span>
+<code>AnalyteName</code> - <code>FractionName</code> <span
+class="math inline">→</span> <code>FractionName</code> -
+<code>Unit</code> <span class="math inline">→</span>
+<code>UnitName</code> - <code>Result</code> <span
+class="math inline">→</span> <code>Result</code> -
+<code>ResultQualCode</code> <span class="math inline">→</span>
+<code>ResQualCode</code> - <code>QACode</code> <span
+class="math inline">→</span> <code>QACode</code> - <code>MDL</code>
+<span class="math inline">→</span> <code>MDL</code> - <code>RL</code>
+<span class="math inline">→</span> <code>RL</code> -
+<code>DepthSampleCollection</code> <span class="math inline">→</span>
+<code>CollectionDepth</code> - <code>DepthUnit</code> <span
+class="math inline">→</span> <code>UnitCollectionDepth</code> -
+<code>SampleTypeCode</code> <span class="math inline">→</span>
+<code>SampleTypeCode</code> - <code>AgencyCode</code> <span
+class="math inline">→</span> <code>SampleAgencyCode</code> -
+<code>Latitude</code> / <code>Longitude</code>: If values equal
+<code>"Not Recorded"</code>, convert to <code>NA</code>.</p>
+<hr />
+<h3 id="archetype-5-cdpr-pesticide-database-cdpr_data-ref2966.txt">7.6
+Archetype 5: CDPR Pesticide Database (<code>CDPR_Data</code>,
+<code>ref2966.txt</code>)</h3>
+<p>Pesticide monitoring tables from the California Department of
+Pesticide Regulation (DPR): - <code>site description</code> <span
+class="math inline">→</span> <code>StationName</code> -
+<code>StationCode</code>: Leave blank (<code>""</code>) per Rule 2,
+unless a station lookup dictionary is provided in the study. -
+<code>date</code> <span class="math inline">→</span>
+<code>SampleDate</code> - <code>chemical</code> <span
+class="math inline">→</span> <code>AnalyteName</code> -
+<code>Conc [ug/L]</code> <span class="math inline">→</span>
+<code>Result</code> (numeric) - <code>loq</code> (Limit of Quantitation)
+<span class="math inline">→</span> <code>RL</code> -
+<code>study_cd</code> <span class="math inline">→</span>
+<code>ProjectCode</code> (e.g.,
+<code>"CDPR_STUDY_&lt;study_cd&gt;"</code>) - <code>latitude</code>
+<span class="math inline">→</span> <code>TargetLatitude</code> -
+<code>longitude</code> <span class="math inline">→</span>
+<code>TargetLongitude</code> - <strong>Mandatory Default Mappings for
+CDPR:</strong> - <code>UnitName</code>: <code>"ug/L"</code> (explicitly
+declared in header <code>Conc [ug/L]</code>) - <code>MatrixName</code>:
+<code>"samplewater"</code> (ambient surface water pesticide runoff) -
+<code>FractionName</code>: <code>"Total"</code> -
+<code>CollectionMethodCode</code>: <code>"Water_Grab"</code> -
+<code>MethodName</code>: <code>"EPA 680"</code> or
+<code>"Unspecified"</code> (flag in metadata CSV) -
+<code>ResQualCode</code>: If <code>Result == 0</code> or
+<code>Result &lt; loq</code>, set <code>ResQualCode = "ND"</code>, else
+<code>"="</code>.</p>
+<hr />
+<h3 id="archetype-6-parameter-per-sheet-workbooks-ref2427.xls-etc.">7.7
+Archetype 6: Parameter-Per-Sheet Workbooks (<code>ref2427.xls</code>,
+etc.)</h3>
+<p>In workbooks like <code>ref2427.xls</code>, each worksheet represents
+a distinct analyte (e.g., sheet <code>Arsenic</code>, sheet
+<code>Lead</code>, sheet <code>E. coli</code>).</p>
+<h4 id="processing-specification">Processing Specification:</h4>
+<ol type="1">
+<li><strong>Determine Analyte Name:</strong>
+<ul>
+<li>Inspect the sheet name (e.g., <code>"Arsenic"</code>).</li>
+<li>If the sheet contains an <code>Analyte</code> or
+<code>AnalytewFraction</code> column, use the column value; otherwise,
+assign the sheet name as <code>AnalyteName</code>.</li>
+</ul></li>
+<li><strong>Column Mappings within Sheets:</strong>
+<ul>
+<li><code>StationCode</code> <span class="math inline">→</span>
+<code>StationCode</code></li>
+<li><code>SampleDate</code> <span class="math inline">→</span>
+<code>SampleDate</code></li>
+<li><code>SampleTime</code> <span class="math inline">→</span>
+<code>CollectionTime</code></li>
+<li><code>Result</code> <span class="math inline">→</span>
+<code>Result</code></li>
+<li><code>Unit</code> <span class="math inline">→</span>
+<code>UnitName</code></li>
+<li><code>ResQualifier</code> <span class="math inline">→</span>
+<code>ResQualCode</code></li>
+<li><code>MDL</code> <span class="math inline">→</span>
+<code>MDL</code></li>
+<li><code>RL</code> <span class="math inline">→</span>
+<code>RL</code></li>
+<li><code>QACodeDescr</code> <span class="math inline">→</span>
+<code>QACode</code></li>
+<li><code>MatrixName</code> <span class="math inline">→</span>
+<code>MatrixName</code></li>
+<li><code>MethodName</code> <span class="math inline">→</span>
+<code>MethodName</code></li>
+<li><code>ActualLatitude</code> <span class="math inline">→</span>
+<code>TargetLatitude</code></li>
+<li><code>ActualLongitude</code> <span class="math inline">→</span>
+<code>TargetLongitude</code></li>
+<li><code>Datum</code> <span class="math inline">→</span>
+<code>Datum</code></li>
+<li><code>ProjectID</code> <span class="math inline">→</span>
+<code>ProjectCode</code></li>
+</ul></li>
+<li><strong>Union / Combine:</strong> Append records across all analyte
+sheets for the reference ID into a unified dataset.</li>
+</ol>
+<hr />
+<h3
+id="archetype-7-wide-matrix-station-per-sheet-workbooks-ref2449.xls-ref2468.xls">7.8
+Archetype 7: Wide Matrix / Station-Per-Sheet Workbooks
+(<code>ref2449.xls</code>, <code>ref2468.xls</code>)</h3>
+<h4
+id="pattern-a-fish-tissue-wide-matrix-ref2468.xls-sheets-met_wet-org_dry">Pattern
+A: Fish Tissue Wide Matrix (<code>ref2468.xls</code>, sheets
+<code>MET_WET</code>, <code>ORG_DRY</code>)</h4>
+<p>Columns represent individual metals: <code>AG_W</code>,
+<code>AS_W</code>, <code>CD_W</code>, <code>CR_W</code>,
+<code>CU_W</code>, <code>HG_W</code>, <code>NI_W</code>,
+<code>PB_W</code>, <code>SE_W</code>, <code>ZN_W</code>. - Base columns:
+- <code>STANUM</code> <span class="math inline">→</span>
+<code>StationCode</code> - <code>STANAME</code> <span
+class="math inline">→</span> <code>StationName</code> -
+<code>CDATE</code> <span class="math inline">→</span>
+<code>SampleDate</code> - <code>COMMON</code> <span
+class="math inline">→</span> <code>CommonName</code> -
+<code>TISSUE</code> <span class="math inline">→</span>
+<code>TissueName</code> (crosswalk: <code>"FF"</code> <span
+class="math inline">→</span> <code>"Fish Fillet"</code>,
+<code>"WF"</code> <span class="math inline">→</span>
+<code>"Whole Fish"</code>) - <strong>Reshape Algorithm:</strong> Pivot
+wide columns (<code>*_W</code>) longer into key-value pairs: -
+<code>AnalyteCode</code> = Column name (e.g., <code>"HG_W"</code>) <span
+class="math inline">→</span> Crosswalk to CEDEN name: -
+<code>AG_W</code> <span class="math inline">→</span>
+<code>"Silver"</code> - <code>AS_W</code> <span
+class="math inline">→</span> <code>"Arsenic"</code> - <code>CD_W</code>
+<span class="math inline">→</span> <code>"Cadmium"</code> -
+<code>CR_W</code> <span class="math inline">→</span>
+<code>"Chromium"</code> - <code>CU_W</code> <span
+class="math inline">→</span> <code>"Copper"</code> - <code>HG_W</code>
+<span class="math inline">→</span> <code>"Mercury"</code> -
+<code>NI_W</code> <span class="math inline">→</span>
+<code>"Nickel"</code> - <code>PB_W</code> <span
+class="math inline">→</span> <code>"Lead"</code> - <code>SE_W</code>
+<span class="math inline">→</span> <code>"Selenium"</code> -
+<code>ZN_W</code> <span class="math inline">→</span> <code>"Zinc"</code>
+- <code>Result</code> = Numeric cell value - <code>MatrixName</code> =
+<code>"tissue"</code> - <code>FractionName</code> = <code>"Total"</code>
+- <code>UnitName</code> = <code>"mg/Kg ww"</code> (wet weight) for
+<code>MET_WET</code>; <code>"mg/Kg dw"</code> (dry weight) for
+<code>ORG_DRY</code>.</p>
+<h4 id="pattern-b-usgs-station-per-sheet-ref2449.xls">Pattern B: USGS
+Station-Per-Sheet (<code>ref2449.xls</code>)</h4>
+<p>Each sheet is named after a USGS station (e.g.,
+<code>USGS9427520</code>). - Extract <code>StationCode</code> from the
+sheet name: e.g., <code>"10259540"</code> (strip <code>"USGS"</code>
+prefix if alphanumeric). - Columns represent USGS Parameter Codes
+(P-Codes) or constituent names. - Map row dates <span
+class="math inline">→</span> <code>SampleDate</code>. - Pivot parameter
+columns to long format: <code>AnalyteName</code> and
+<code>Result</code>.</p>
+<hr />
+<h3
+id="archetype-8-delimited-continuous-probe-logger-files-ref3697.txt-ref4503.csv-ref6628.csv">7.9
+Archetype 8: Delimited Continuous / Probe Logger Files
+(<code>ref3697.txt</code>, <code>ref4503.csv</code>,
+<code>ref6628.csv</code>)</h3>
+<h4 id="case-1-continuous-turbidity-logger-ref3697.txt">Case 1:
+Continuous Turbidity Logger (<code>ref3697.txt</code>)</h4>
+<ul>
+<li>Line 1: <code>Title: "FAR.csv"</code></li>
+<li>Line 3: <code>17042,PST,'WATER, TURBIDITY ( ntu)'</code></li>
+<li>Data lines: <code>YYYYMMDD,HHMM,Result</code> (e.g.,
+<code>20080723,0445,1.50</code>)</li>
+<li><strong>Extraction Rules:</strong>
+<ul>
+<li><code>StationCode</code>: <code>"17042"</code> (from header line
+3)</li>
+<li><code>AnalyteName</code>: <code>"Turbidity"</code></li>
+<li><code>UnitName</code>: <code>"NTU"</code></li>
+<li><code>MatrixName</code>: <code>"samplewater"</code></li>
+<li><code>FractionName</code>: <code>"None"</code></li>
+<li><code>MethodName</code>: <code>"FieldMeasure"</code></li>
+<li><code>CollectionMethodCode</code>: <code>"Field_Cont"</code></li>
+<li><code>SampleDate</code>: Parse <code>20080723</code> <span
+class="math inline">→</span> <code>"2008-07-23"</code></li>
+<li><code>CollectionTime</code>: Parse <code>0445</code> <span
+class="math inline">→</span> <code>"04:45:00"</code></li>
+<li><code>Result</code>: <code>1.50</code></li>
+<li><code>ResQualCode</code>: <code>"="</code></li>
+<li><code>QACode</code>: <code>"None"</code></li>
+</ul></li>
+</ul>
+<h4 id="case-2-multi-header-beach-watch-csv-ref4503.csv">Case 2:
+Multi-Header Beach Watch CSV (<code>ref4503.csv</code>)</h4>
+<ul>
+<li>Rows 1-3 contain study titles and date stamps.</li>
+<li>Row 4 contains column headers:
+<code>Program,ParentProject,Project,StationName,StationCode,SampleDate,CollectionTime...</code></li>
+<li>Skip rows 1-3. Parse using Row 4 headers.</li>
+<li>Convert sentinel <code>-88</code> values in numeric columns
+(<code>CollectionDepth</code>, <code>MDL</code>, <code>RL</code>) to
+<code>NA</code>.</li>
+</ul>
+<h4 id="case-3-ocean-acidification-cruise-data-ref6628.csv">Case 3:
+Ocean Acidification Cruise Data (<code>ref6628.csv</code>)</h4>
+<ul>
+<li>Header row 1 contains cruise coordinates and chemistry
+variables.</li>
+<li>Pivot wide chemical parameters (<code>CTDTEMP_ITS90</code>,
+<code>Salinity_PSS78</code>, <code>pH</code>, <code>pCO2</code>,
+<code>OmegaAragonite</code>) to long format.</li>
+<li>Set <code>MatrixName = "samplewater"</code>.</li>
+<li>Set <code>StationCode</code> from <code>Station_ID</code>.</li>
+</ul>
+<hr />
+<h2 id="phase-6-data-type-conversion-field-parsing-logic">8. Phase 6:
+Data Type Conversion &amp; Field Parsing Logic</h2>
+<h3 id="sampledate-parsing-logic">8.1 SampleDate Parsing Logic</h3>
+<p>Dates exist in multiple formats: Excel serial numbers (e.g.,
+<code>38000</code>), ISO strings (<code>"2004-01-15"</code>), US slash
+dates (<code>"04/05/2005"</code>), or compact timestamps
+(<code>"20080723"</code>).</p>
+<p>The executing script must apply the following cascade:</p>
+<ol type="1">
+<li><strong>Excel Numeric Date Serial:</strong>
+<ul>
+<li>If the raw value is numeric (e.g., <span
+class="math inline">30, 000 ≤ <em>X</em> ≤ 60, 000</span>): <span
+class="math display">SampleDate = as.Date(<em>X</em>, origin = "1899-12-30")</span></li>
+</ul></li>
+<li><strong>Text / Character Date:</strong>
+<ul>
+<li>Clean string: remove trailing timestamp components if date-only is
+desired.</li>
+<li>Parse using <code>lubridate::parse_date_time()</code> with formats:
+<span class="math display">orders = <em>c</em>("Ymd", "mdY", "dmY", "Ymd
+HMS", "mdY HMS")</span></li>
+<li>Format output strictly as ISO-8601 Date string:
+<code>YYYY-MM-DD</code>.</li>
+</ul></li>
+<li><strong>Invalid Date Handling:</strong>
+<ul>
+<li>If a date cannot be parsed, leave as <code>NA</code> and increment
+<code>unparseable_dates_count</code> in metadata CSV.</li>
+</ul></li>
+</ol>
+<hr />
+<h3 id="collectiontime-parsing-logic">8.2 CollectionTime Parsing
+Logic</h3>
+<p>CEDEN requires <code>CollectionTime</code> as <code>HH:MM:SS</code>
+(24-hour clock).</p>
+<ol type="1">
+<li><strong>Excel DateTime / Time Serial:</strong>
+<ul>
+<li>If raw time is an Excel datetime object (e.g.,
+<code>1899-12-31 07:30:00</code>), extract the time component:
+<code>"07:30:00"</code>.</li>
+<li>If raw time is an Excel fraction of a day (<span
+class="math inline">0 ≤ <em>X</em> &lt; 1</span>): <span
+class="math display">Seconds = round(<em>X</em> × 86400)</span> Format
+as <code>HH:MM:SS</code>.</li>
+</ul></li>
+<li><strong>Text String Parsing:</strong>
+<ul>
+<li>Format <code>"HH:MM"</code> <span class="math inline">→</span>
+Append <code>":00"</code>.</li>
+<li>Format <code>"H:MM:SS AM/PM"</code> <span
+class="math inline">→</span> Convert to 24-hour
+<code>HH:MM:SS</code>.</li>
+<li>Format <code>"HHMM"</code> (e.g., <code>"0445"</code>) <span
+class="math inline">→</span> Format as <code>"04:45:00"</code>.</li>
+</ul></li>
+<li><strong>Missing / Unrecorded Time Fallback (Mandatory CEDEN
+Rule):</strong>
+<ul>
+<li>If <code>CollectionTime</code> is missing, <code>NA</code>, empty,
+or <code>"0:00"</code>:
+<ul>
+<li>Assign <code>"00:00:00"</code>.</li>
+<li>Increment <code>defaulted_midnight_count</code> in metadata
+CSV.</li>
+</ul></li>
+</ul></li>
+</ol>
+<hr />
+<h3 id="numeric-result-extraction-text-parsing">8.3 Numeric Result
+Extraction &amp; Text Parsing</h3>
+<p>Raw result columns frequently mix numeric values with strings,
+qualifiers, or non-detect markers (e.g., <code>"12.4"</code>,
+<code>"&lt; 0.05"</code>, <code>"ND"</code>, <code>"DNQ"</code>,
+<code>"0.003 J"</code>).</p>
+<p>The executing script must parse these values using the following
+logic tree:</p>
+<pre><code>[Raw Result Cell Value]
+       │
+       ├─ Is Numeric? ─────────────────────────&gt; Result = Number verbatim
+       │                                         ResQualCode = &quot;=&quot; (if not set)
+       │
+       ├─ Matches Pattern &quot;^&lt;\s*([0-9.]+)$&quot;? ───&gt; Result = Extracted Number verbatim
+       │                                         ResQualCode = &quot;&lt;&quot; (or &quot;ND&quot;)
+       │
+       ├─ Matches Pattern &quot;^&gt;\s*([0-9.]+)$&quot;? ───&gt; Result = Extracted Number verbatim
+       │                                         ResQualCode = &quot;&gt;&quot;
+       │
+       ├─ Equals &quot;ND&quot;, &quot;NON-DETECT&quot;, &quot;U&quot;? ─────&gt; Result = NA (or 0 if source specifies 0)
+       │                                         ResQualCode = &quot;ND&quot;
+       │
+       ├─ Matches &quot;([0-9.]+)\s*([a-zA-Z]+)&quot;? ──&gt; Result = Extracted Number verbatim
+       │  (e.g., &quot;0.04 J&quot;, &quot;1.2 DNQ&quot;)            ResQualCode = Extracted Qualifier (J/DNQ)
+       │
+       └─ Entirely Text / Categorical? ─────────&gt; Result = NA
+          (e.g., &quot;Present&quot;, &quot;Absent&quot;)            ResQualCode = &quot;P&quot; or &quot;A&quot;
+                                                 Record text in LabResultComments</code></pre>
+<p><strong>Rule 4 Enforcement:</strong> Never alter or round the
+extracted numeric result. Pass through with exact floating-point
+precision into the output CSV.</p>
+<hr />
+<h3 id="sentinel-value-sanitization">8.4 Sentinel Value
+Sanitization</h3>
+<p>In legacy SWAMP, CCAMP, and agency files, specific negative numbers
+or string codes represent missing data rather than physical
+measurements:</p>
+<ul>
+<li><strong>Sentinel Numbers:</strong> <code>-88</code> (Not Recorded),
+<code>-99</code> (Not Applicable), <code>-8888</code>,
+<code>-9999</code>.</li>
+<li><strong>Action:</strong>
+<ul>
+<li>If <code>-88</code> or <code>-99</code> appears in <code>MDL</code>,
+<code>RL</code>, <code>CollectionDepth</code>, or <code>Result</code>
+(where result was not detected):
+<ul>
+<li>Replace with <code>NA</code> (emitted as empty string
+<code>""</code> in CSV).</li>
+<li>Document count of sanitized sentinels in metadata CSV.</li>
+</ul></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="phase-7-controlled-vocabulary-cv-crosswalk-playbook">9. Phase 7:
+Controlled Vocabulary (CV) Crosswalk Playbook</h2>
+<p>Every value in a CV column must be crosswalked to CEDEN’s official
+lookup lists. If a value does not match after applying standard synonym
+mappings, <strong>retain the original value verbatim</strong> and log it
+in <code>_metadata.csv</code>. <strong>Never guess or invent a CV
+value.</strong></p>
+<h3 id="resqualcode-crosswalk-table">9.1 <code>ResQualCode</code>
+Crosswalk Table</h3>
+<p>Valid CEDEN entries in <code>ResQualLookUp</code> (16 total codes):
+<code>&lt;</code>, <code>&lt;=</code>, <code>=</code>,
+<code>&gt;</code>, <code>&gt;=</code>, <code>A</code>, <code>DNQ</code>,
+<code>JF</code>, <code>NA</code>, <code>ND</code>, <code>NR</code>,
+<code>NRS</code>, <code>NRT</code>, <code>NSI</code>, <code>P</code>,
+<code>PA</code>.</p>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 16%" />
+<col style="width: 17%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Raw Source Value / Pattern</th>
+<th style="text-align: left;">Target CEDEN <code>ResQualCode</code></th>
+<th style="text-align: left;">CEDEN Official
+<code>ResQualName</code></th>
+<th style="text-align: left;">Operational Logic / Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>=</code>, <code>==</code>,
+<code>DETECTED</code>, <code>DET</code>, empty string with valid numeric
+result</td>
+<td style="text-align: left;"><code>=</code></td>
+<td style="text-align: left;">Equal To</td>
+<td style="text-align: left;">Standard quantified detection</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>&lt;</code>, <code>&lt;MDL</code>,
+<code>&lt;RL</code>, <code>LT</code>, <code>LESS THAN</code></td>
+<td style="text-align: left;"><code>&lt;</code></td>
+<td style="text-align: left;">Less Than</td>
+<td style="text-align: left;">Value is below specified detection
+limit</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>&lt;=</code>, <code>LE</code></td>
+<td style="text-align: left;"><code>&lt;=</code></td>
+<td style="text-align: left;">Less than or equal to</td>
+<td style="text-align: left;">Upper bound quantification</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>&gt;</code>, <code>GT</code>,
+<code>GREATER THAN</code></td>
+<td style="text-align: left;"><code>&gt;</code></td>
+<td style="text-align: left;">Greater Than</td>
+<td style="text-align: left;">Value exceeds analytical ceiling</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>&gt;=</code>, <code>GE</code></td>
+<td style="text-align: left;"><code>&gt;=</code></td>
+<td style="text-align: left;">Greater than or equal to</td>
+<td style="text-align: left;">Lower bound quantification</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ND</code>, <code>U</code>,
+<code>NON-DETECT</code>, <code>NOT DETECTED</code>,
+<code>NODET</code></td>
+<td style="text-align: left;"><code>ND</code></td>
+<td style="text-align: left;">Not Detected</td>
+<td style="text-align: left;">Analyte not detected</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>DNQ</code>, <code>J</code>,
+<code>EST</code>, <code>ESTIMATED</code>,
+<code>DETECTED NOT QUANTIFIED</code></td>
+<td style="text-align: left;"><code>DNQ</code></td>
+<td style="text-align: left;">Detected Not Quantifiable</td>
+<td style="text-align: left;">Value between MDL and RL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>JF</code></td>
+<td style="text-align: left;"><code>JF</code></td>
+<td style="text-align: left;">Field Estimated</td>
+<td style="text-align: left;">Field measurement estimation</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>P</code>, <code>PRESENT</code>,
+<code>YES</code>, <code>Y</code></td>
+<td style="text-align: left;"><code>P</code></td>
+<td style="text-align: left;">Present</td>
+<td style="text-align: left;">Qualitative presence</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>A</code>, <code>ABSENT</code>,
+<code>NO</code>, <code>N</code></td>
+<td style="text-align: left;"><code>A</code></td>
+<td style="text-align: left;">Absent</td>
+<td style="text-align: left;">Qualitative absence</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>PA</code></td>
+<td style="text-align: left;"><code>PA</code></td>
+<td style="text-align: left;">Present/Absent</td>
+<td style="text-align: left;">Present/Absent test</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>NR</code>,
+<code>NOT RECORDED</code>, <code>-88</code></td>
+<td style="text-align: left;"><code>NR</code></td>
+<td style="text-align: left;">Not Recorded</td>
+<td style="text-align: left;">Information not recorded</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>NA</code>,
+<code>NOT ANALYZED</code>, <code>N/A</code></td>
+<td style="text-align: left;"><code>NA</code></td>
+<td style="text-align: left;">Not Analyzed</td>
+<td style="text-align: left;">Sample not analyzed for constituent</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>NSI</code></td>
+<td style="text-align: left;"><code>NSI</code></td>
+<td style="text-align: left;">No Surviving Individuals</td>
+<td style="text-align: left;">Toxicity endpoint</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="qacode-crosswalk-table">9.2 <code>QACode</code> Crosswalk
+Table</h3>
+<p>Valid entries originate from CEDEN <code>QALookUp</code> (376 codes).
+The default for clean data is <code>"None"</code>.</p>
+<table style="width:98%;">
+<colgroup>
+<col style="width: 47%" />
+<col style="width: 19%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Raw Source QA Value</th>
+<th style="text-align: left;">Target CEDEN <code>QACode</code></th>
+<th style="text-align: left;">CEDEN <code>QAName</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">empty, <code>NA</code>, <code>NONE</code>,
+<code>None</code>, <code>OK</code>, <code>PASSED</code>,
+<code>GOOD</code>, <code>N</code></td>
+<td style="text-align: left;"><code>None</code></td>
+<td style="text-align: left;">None - No QA Qualifier</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>J</code>, <code>EST</code></td>
+<td style="text-align: left;"><code>J</code></td>
+<td style="text-align: left;">Estimated value</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>B</code>, <code>BLANK</code></td>
+<td style="text-align: left;"><code>B</code></td>
+<td style="text-align: left;">Analyte found in reagent blank</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>H</code>, <code>HT</code>,
+<code>EXCEEDED_HT</code></td>
+<td style="text-align: left;"><code>H</code></td>
+<td style="text-align: left;">Holding time violation</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>IL</code>,
+<code>SURROGATE</code></td>
+<td style="text-align: left;"><code>IL</code></td>
+<td style="text-align: left;">Surrogate recovery outside criteria</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>MDL</code></td>
+<td style="text-align: left;"><code>MDL</code></td>
+<td style="text-align: left;">Detection limit elevated</td>
+</tr>
+<tr>
+<td style="text-align: left;">Any unmapped alphanumeric QA code</td>
+<td style="text-align: left;">Keep verbatim</td>
+<td style="text-align: left;">Document in
+<code>unmatched_unique_values</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="matrixname-crosswalk-table">9.3 <code>MatrixName</code>
+Crosswalk Table</h3>
+<p>Valid entries originate from CEDEN <code>MatrixLookUp</code>. In
+CEDEN, ambient surface water is strictly <code>"samplewater"</code>.</p>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 66%" />
+<col style="width: 13%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Raw Source Matrix Value</th>
+<th style="text-align: left;">Target CEDEN <code>MatrixName</code></th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>water</code>, <code>Water</code>,
+<code>WATER</code>, <code>surface water</code>,
+<code>Surface Water</code>, <code>Freshwater</code>,
+<code>Stream</code>, <code>River</code>, <code>Estuary</code>,
+<code>Marine Water</code>, <code>Ambient Water</code></td>
+<td style="text-align: left;"><code>samplewater</code></td>
+<td style="text-align: left;">Ambient surface water</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sediment</code>,
+<code>Sediment</code>, <code>SEDIMENT</code>,
+<code>Stream Sediment</code>, <code>Bed Sediment</code></td>
+<td style="text-align: left;"><code>sediment</code></td>
+<td style="text-align: left;">Solid mineral / organic bed material</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tissue</code>, <code>Tissue</code>,
+<code>Fish</code>, <code>Fish Tissue</code>, <code>Muscle</code>,
+<code>Whole Fish</code>, <code>Bivalve</code></td>
+<td style="text-align: left;"><code>tissue</code></td>
+<td style="text-align: left;">Biological tissue</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>effluent</code>,
+<code>Effluent</code>, <code>Wastewater</code></td>
+<td style="text-align: left;"><code>effluent</code></td>
+<td style="text-align: left;">Point-source discharge</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>stormwater</code>,
+<code>Stormwater</code>, <code>Storm Water</code>,
+<code>Runoff</code></td>
+<td style="text-align: left;"><code>stormwater</code></td>
+<td style="text-align: left;">Urban / agricultural runoff</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>groundwater</code>,
+<code>Groundwater</code>, <code>Well Water</code></td>
+<td style="text-align: left;"><code>groundwater</code></td>
+<td style="text-align: left;">Subsurface water</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>porewater</code>,
+<code>Porewater</code>, <code>Interstitial Water</code></td>
+<td style="text-align: left;"><code>porewater</code></td>
+<td style="text-align: left;">Sediment porewater</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>blankwater</code>,
+<code>DI Water</code>, <code>Field Blank</code></td>
+<td style="text-align: left;"><code>blankwater</code></td>
+<td style="text-align: left;">Quality control blank</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>habitat</code>,
+<code>Habitat</code></td>
+<td style="text-align: left;"><code>habitat</code></td>
+<td style="text-align: left;">Physical habitat measurements</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>benthic</code>,
+<code>Benthic</code></td>
+<td style="text-align: left;"><code>benthic</code></td>
+<td style="text-align: left;">Benthic macroinvertebrates</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="fractionname-crosswalk-table">9.4 <code>FractionName</code>
+Crosswalk Table</h3>
+<p>Valid entries originate from CEDEN <code>FractionLookUp</code>.</p>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 17%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Raw Source Fraction Value</th>
+<th style="text-align: left;">Target CEDEN
+<code>FractionName</code></th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Filtered</code>,
+<code>filter</code>, <code>Dissolved</code>, <code>DIS</code>,
+<code>Diss</code>, <code>D</code>, <code>Soluble</code></td>
+<td style="text-align: left;"><code>Dissolved</code></td>
+<td style="text-align: left;">Material passing filter (<span
+class="math inline"> ≤ 0.45 <em>μ</em>m</span>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Unfiltered</code>,
+<code>Total</code>, <code>TOT</code>, <code>Total Recoverable</code>,
+<code>Whole</code>, <code>T</code>, <code>Tot</code></td>
+<td style="text-align: left;"><code>Total</code></td>
+<td style="text-align: left;">Whole quantity, unfiltered digestion</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>None</code>, <code>NONE</code>,
+<code>NA</code>, <code>N/A</code>, <code>Not Applicable</code>,
+<code>-88</code></td>
+<td style="text-align: left;"><code>None</code></td>
+<td style="text-align: left;">Non-fractionated parameters</td>
+</tr>
+<tr>
+<td style="text-align: left;">Any field physical parameter (pH,
+Temperature, Conductivity, Turbidity, DO)</td>
+<td style="text-align: left;"><code>None</code></td>
+<td style="text-align: left;">Automatically assign <code>None</code> if
+blank</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="unitname-crosswalk-table">9.5 <code>UnitName</code> Crosswalk
+Table</h3>
+<p>Valid entries originate from CEDEN <code>UnitLookUp</code> (176
+units).</p>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 18%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Raw Source Unit Value</th>
+<th style="text-align: left;">Target CEDEN <code>UnitName</code></th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>mg/l</code>, <code>mg/L</code>,
+<code>MG/L</code>, <code>ppm</code> (in water)</td>
+<td style="text-align: left;"><code>mg/L</code></td>
+<td style="text-align: left;">Milligrams per liter</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ug/l</code>, <code>ug/L</code>,
+<code>UG/L</code>, <code>ppb</code> (in water), <code>mcg/L</code></td>
+<td style="text-align: left;"><code>ug/L</code></td>
+<td style="text-align: left;">Micrograms per liter</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ng/l</code>, <code>ng/L</code>,
+<code>NG/L</code>, <code>ppt</code> (in water)</td>
+<td style="text-align: left;"><code>ng/L</code></td>
+<td style="text-align: left;">Nanograms per liter</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>pg/l</code>, <code>pg/L</code></td>
+<td style="text-align: left;"><code>pg/L</code></td>
+<td style="text-align: left;">Picograms per liter</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mg/kg</code>, <code>mg/Kg</code>,
+<code>mg/kg dw</code></td>
+<td style="text-align: left;"><code>mg/Kg dw</code></td>
+<td style="text-align: left;">Milligrams per kilogram dry weight</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mg/kg ww</code>,
+<code>mg/Kg ww</code></td>
+<td style="text-align: left;"><code>mg/Kg ww</code></td>
+<td style="text-align: left;">Milligrams per kilogram wet weight</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ug/kg</code>, <code>ug/Kg</code>,
+<code>ug/kg dw</code></td>
+<td style="text-align: left;"><code>ug/Kg dw</code></td>
+<td style="text-align: left;">Micrograms per kilogram dry weight</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ug/kg ww</code>,
+<code>ug/Kg ww</code></td>
+<td style="text-align: left;"><code>ug/Kg ww</code></td>
+<td style="text-align: left;">Micrograms per kilogram wet weight</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>pH</code>, <code>pH units</code>,
+<code>std units</code>, <code>SU</code>, <code>Standard Units</code>,
+<code>units</code></td>
+<td style="text-align: left;"><code>none</code></td>
+<td style="text-align: left;"><strong>Critical CEDEN rule: pH unit is
+<code>none</code></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Deg C</code>, <code>deg C</code>,
+<code>Deg. C</code>, <code>C</code>, <code>Celsius</code>,
+<code>degrees C</code>, <code>TEMP</code></td>
+<td style="text-align: left;"><code>Deg C</code></td>
+<td style="text-align: left;">Degrees Celsius (Capital D, space, Capital
+C)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>uS/cm</code>, <code>us/cm</code>,
+<code>umhos/cm</code>, <code>uS/cm @ 25C</code>, <code>EC</code></td>
+<td style="text-align: left;"><code>uS/cm</code></td>
+<td style="text-align: left;">MicroSiemens per centimeter</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mS/cm</code>,
+<code>ms/cm</code></td>
+<td style="text-align: left;"><code>mS/cm</code></td>
+<td style="text-align: left;">MilliSiemens per centimeter</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>NTU</code>, <code>ntu</code></td>
+<td style="text-align: left;"><code>NTU</code></td>
+<td style="text-align: left;">Nephelometric Turbidity Units</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>FNU</code></td>
+<td style="text-align: left;"><code>FNU</code></td>
+<td style="text-align: left;">Formazin Nephelometric Units</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>MPN/100ml</code>,
+<code>MPN/100 mL</code>, <code>mpn/100ml</code>,
+<code>MPN/100mL</code></td>
+<td style="text-align: left;"><code>MPN/100 mL</code></td>
+<td style="text-align: left;">Most Probable Number per 100 mL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CFU/100ml</code>,
+<code>CFU/100 mL</code>, <code>cfu/100ml</code>,
+<code>CFU/100mL</code></td>
+<td style="text-align: left;"><code>CFU/100 mL</code></td>
+<td style="text-align: left;">Colony Forming Units per 100 mL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>%</code>, <code>percent</code>,
+<code>Percent</code>, <code>% Saturation</code></td>
+<td style="text-align: left;"><code>%</code></td>
+<td style="text-align: left;">Percentage</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cfs</code>, <code>CFS</code>,
+<code>ft3/s</code></td>
+<td style="text-align: left;"><code>cfs</code></td>
+<td style="text-align: left;">Cubic feet per second (discharge)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>m3/s</code>, <code>cms</code></td>
+<td style="text-align: left;"><code>m3/s</code></td>
+<td style="text-align: left;">Cubic meters per second</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>m</code>, <code>meters</code></td>
+<td style="text-align: left;"><code>m</code></td>
+<td style="text-align: left;">Meters</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ft</code>, <code>feet</code></td>
+<td style="text-align: left;"><code>ft</code></td>
+<td style="text-align: left;">Feet</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>none</code>, <code>None</code>,
+<code>dimensionless</code></td>
+<td style="text-align: left;"><code>none</code></td>
+<td style="text-align: left;">Dimensionless</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="analytename-crosswalk-table">9.6 <code>AnalyteName</code>
+Crosswalk Table</h3>
+<p>Valid entries originate from CEDEN <code>AnalyteLookUp</code> (4,795
+analytes).</p>
+<table style="width:98%;">
+<colgroup>
+<col style="width: 68%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Raw Source Analyte String</th>
+<th style="text-align: left;">Target CEDEN <code>AnalyteName</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>E. coli</code>,
+<code>Escherichia coli</code>, <code>E.coli</code>, <code>EC</code></td>
+<td style="text-align: left;"><code>Escherichia coli</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Enterococcus</code>,
+<code>Enterococci</code>, <code>ENT</code></td>
+<td style="text-align: left;"><code>Enterococcus</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Fecal Coliform</code>,
+<code>Fecal Coliforms</code>, <code>FC</code></td>
+<td style="text-align: left;"><code>Fecal coliform</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Total Coliform</code>,
+<code>Total Coliforms</code>, <code>TC</code></td>
+<td style="text-align: left;"><code>Total coliform</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Water Temperature</code>,
+<code>Temperature, water</code>, <code>Temp</code>,
+<code>Water Temp</code>, <code>Temperature</code></td>
+<td style="text-align: left;"><code>Temperature</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Dissolved Oxygen</code>,
+<code>DO</code>, <code>D.O.</code>, <code>Oxygen, Dissolved</code></td>
+<td style="text-align: left;"><code>Oxygen, Dissolved</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>pH</code>, <code>PH</code></td>
+<td style="text-align: left;"><code>pH</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Specific Conductance</code>,
+<code>Conductivity</code>, <code>EC</code>,
+<code>Specific Conductivity</code>, <code>SpCond</code></td>
+<td style="text-align: left;"><code>SpecificConductivity</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Turbidity</code>,
+<code>TURB</code></td>
+<td style="text-align: left;"><code>Turbidity</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Total Dissolved Solids</code>,
+<code>TDS</code></td>
+<td style="text-align: left;"><code>Total Dissolved Solids</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Total Suspended Solids</code>,
+<code>TSS</code></td>
+<td style="text-align: left;"><code>Total Suspended Solids</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Salinity</code>,
+<code>SAL</code></td>
+<td style="text-align: left;"><code>Salinity</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Hardness</code>,
+<code>Hardness as CaCO3</code></td>
+<td style="text-align: left;"><code>Hardness as CaCO3</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ammonia as N</code>,
+<code>Ammonia</code>, <code>NH3-N</code>, <code>Ammonia-N</code></td>
+<td style="text-align: left;"><code>Ammonia as N</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Nitrate as N</code>,
+<code>NO3-N</code>, <code>Nitrate-N</code></td>
+<td style="text-align: left;"><code>Nitrate as N</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Nitrite as N</code>,
+<code>NO2-N</code>, <code>Nitrite-N</code></td>
+<td style="text-align: left;"><code>Nitrite as N</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Nitrate + Nitrite as N</code>,
+<code>NO3+NO2 as N</code>, <code>Nitrate+Nitrite</code></td>
+<td style="text-align: left;"><code>Nitrate + Nitrite as N</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Total Nitrogen</code>,
+<code>TN</code>, <code>Nitrogen, Total</code></td>
+<td style="text-align: left;"><code>Nitrogen, Total</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Total Phosphorus</code>,
+<code>TP</code>, <code>Phosphorus, Total</code></td>
+<td style="text-align: left;"><code>Phosphorus as P</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Orthophosphate as P</code>,
+<code>Ortho-P</code>, <code>PO4-P</code>,
+<code>Orthophosphate</code></td>
+<td style="text-align: left;"><code>Orthophosphate as P</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Sulfate</code>,
+<code>SO4</code></td>
+<td style="text-align: left;"><code>Sulfate</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Chloride</code>,
+<code>Cl</code></td>
+<td style="text-align: left;"><code>Chloride</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Arsenic</code>, <code>As</code></td>
+<td style="text-align: left;"><code>Arsenic</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Cadmium</code>, <code>Cd</code></td>
+<td style="text-align: left;"><code>Cadmium</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Chromium</code>,
+<code>Cr</code></td>
+<td style="text-align: left;"><code>Chromium</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Copper</code>, <code>Cu</code></td>
+<td style="text-align: left;"><code>Copper</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Lead</code>, <code>Pb</code></td>
+<td style="text-align: left;"><code>Lead</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Mercury</code>, <code>Hg</code></td>
+<td style="text-align: left;"><code>Mercury</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Nickel</code>, <code>Ni</code></td>
+<td style="text-align: left;"><code>Nickel</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Selenium</code>,
+<code>Se</code></td>
+<td style="text-align: left;"><code>Selenium</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Silver</code>, <code>Ag</code></td>
+<td style="text-align: left;"><code>Silver</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Zinc</code>, <code>Zn</code></td>
+<td style="text-align: left;"><code>Zinc</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Diazinon</code></td>
+<td style="text-align: left;"><code>Diazinon</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Chlorpyrifos</code></td>
+<td style="text-align: left;"><code>Chlorpyrifos</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Malathion</code></td>
+<td style="text-align: left;"><code>Malathion</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="collectionmethodcode-crosswalk-table">9.7
+<code>CollectionMethodCode</code> Crosswalk Table</h3>
+<p>Valid entries originate from CEDEN
+<code>CollectionMethodLookUp</code>.</p>
+<table style="width:98%;">
+<colgroup>
+<col style="width: 65%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Raw Source Collection Method</th>
+<th style="text-align: left;">Target CEDEN
+<code>CollectionMethodCode</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Water_Grab</code>,
+<code>Grab</code>, <code>Water Grab</code>, <code>Dip</code>,
+<code>Bucket</code></td>
+<td style="text-align: left;"><code>Water_Grab</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Sed_Grab</code>,
+<code>Sediment_Grab</code>, <code>Sediment Grab</code>,
+<code>Core</code></td>
+<td style="text-align: left;"><code>Sed_Grab</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Field</code>,
+<code>Field Method</code>, <code>Field Probe</code>, <code>Probe</code>,
+<code>Meter</code>, <code>In Situ</code></td>
+<td style="text-align: left;"><code>Field</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Field_Cont</code>,
+<code>Continuous</code>, <code>Logger</code>, <code>Sensor</code>,
+<code>Probe_Cont</code></td>
+<td style="text-align: left;"><code>Field_Cont</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Tissue_Grab</code>,
+<code>Tissue Grab</code>, <code>Fish Catch</code>, <code>Trawl</code>,
+<code>Gill Net</code>, <code>Angling</code></td>
+<td style="text-align: left;"><code>Tissue_Grab</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Water_Integrated_Depth</code>,
+<code>Depth Integrated</code></td>
+<td style="text-align: left;"><code>Water_Integrated_Depth</code></td>
+</tr>
+<tr>
+<td
+style="text-align: left;"><code>Water_Integrated_Horizontal</code></td>
+<td
+style="text-align: left;"><code>Water_Integrated_Horizontal</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>AutoSampler</code>,
+<code>Autosampler</code></td>
+<td style="text-align: left;"><code>AutoSampler</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="methodname-crosswalk-table">9.8 <code>MethodName</code>
+Crosswalk Table</h3>
+<p>Valid entries originate from CEDEN <code>MethodLookUp</code> (1,211
+methods).</p>
+<table style="width:98%;">
+<colgroup>
+<col style="width: 64%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Raw Source Method String</th>
+<th style="text-align: left;">Target CEDEN <code>MethodName</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>FieldMeasure</code>,
+<code>Field Measure</code>, <code>Field Probe</code>, <code>YSI</code>,
+<code>Hydrolab</code>, <code>Meter</code></td>
+<td style="text-align: left;"><code>FieldMeasure</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>FieldObservations</code>,
+<code>Visual Observation</code></td>
+<td style="text-align: left;"><code>FieldObservations</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>EPA 200.8</code>,
+<code>EPA200.8</code>, <code>200.8</code></td>
+<td style="text-align: left;"><code>EPA 200.8</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>EPA 200.7</code>,
+<code>EPA200.7</code>, <code>200.7</code></td>
+<td style="text-align: left;"><code>EPA 200.7</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>EPA 300.0</code>,
+<code>EPA300.0</code>, <code>300.0</code></td>
+<td style="text-align: left;"><code>EPA 300.0</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>EPA 1664A</code>,
+<code>1664A</code></td>
+<td style="text-align: left;"><code>EPA 1664A</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SM 4500-H+ B</code>,
+<code>SM 4500 H+</code>, <code>4500-H+</code></td>
+<td style="text-align: left;"><code>SM 4500-H+ B</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SM 2540 D</code>,
+<code>SM 2540D</code>, <code>TSS SM 2540 D</code></td>
+<td style="text-align: left;"><code>SM 2540 D</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SM 2540 C</code>,
+<code>SM 2540C</code>, <code>TDS SM 2540 C</code></td>
+<td style="text-align: left;"><code>SM 2540 C</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SM 9223 B</code>,
+<code>Colilert</code>, <code>Colilert-18</code></td>
+<td style="text-align: left;"><code>SM 9223 B</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Enterolert</code></td>
+<td style="text-align: left;"><code>Enterolert</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">If completely unrecorded in source or
+QAPP</td>
+<td style="text-align: left;"><code>"Unspecified"</code> (flag in
+metadata CSV)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-8-critical-non-negotiable-rules-playbook">10. Phase 8:
+Critical Non-Negotiable Rules Playbook</h2>
+<p>This section details the exact step-by-step enforcement of the
+non-negotiable rules.</p>
+<h3 id="enforcement-of-rule-1-zero-guessing-of-missing-mdl-rl">10.1
+Enforcement of Rule 1: Zero Guessing of Missing MDL / RL</h3>
+<pre><code>[Row has missing MDL or RL in raw data]
+                     │
+                     ▼
+       Check if Reference ID has an associated
+       QAPP or QA document in ./refs/ or ./refs_extracted/
+                     │
+         ┌───────────┴───────────┐
+         │ YES                   │ NO
+         ▼                       ▼
+Scan QAPP document for      Leave MDL = NA (empty string in CSV)
+Detection Limit Table       Leave RL = NA (empty string in CSV)
+         │                  Set rule_1_mdl_rl_provenance = &quot;missing_in_source_and_qapp&quot;
+         │                  Flag in _metadata.csv
+   ┌─────┴─────┐
+   │ Found?    │ Not Found?
+   ▼           ▼
+Extract exact   Leave MDL = NA, RL = NA
+MDL / RL value  Set rule_1_mdl_rl_provenance = &quot;qapp_scanned_no_match&quot;
+Populate row    Flag in _metadata.csv
+Set rule_1_mdl_rl_provenance = &quot;extracted_from_qapp&quot;</code></pre>
+<ol type="1">
+<li><strong>Detection Limit Extraction Criteria:</strong> An MDL/RL
+extracted from a QAPP may be applied <strong>only if</strong> the QAPP
+table explicitly matches both the <code>AnalyteName</code> and
+<code>MethodName</code>.</li>
+<li><strong>Ambiguity Rule:</strong> If the QAPP lists multiple project
+phases with different detection limits, or if the method does not match,
+<strong>do not guess</strong>. Assign <code>NA</code> and document the
+ambiguity in <code>_metadata.csv</code>.</li>
+</ol>
+<hr />
+<h3 id="enforcement-of-rule-2-zero-synthetic-station-codes">10.2
+Enforcement of Rule 2: Zero Synthetic Station Codes</h3>
+<ol type="1">
+<li>If <code>StationCode</code> in the raw data is <code>NA</code>,
+empty string, <code>"Not Recorded"</code>, or whitespace:
+<ul>
+<li>Assign <code>StationCode = ""</code> (empty string in CSV).</li>
+<li><strong>Do NOT execute string concatenation</strong> (e.g., do not
+do <code>paste0("STATION_", row_id)</code>).</li>
+<li>Increment <code>blank_station_codes_count</code> in metadata
+CSV.</li>
+<li>Confirm <code>synthetic_station_codes_created = 0</code>.</li>
+</ul></li>
+</ol>
+<hr />
+<h3 id="enforcement-of-rule-3-zero-coordinate-approximation">10.3
+Enforcement of Rule 3: Zero Coordinate Approximation</h3>
+<ol type="1">
+<li><strong>Coordinate Verification Cascade:</strong>
+<ul>
+<li>Step 1: Check source data columns (<code>TargetLatitude</code>,
+<code>TargetLongitude</code>). If valid decimal numbers (Latitude <span
+class="math inline">32.0 ≤ Lat ≤ 42.5</span>; Longitude <span
+class="math inline">−125.0 ≤ Long ≤ −114.0</span>), retain source
+coordinates. Set <code>coordinates_from_source</code> counter.</li>
+<li>Step 2: If coordinates are missing from source data, query CEDEN
+<code>StationLookUp</code> using an exact match on
+<code>StationCode</code>.
+<ul>
+<li>If matched in <code>StationLookUp</code>: Copy
+<code>TargetLatitude</code>, <code>TargetLongitude</code>, and
+<code>Datum</code>. Increment
+<code>coordinates_from_station_lookup</code>.</li>
+<li>If unmatched in <code>StationLookUp</code>: Set
+<code>TargetLatitude = ""</code>, <code>TargetLongitude = ""</code>,
+<code>Datum = ""</code>. Increment
+<code>coordinates_missing_count</code>.</li>
+</ul></li>
+</ul></li>
+<li><strong>Strict Prohibition:</strong>
+<ul>
+<li><strong>Never approximate, geocode by city/county, or compute
+geometric waterbody centroids.</strong></li>
+<li>Set <code>approximations_made = 0</code> in metadata CSV.</li>
+</ul></li>
+</ol>
+<hr />
+<h3 id="enforcement-of-rule-4-zero-alteration-of-numeric-results">10.4
+Enforcement of Rule 4: Zero Alteration of Numeric Results</h3>
+<ol type="1">
+<li>Pass the numeric result through directly to the output column
+<code>Result</code>.</li>
+<li>Do not round numbers (e.g., do not round <code>0.04567</code> to
+<code>0.046</code>).</li>
+<li>Set <code>altered_numeric_results_count = 0</code> in metadata
+CSV.</li>
+</ol>
+<hr />
+<h3 id="enforcement-of-rule-5-strict-row-dropping-criterion">10.5
+Enforcement of Rule 5: Strict Row Dropping Criterion</h3>
+<ol type="1">
+<li>A row is dropped if and only if: <span
+class="math display">is.na(StationCode) ∧ is.na(AnalyteName) ∧ is.na(Result)</span></li>
+<li>If a row contains <code>StationCode = ""</code> (or
+<code>NA</code>), but has <code>AnalyteName = "Lead"</code> and
+<code>Result = 4.2</code>:
+<ul>
+<li><strong>RETAIN THE ROW.</strong></li>
+<li>Do not drop.</li>
+</ul></li>
+<li>Every dropped row must be counted in
+<code>rows_dropped_unparseable</code>.</li>
+</ol>
+<hr />
+<h2
+id="phase-9-output-serialization-.csv-metadata-sidecar-.csv-specification">11.
+Phase 9: Output Serialization (.csv) &amp; Metadata Sidecar (.csv)
+Specification</h2>
+<p>Both the reformatted datasets and their metadata sidecars must be
+emitted strictly as standard Comma-Separated Values (<code>.csv</code>)
+files.</p>
+<h3 id="file-naming-format-convention">11.1 File Naming &amp; Format
+Convention</h3>
+<p>For every processed sheet or table, write two CSV files into
+<code>./output/</code>:</p>
+<ol type="1">
+<li><strong>Reformatted Data CSV (<code>.csv</code>):</strong>
+<ul>
+<li>Save via R:
+<code>readr::write_csv(x = df_ceden, file = output_csv_path, na = "")</code>
+or
+<code>data.table::fwrite(df_ceden, output_csv_path, na = "")</code>.</li>
+<li>File naming template: <span
+class="math display">output/ref⟨ID⟩_⟨sheet_or_table_name⟩.csv</span>
+Example: <code>output/ref4708_WaterSedimentField.csv</code> If sub-files
+exist in archives:
+<code>output/ref4448_ShastaTailwater_WaterChem.csv</code></li>
+<li>Specifications:
+<ul>
+<li>Comma-delimited (<code>,</code>), UTF-8 encoded.</li>
+<li>Strings containing commas, quotes, or newlines must be enclosed in
+double quotes (<code>"</code>). Embedded double quotes escaped as
+<code>""</code>.</li>
+<li>Dates formatted strictly as <code>YYYY-MM-DD</code>.</li>
+<li>Times formatted strictly as <code>HH:MM:SS</code>.</li>
+<li>Missing / null values represented as empty strings
+(<code>""</code>), never literal <code>"NA"</code>, <code>"-88"</code>,
+or <code>"NULL"</code>.</li>
+<li>Floating point numbers emitted without truncation or artificial
+scientific notation.</li>
+</ul></li>
+</ul></li>
+<li><strong>Metadata Sidecar CSV (<code>_metadata.csv</code>):</strong>
+<ul>
+<li>Save via R:
+<code>readr::write_csv(x = metadata_df, file = output_metadata_csv_path, na = "")</code>.</li>
+<li>File naming template: <span
+class="math display">output/ref⟨ID⟩_⟨sheet_or_table_name⟩_<em>metadata</em>.csv</span>
+Example:
+<code>output/ref4708_WaterSedimentField_metadata.csv</code></li>
+<li>Schema structure: A standardized 4-column Entity-Attribute-Value
+(EAV) table: <span class="math display">Columns:
+Section, Property, Value, Notes</span></li>
+</ul></li>
+</ol>
+<hr />
+<h3 id="complete-sidecar-csv-schema-specification">11.2 Complete Sidecar
+CSV Schema Specification</h3>
+<p>The metadata CSV captures the complete operational record across
+seven defined sections:</p>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Column Name</th>
+<th style="text-align: left;">Data Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>Section</code></strong></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;">High-level metadata category
+(<code>DatasetSummary</code>, <code>RowSummary</code>,
+<code>ColumnMapping</code>, <code>RequiredFieldStatus</code>,
+<code>CVValidation</code>, <code>DataIntegrity</code>,
+<code>UnresolvedFlag</code>)</td>
+</tr>
+<tr>
+<td
+style="text-align: left;"><strong><code>Property</code></strong></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;">Attribute, field name, metric name, or
+flag ID</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>Value</code></strong></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;">Count, status string, percentage, or
+mapped value</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>Notes</code></strong></td>
+<td style="text-align: left;">Character</td>
+<td style="text-align: left;">Detailed commentary, unmapped column
+lists, unmatched unique values, provenance records</td>
+</tr>
+</tbody>
+</table>
+<h4 id="section-definitions-allowed-properties">Section Definitions
+&amp; Allowed Properties:</h4>
+<ol type="1">
+<li><strong><code>DatasetSummary</code>:</strong>
+<ul>
+<li>Properties: <code>dataset_id</code>, <code>reference_id</code>,
+<code>source_file</code>, <code>source_archive</code>,
+<code>source_sheet</code>, <code>output_file</code>,
+<code>output_metadata_file</code>,
+<code>reformatting_timestamp</code>.</li>
+</ul></li>
+<li><strong><code>RowSummary</code>:</strong>
+<ul>
+<li>Properties: <code>raw_rows_read</code>,
+<code>rows_dropped_unparseable</code>, <code>output_rows</code>,
+<code>drop_reason</code>.</li>
+</ul></li>
+<li><strong><code>ColumnMapping</code>:</strong>
+<ul>
+<li>Properties: One row for each target CEDEN column mapped.</li>
+<li><code>Property</code> = Target CEDEN Column Name (e.g.,
+<code>StationCode</code>, <code>SampleDate</code>,
+<code>TargetLatitude</code>).</li>
+<li><code>Value</code> = Source Column Name (e.g.,
+<code>StationCode</code>, <code>SampleDate</code>,
+<code>SampleLatitiude</code>).</li>
+<li><code>Notes</code> = Mapping type (<code>direct</code>,
+<code>typo_corrected</code>, <code>coerced</code>,
+<code>defaulted</code>).</li>
+<li>Also includes property <code>unmapped_source_columns</code> listing
+unused columns in <code>Notes</code>.</li>
+</ul></li>
+<li><strong><code>RequiredFieldStatus</code>:</strong>
+<ul>
+<li>Properties: One row for each of the 14 mandatory fields
+(<code>StationCode</code>, <code>SampleDate</code>,
+<code>ProjectCode</code>, <code>CollectionTime</code>,
+<code>CollectionMethodCode</code>, <code>Replicate</code>,
+<code>MatrixName</code>, <code>MethodName</code>,
+<code>AnalyteName</code>, <code>FractionName</code>,
+<code>UnitName</code>, <code>Result</code>, <code>ResQualCode</code>,
+<code>QACode</code>).</li>
+<li><code>Value</code> = Populated record count.</li>
+<li><code>Notes</code> = Missing record count, defaulted values count
+(e.g., midnight defaults for time).</li>
+</ul></li>
+<li><strong><code>CVValidation</code>:</strong>
+<ul>
+<li>Properties: One row for each validated CV column
+(<code>AnalyteName</code>, <code>MatrixName</code>,
+<code>FractionName</code>, <code>UnitName</code>,
+<code>MethodName</code>, <code>CollectionMethodCode</code>,
+<code>SampleTypeCode</code>, <code>ResQualCode</code>,
+<code>QACode</code>).</li>
+<li><code>Value</code> = Count of successfully matched records.</li>
+<li><code>Notes</code> = Count of unmatched records and list of distinct
+unmatched values.</li>
+</ul></li>
+<li><strong><code>DataIntegrity</code>:</strong>
+<ul>
+<li>Properties:
+<ul>
+<li><code>rule_1_mdl_rl_provenance</code>: Value =
+<code>present_in_source</code>, <code>extracted_from_qapp</code>, or
+<code>missing_in_source_and_qapp</code>. Notes = MDL/RL counts.</li>
+<li><code>rule_2_synthetic_station_codes</code>: Value = <code>0</code>
+(Must always be 0). Notes = blank station code count.</li>
+<li><code>rule_3_coordinate_approximations</code>: Value =
+<code>0</code> (Must always be 0). Notes = source vs lookup
+breakdown.</li>
+<li><code>rule_4_altered_numeric_results</code>: Value = <code>0</code>
+(Must always be 0). Notes = precision confirmation.</li>
+</ul></li>
+</ul></li>
+<li><strong><code>UnresolvedFlag</code>:</strong>
+<ul>
+<li>Properties: Sequential flag IDs (<code>flag_1</code>,
+<code>flag_2</code>, …).</li>
+<li><code>Value</code> = Warning / Issue Summary.</li>
+<li><code>Notes</code> = Detailed context and affected record
+count.</li>
+</ul></li>
+</ol>
+<hr />
+<h3 id="canonical-example-of-complete-_metadata.csv">11.3 Canonical
+Example of Complete <code>_metadata.csv</code></h3>
+<p>The following represents the exact CSV content to be written for
+<code>output/ref4708_WaterSedimentField_metadata.csv</code>:</p>
+<pre class="csv"><code>Section,             Property,                         Value,                                          Notes
+DatasetSummary,      dataset_id,                       ref4708_WaterSedimentField,
+DatasetSummary,      reference_id,                     ref4708,
+DatasetSummary,      source_file,                      refs/ref4708.xlsx,
+DatasetSummary,      source_archive,                   ,                                               Standalone spreadsheet (no parent archive)
+DatasetSummary,      source_sheet,                     WaterSedimentField,
+DatasetSummary,      output_file,                      output/ref4708_WaterSedimentField.csv,
+DatasetSummary,      output_metadata_file,             output/ref4708_WaterSedimentField_metadata.csv,
+DatasetSummary,      reformatting_timestamp,           2026-09-06T12:00:00Z,
+RowSummary,          raw_rows_read,                    1542,                                           Loaded rows following header detection
+RowSummary,          rows_dropped_unparseable,         5,                                              Dropped strictly under Rule 5 (StationCode AnalyteName and Result all NA)
+RowSummary,          output_rows,                      1537,                                           Clean records written to output CSV
+ColumnMapping,       mapped_columns_count,             52,                                             Total columns mapped to CEDEN target schema
+ColumnMapping,       unmapped_source_columns,          &quot;FieldWater, IR_REGIONALBOARD&quot;,                 Unmapped columns omitted from output CSV
+ColumnMapping,       StationCode,                      StationCode,                                    Direct 1-to-1 mapping
+ColumnMapping,       SampleDate,                       SampleDate,                                     Parsed to ISO-8601 Date (YYYY-MM-DD)
+ColumnMapping,       CollectionTime,                   CollectionTime,                                 Parsed to 24-hr time (HH:MM:SS)
+ColumnMapping,       ProjectCode,                      ProjectCode,                                    Direct 1-to-1 mapping
+ColumnMapping,       CollectionMethodCode,             CollectionMethodName,                           Mapped from CollectionMethodName
+ColumnMapping,       Replicate,                        Replicate,                                      Direct 1-to-1 mapping
+ColumnMapping,       MatrixName,                       MatrixName,                                     Direct 1-to-1 mapping
+ColumnMapping,       MethodName,                       MethodName,                                     Direct 1-to-1 mapping
+ColumnMapping,       AnalyteName,                      AnalyteName,                                    Direct 1-to-1 mapping
+ColumnMapping,       FractionName,                     FractionName,                                   Direct 1-to-1 mapping
+ColumnMapping,       UnitName,                         UnitName,                                       Direct 1-to-1 mapping
+ColumnMapping,       Result,                           Result,                                         Verbatim numeric pass-through
+ColumnMapping,       ResQualCode,                      ResQualCode,                                    Direct 1-to-1 mapping
+ColumnMapping,       QACode,                           QACode,                                         Direct 1-to-1 mapping
+ColumnMapping,       MDL,                              MDL,                                            Direct 1-to-1 mapping
+ColumnMapping,       RL,                               RL,                                             Direct 1-to-1 mapping
+ColumnMapping,       TargetLatitude,                   SampleLatitiude,                                Corrected source typo &#39;SampleLatitiude&#39; to TargetLatitude
+ColumnMapping,       TargetLongitude,                  SampleLongitude,                                Mapped to TargetLongitude
+ColumnMapping,       Datum,                            SampleDatum,                                    Mapped to Datum
+RequiredFieldStatus, StationCode,                      1537,                                           Populated: 1537; Missing: 0
+RequiredFieldStatus, SampleDate,                       1537,                                           Populated: 1537; Missing: 0
+RequiredFieldStatus, ProjectCode,                      1537,                                           Populated: 1537; Missing: 0
+RequiredFieldStatus, CollectionTime,                   1537,                                           Populated: 1537; Defaulted to 00:00:00: 12
+RequiredFieldStatus, CollectionMethodCode,             1537,                                           Populated: 1537; Missing: 0
+RequiredFieldStatus, Replicate,                        1537,                                           Populated: 1537; Defaulted to 1: 0
+RequiredFieldStatus, MatrixName,                       1537,                                           Populated: 1537; Missing: 0
+RequiredFieldStatus, MethodName,                       1537,                                           Populated: 1537; Missing: 0
+RequiredFieldStatus, AnalyteName,                      1537,                                           Populated: 1537; Missing: 0
+RequiredFieldStatus, FractionName,                     1537,                                           Populated: 1537; Missing: 0
+RequiredFieldStatus, UnitName,                         1537,                                           Populated: 1537; Missing: 0
+RequiredFieldStatus, Result,                           1537,                                           Populated: 1537; Missing: 0
+RequiredFieldStatus, ResQualCode,                      1537,                                           Populated: 1537; Missing: 0
+RequiredFieldStatus, QACode,                           1537,                                           Populated: 1537; Missing: 0
+CVValidation,        AnalyteName,                      1530,                                           &quot;Matched: 1530; Unmatched: 7; Unmatched values: [&#39;Custom Pesticide Mix A&#39;]&quot;
+CVValidation,        MatrixName,                       1537,                                           Matched: 1537; Unmatched: 0
+CVValidation,        FractionName,                     1537,                                           Matched: 1537; Unmatched: 0
+CVValidation,        UnitName,                         1535,                                           &quot;Matched: 1535; Unmatched: 2; Unmatched values: [&#39;unknown_unit&#39;]&quot;
+CVValidation,        MethodName,                       1520,                                           &quot;Matched: 1520; Unmatched: 17; Unmatched values: [&#39;Lab In-House Method 4B&#39;]&quot;
+CVValidation,        CollectionMethodCode,             1537,                                           Matched: 1537; Unmatched: 0
+CVValidation,        SampleTypeCode,                   1537,                                           Matched: 1537; Unmatched: 0
+CVValidation,        ResQualCode,                      1537,                                           Matched: 1537; Unmatched: 0
+CVValidation,        QACode,                           1537,                                           Matched: 1537; Unmatched: 0
+DataIntegrity,       rule_1_mdl_rl_provenance,         present_in_source,                              &quot;MDL populated: 1500; MDL missing: 37; RL populated: 1500; RL missing: 37; Missing left as NA per Rule 1&quot;
+DataIntegrity,       rule_2_synthetic_station_codes,   0,                                              Verified: 0 synthetic station codes created; Blank station codes: 0
+DataIntegrity,       rule_3_coordinate_approximations, 0,                                              &quot;Verified: 0 approximations made; From source: 1537; From lookup: 0; Missing: 0&quot;
+DataIntegrity,       rule_4_altered_numeric_results,   0,                                              Verified: 0 numeric results altered; Precision preserved verbatim
+UnresolvedFlag,      flag_1,                           7 records with unmatched AnalyteName,           Unmatched constituent: &#39;Custom Pesticide Mix A&#39;
+UnresolvedFlag,      flag_2,                           37 records missing MDL and RL,                  Left as NA per Rule 1 (not present in source or QAPP)</code></pre>
+<hr />
+<h2 id="phase-10-automated-quality-assurance-verification-playbook">12.
+Phase 10: Automated Quality Assurance &amp; Verification Playbook</h2>
+<p>Before any dataset is declared complete, the executing script must
+run the following assertion tests on the emitted CSV files:</p>
+<h3 id="programmatic-assertions-checklist">12.1 Programmatic Assertions
+Checklist</h3>
+<ol type="1">
+<li><strong>Output File Existence &amp; Non-Zero Size:</strong>
+<ul>
+<li>Verify <code>file.exists("output/&lt;dataset_id&gt;.csv")</code> and
+<code>file.info("output/&lt;dataset_id&gt;.csv")$size &gt; 0</code>.</li>
+<li>Verify
+<code>file.exists("output/&lt;dataset_id&gt;_metadata.csv")</code> and
+<code>file.info("output/&lt;dataset_id&gt;_metadata.csv")$size &gt; 0</code>.</li>
+</ul></li>
+<li><strong>Row Count Conservation:</strong>
+<ul>
+<li>Read the output CSV row count (<span
+class="math inline"><em>N</em><sub>out</sub></span>).</li>
+<li>Assert: <span
+class="math display">raw_rows_read =  = <em>N</em><sub>out</sub> + rows_dropped_unparseable</span></li>
+<li>If false, halt with an accounting error.</li>
+</ul></li>
+<li><strong>Required Columns Check:</strong> Verify that all 14 required
+columns exist as column headers in
+<code>output/&lt;dataset_id&gt;.csv</code>: <span
+class="math display">{"StationCode", "SampleDate", …, "QACode"} ⊆ names(read_csv(…, n_max = 1))</span></li>
+<li><strong>Data Type &amp; Format Verifications in CSV:</strong>
+<ul>
+<li><code>SampleDate</code>: Every non-empty cell must match regex
+<code>^[0-9]{4}-[0-9]{2}-[0-9]{2}$</code>.</li>
+<li><code>CollectionTime</code>: Every non-empty cell must match regex
+<code>^[0-9]{2}:[0-9]{2}:[0-9]{2}$</code>.</li>
+<li><code>Result</code>: Every non-empty cell must parse as a valid
+numeric double (<code>!is.na(as.numeric(Result))</code>).</li>
+<li><code>Replicate</code>: Every non-empty cell must parse as a valid
+integer (<code>as.integer(Replicate)</code>).</li>
+</ul></li>
+<li><strong>Coordinate Bounding Box Check:</strong> For all non-empty
+coordinates in the output CSV: <span
+class="math display">32.0 ≤ as.numeric(<em>TargetLatitude</em>) ≤ 42.5  ∧   − 125.0 ≤ as.numeric(<em>TargetLongitude</em>) ≤ −114.0</span>
+Any coordinates falling outside this boundary must be logged as a flag
+in the metadata CSV.</li>
+<li><strong>Rule Integrity Assertions:</strong>
+<ul>
+<li>Confirm <code>synthetic_station_codes_created == 0</code>.</li>
+<li>Confirm <code>approximations_made == 0</code>.</li>
+<li>Confirm <code>altered_numeric_results_count == 0</code>.</li>
+</ul></li>
+<li><strong>Sidecar Metadata CSV Validation:</strong>
+<ul>
+<li>Verify that <code>output/&lt;dataset_id&gt;_metadata.csv</code>
+parses cleanly with <code>readr::read_csv()</code>.</li>
+<li>Verify all four columns exist: <code>Section</code>,
+<code>Property</code>, <code>Value</code>, <code>Notes</code>.</li>
+<li>Verify sections <code>DatasetSummary</code>,
+<code>RowSummary</code>, <code>ColumnMapping</code>,
+<code>RequiredFieldStatus</code>, <code>CVValidation</code>, and
+<code>DataIntegrity</code> are all present.</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="phase-11-end-to-end-batch-execution-playbook">13. Phase 11:
+End-to-End Batch Execution Playbook</h2>
+<p>This numbered section specifies the exact operational order of
+execution for the future agent.</p>
+<h3 id="sequential-step-by-step-execution-plan">13.1 Sequential
+Step-by-Step Execution Plan</h3>
+<pre><code>Step 1: Environment Initialization &amp; Directory Creation
+   │
+   ▼
+Step 2: Controlled Vocabulary (CV) Caching (Download -&gt; ./cv_lookups/*.csv)
+   │
+   ▼
+Step 3: Recursive Archive Extraction (refs/*.zip -&gt; refs_extracted/)
+   │
+   ▼
+Step 4: Source Dataset Discovery &amp; Archetype Classification
+   │
+   ▼
+Step 5: Reference Processing Loop (For each Ref ID):
+   │   ├── 5.1 Locate all data workbooks/sheets for Ref ID
+   │   ├── 5.2 Header detection &amp; leading metadata stripping
+   │   ├── 5.3 Apply Rule 5 summary row dropping
+   │   ├── 5.4 Column name normalization &amp; dictionary mapping
+   │   ├── 5.5 Reshape wide tables (Archetypes 6, 7, 8) if applicable
+   │   ├── 5.6 Data type parsing (SampleDate -&gt; YYYY-MM-DD, CollectionTime -&gt; HH:MM:SS, Result)
+   │   ├── 5.7 CV crosswalk &amp; synonym normalization
+   │   ├── 5.8 Rule 1 (MDL/RL), Rule 2 (Station), Rule 3 (Coordinates) enforcement
+   │   ├── 5.9 Run Phase 10 verification assertions
+   │   ├── 5.10 Serialize reformatted data to ./output/&lt;dataset_id&gt;.csv
+   │   └── 5.11 Emit sidecar metadata to ./output/&lt;dataset_id&gt;_metadata.csv
+   │
+   ▼
+Step 6: Batch Summary Report Generation (output/BATCH_SUMMARY_REPORT.csv)</code></pre>
+<h3 id="detailed-step-instructions">13.2 Detailed Step Instructions</h3>
+<ol type="1">
+<li><strong>Step 1: Environment Initialization:</strong>
+<ul>
+<li>Create directories <code>./refs_extracted/</code>,
+<code>./cv_lookups/</code>, <code>./output/</code>, and
+<code>./logs/</code>.</li>
+<li>Verify all required R packages (<code>readxl</code>,
+<code>readr</code>, <code>data.table</code>, <code>dplyr</code>,
+<code>tidyr</code>, <code>lubridate</code>, <code>stringr</code>,
+<code>purrr</code>, <code>foreign</code>) load without warnings.</li>
+</ul></li>
+<li><strong>Step 2: Controlled Vocabulary Caching:</strong>
+<ul>
+<li>Loop through the priority lookup tables specified in Section
+6.2.</li>
+<li>Download missing tables from CEDEN Checker and save as UTF-8 CSV:
+<code>./cv_lookups/&lt;TableName&gt;.csv</code>.</li>
+</ul></li>
+<li><strong>Step 3: Recursive Archive Extraction:</strong>
+<ul>
+<li>Execute extraction for all <code>.zip</code> files in
+<code>./refs/</code> into
+<code>./refs_extracted/&lt;ref_id&gt;/</code>.</li>
+<li>Recursively unpack nested <code>.zip</code> archives.</li>
+<li>Delete <code>__MACOSX</code>, <code>.DS_Store</code>, and
+<code>~$*</code> lockfiles.</li>
+</ul></li>
+<li><strong>Step 4: Discovery &amp; Inventory:</strong>
+<ul>
+<li>Catalog all standalone files in <code>./refs/</code> and extracted
+files in <code>./refs_extracted/</code>.</li>
+<li>Classify each file into its archetype (ARCH-1 through ARCH-8,
+DOC-META, NON-DATA).</li>
+<li>Link any QAPP documents (<code>.pdf</code>, <code>.doc</code>) to
+their parent Reference ID.</li>
+</ul></li>
+<li><strong>Step 5: Reformatting Loop (Per Reference File):</strong>
+<ul>
+<li>Wrap processing for each dataset in a <code>tryCatch</code> block to
+isolate errors. A single corrupt spreadsheet must not terminate the
+entire pipeline.</li>
+<li>Read sheet data, apply header detection (Section 4.3), and drop
+summary rows under Rule 5 (Section 4.4).</li>
+<li>Apply column mapping dictionary (Section 7).</li>
+<li>Parse dates (<code>YYYY-MM-DD</code>), times
+(<code>HH:MM:SS</code>), and numeric results (Section 8).</li>
+<li>Apply CV crosswalk tables (Section 9).</li>
+<li>Check QAPP for missing MDL/RL (Section 10.1).</li>
+<li>Run verification assertions (Section 12.1).</li>
+<li>Write reformatted data to <code>output/&lt;dataset_id&gt;.csv</code>
+using <code>readr::write_csv(..., na = "")</code>.</li>
+<li>Write metadata sidecar to
+<code>output/&lt;dataset_id&gt;_metadata.csv</code>.</li>
+</ul></li>
+<li><strong>Step 6: Batch Summary Reporting:</strong>
+<ul>
+<li>Read all emitted <code>_metadata.csv</code> files in
+<code>./output/</code>.</li>
+<li>Generate a consolidated summary report
+(<code>./output/BATCH_SUMMARY_REPORT.csv</code>):
+<ul>
+<li><code>dataset_id</code></li>
+<li><code>reference_id</code></li>
+<li><code>raw_rows_read</code></li>
+<li><code>output_rows</code></li>
+<li><code>rows_dropped_unparseable</code></li>
+<li><code>unmatched_cv_count</code></li>
+<li><code>missing_station_codes</code></li>
+<li><code>missing_mdl_rl_count</code></li>
+<li><code>status</code> (<code>SUCCESS</code> or
+<code>WARNING</code>)</li>
+</ul></li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="troubleshooting-known-edge-case-playbook">14. Troubleshooting
+&amp; Known Edge-Case Playbook</h2>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Edge-Case Symptom</th>
+<th style="text-align: left;">Root Cause</th>
+<th style="text-align: left;">Mandated Playbook Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>All column names are
+<code>...1</code>, <code>...2</code>, <code>...3</code></strong></td>
+<td style="text-align: left;">Table has leading title rows or metadata
+block above header</td>
+<td style="text-align: left;">Execute Section 4.3 Header Detection
+Algorithm. Find row where CEDEN keyword count <span
+class="math inline"> ≥ 3</span>. Skip preceding rows.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Numeric dates appear as 5-digit
+integers (e.g., <code>38405</code>)</strong></td>
+<td style="text-align: left;">Excel stored date as internal day serial
+count</td>
+<td style="text-align: left;">Convert using origin:
+<code>as.Date(x, origin = "1899-12-30")</code>. Format as
+<code>YYYY-MM-DD</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CollectionTime is listed as
+<code>0</code> or <code>1899-12-31 00:00:00</code></strong></td>
+<td style="text-align: left;">Time unrecorded by field sampler</td>
+<td style="text-align: left;">Assign default <code>"00:00:00"</code> per
+CEDEN standard. Increment <code>defaulted_midnight_count</code> in
+metadata CSV.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Result column contains text
+strings (e.g., <code>"&lt; 0.005"</code>)</strong></td>
+<td style="text-align: left;">Non-detect string embedded in result
+column</td>
+<td style="text-align: left;">Parse number <code>0.005</code> into
+<code>Result</code>; set <code>ResQualCode = "&lt;"</code>. Never drop
+or alter the number <code>0.005</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Coordinates appear as positive
+numbers (e.g., <code>121.45</code>)</strong></td>
+<td style="text-align: left;">Missing negative sign on California West
+longitudes</td>
+<td style="text-align: left;">California longitudes are strictly
+negative. If <code>114.0 &lt;= Long &lt;= 125.0</code>, multiply by
+<code>-1</code> (<code>TargetLongitude = -abs(Long)</code>). Document
+correction in metadata CSV.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sheet name is <code>ReadMe</code>
+or <code>Graphs</code></strong></td>
+<td style="text-align: left;">Non-data workbook sheet</td>
+<td style="text-align: left;">Skip sheet for data reformatting. Extract
+project metadata from <code>ReadMe</code> if present.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Both <code>.xlsx</code> and
+<code>.zip</code> exist for same Ref ID</strong></td>
+<td style="text-align: left;">S-drive gathered both archive and
+standalone export</td>
+<td style="text-align: left;">Compare row counts and sheet names. If
+duplicate, process the most complete file. If distinct sub-studies,
+process both with unique sub-dataset IDs.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Access <code>.mdb</code> file in
+zip archive</strong></td>
+<td style="text-align: left;">Legacy MS Access database (e.g.,
+<code>ref3653.zip</code>)</td>
+<td style="text-align: left;">Use <code>RODBC</code> or
+<code>mdb-tools</code> to dump tables to CSV. If database tools
+unavailable, catalog in metadata CSV and flag for manual
+conversion.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Analyte is not found in
+<code>AnalyteLookUp</code></strong></td>
+<td style="text-align: left;">Regional synonym or trade name (e.g.,
+<code>"Diazinon oxon"</code>)</td>
+<td style="text-align: left;">Retain original text verbatim in
+<code>AnalyteName</code>. Add to <code>unmatched_unique_values</code> in
+<code>_metadata.csv</code>. Do not guess or substitute.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# About
+
+[John Inman](/)
+
+1999-01-01
+
+::: profile-picture
+![](johninman.jpg)
+:::
+
+Hi, I'm John. I work for the California State Water Resources Control Board
+where I assess the quality of the state's rivers, lakes, and streams.
+
+Email: <john@jfin.net>\
