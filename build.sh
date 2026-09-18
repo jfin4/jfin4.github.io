@@ -1,14 +1,16 @@
 #!/bin/sh
 
+# define variables -------------------------------------------------------------
 root=$(dirname $0)
 source=$root/content
 site=$root/public
 icon=🐩
 banner="John Inman"
-temp=/tmp/favicon.h
 
+# start fresh ------------------------------------------------------------------
 rm -rf $site
 
+# make favicon -----------------------------------------------------------------
 printf '%s' \
   '<link rel="icon" href="data:image/svg+xml,' \
   '<svg xmlns=%22http://www.w3.org/2000/svg%22' \
@@ -16,18 +18,29 @@ printf '%s' \
   '<text y=%22.9em%22 font-size=%2290%22>' \
   "$icon" \
   '</text></svg>">' \
-  > $temp
+  > /tmp/favicon.h
 
+# load google fonts ------------------------------------------------------------
+printf '%s' \
+  '<link rel="preconnect" href="https://fonts.googleapis.com">' \
+  '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' \
+  '<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">' \
+  > /tmp/googlefonts.h
+
+# configure pandoc -------------------------------------------------------------
 my_pandoc() {
   pandoc \
     --standalone \
-    --include-in-header=$temp \
+    --include-in-header=/tmp/favicon.h \
+    --include-in-header=/tmp/googlefonts.h \
     --math-method=mathjax \
-    -V mainfont='Source Sans Pro, Helvetica, Arial, sans-serif' \
-    -V monofont='Source Code Pro, Courier New, Courier, monospace' \
+    -V mainfont='Source Sans Pro' \
+    -V monofont='Source Code Pro' \
+    -V fontsize='20px' \
     "$@"
 }
 
+# render entries ---------------------------------------------------------------
 entries=
 for dir in $(LC_COLLATE=C ls -rd $source/*); do
   date=$(basename $dir)
@@ -45,5 +58,6 @@ for dir in $(LC_COLLATE=C ls -rd $source/*); do
   entries="$entries<tr><td>$date</td><td><a href=/$date>$title</a></td></tr>"
 done
 
+# make toc ---------------------------------------------------------------------
 printf '<table>%s</table>\n' "$entries" \
   | my_pandoc --metadata title="$banner" -o $site/index.html
