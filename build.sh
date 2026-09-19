@@ -8,15 +8,15 @@
 #   3. First level 1 header in markdown files determines TOC entry name
 
 # define variables -------------------------------------------------------------
-root_dir=$(dirname $0)
-entries_dir="$root_dir/content"
-production_dir="$root_dir/public"
+# root_dir=$(dirname $0)
+entries_dir="$(dirname $0)/content"
+production_dir="/var/www/htdocs/jfin.net"
 font_size="20px"
 banner_text="John Inman"
 favicon_text="🐩"
 
 # start fresh ------------------------------------------------------------------
-rm -rf $production_dir
+rm -rf $production_dir/*
 
 # make favicon -----------------------------------------------------------------
 printf '%s' '<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://ww'\
@@ -35,11 +35,12 @@ my_pandoc() {
     --standalone \
     --include-in-header=/tmp/favicon.h \
     --include-in-header=/tmp/googlefonts.h \
-    --math-method=mathjax \
+    --mathjax \
     -V mainfont='Source Sans Pro, sans-serif' \
     -V monofont='Source Code Pro, monospace' \
     -V fontsize=$font_size \
     "$@"
+    # --math-method=mathjax \ # pandoc >= 3.11
 }
 
 # render entries ---------------------------------------------------------------
@@ -52,7 +53,7 @@ for dir in $(LC_COLLATE=C ls -rd $entries_dir/*); do
 
   mkdir -p $production_dir/$date
   my_pandoc -o $production_dir/$date/index.html "$file"
-
+  
   # only assets targetted in source move to production
   for img in $(sed -n 's/.*!\[.*\](\([^)]*\)).*/\1/p' "$file"); do
     cp $dir/$img $production_dir/$date/
