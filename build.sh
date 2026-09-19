@@ -1,15 +1,22 @@
 #!/bin/sh
 
+# Microscopic static site generator built around Pandoc. Provides a TOC
+# landing page and an arbitrary number of entry pages. Makes assumptions
+# about dir structure and markdown files formatting:
+#   1. Entry dir names determine TOC sorting and URL slug
+#   2. Markdown file names (one per entry) determine html title tags
+#   3. First level 1 header in markdown files determines TOC entry name
+
 # define variables -------------------------------------------------------------
 root_dir=$(dirname $0)
 entries_dir="$root_dir/content"
-built_dir="$root_dir/public"
+production_dir="$root_dir/public"
 font_size="20px"
 banner_text="John Inman"
 favicon_text="🐩"
 
 # start fresh ------------------------------------------------------------------
-rm -rf $built_dir
+rm -rf $production_dir
 
 # make favicon -----------------------------------------------------------------
 printf '%s' '<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://ww'\
@@ -43,11 +50,12 @@ for dir in $(LC_COLLATE=C ls -rd $entries_dir/*); do
   file=$(ls $dir/*.md)
   [ -f "$file" ] || continue
 
-  mkdir -p $built_dir/$date
-  my_pandoc -o $built_dir/$date/index.html "$file"
+  mkdir -p $production_dir/$date
+  my_pandoc -o $production_dir/$date/index.html "$file"
 
+  # only assets targetted in source move to production
   for img in $(sed -n 's/.*!\[.*\](\([^)]*\)).*/\1/p' "$file"); do
-    cp $dir/$img $built_dir/$date/
+    cp $dir/$img $production_dir/$date/
   done
 
   title=$(sed -n '/^# /{ s/^# //p;q; }' "$file")
@@ -56,4 +64,4 @@ done
 
 # make toc ---------------------------------------------------------------------
 printf '<table>%s</table>\n' "$entries" \
-  | my_pandoc --metadata title="$banner_text" -o $built_dir/index.html
+  | my_pandoc --metadata title="$banner_text" -o $production_dir/index.html
